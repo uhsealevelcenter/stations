@@ -1,0 +1,213 @@
+body {
+    color: #515151;
+    font-family: Arial, Helvetica, sans-serif,sans-serif;
+    width: 100%;
+    margin-top: -20px
+}
+.wrapper {
+  background: white;
+  margin: auto;
+  padding: 0;
+  width: 100%;
+}
+
+/**********************************************************************/
+/************************** COMMON ELEMENTS **************************/
+/********************************************************************/
+h1, h2, h3, h4, h5, h6 {
+	color: #333333;
+    font-family: Arial, Helvetica, sans-serif;
+}
+p {
+	line-height: 1.6;
+	font-size: 15px;
+}
+li {
+    font-size: 15px;
+}
+
+/**MJW (links) **/
+a:link {
+    color: #1F648E;
+}
+a:visited {
+    color: #1F648E;
+}
+a:hover {
+    color: #2886BC;
+    text-decoration: none;
+}
+a:active {
+    color: #1F648E;
+}
+
+a:focus {
+    outline: none;
+}
+.btn:focus, .btn:active:focus, .btn.active:focus {
+    outline: none;
+}
+
+/** Custom styles **/
+.vis-hidden {
+	visibility: hidden !important;
+}
+a {
+	-webkit-transition: 0.25s;
+	-moz-transition: 0.25s;
+	-o-transition: 0.25s;
+	transition: 0.25s;
+}
+
+h2.sectionTitle {
+	color: #428BCA;
+    font-size: 50px;
+    margin-top: 0;
+    text-align: center;
+	font-weight: 700;
+    margin-bottom: 50px;
+}
+h3.sectionTitle {
+    text-align: center;
+    margin-bottom: 50px;
+    margin-top: -20px;
+}
+.altWrap {
+	border-top: 1px solid #eee;
+	border-bottom: 1px solid #eee;
+	/*background-color: #f7f7f7; */
+	background-color: #fff;
+	border-color: #FFF;
+}
+
+/* set a max-width for horizontal fluid layout and make it centered */
+.container-fluid {
+  margin-right: auto;
+  margin-left: auto;
+  max-width: 1600px; /* or 950px */
+}
+
+/**********************************************************************/
+/************************ TABBED CONTENT *****************************/
+/********************************************************************/
+
+.tabbedcontent {
+    border: none !important;
+    margin-top: 25px !important;
+}
+.ui-tabs-nav {
+    background: none;
+    border: none;
+    padding: 0 !important;
+}
+.ui-tabs-panel {
+    border: solid 1px #ddd !important;
+    padding-top: 25px !important;
+}
+.ui-tabs-panel p {
+    display: block !important;
+    font-size: 14px !important;
+}
+.ui-tabs-tab {
+    background: #f2f2f2 !important;
+    border: 0 !important;
+    border-bottom: solid 1px #ddd !important;
+    border-radius: 0px !important;
+    line-height: 30px;
+}
+.ui-tabs-tab:hover {
+    background: #fff !important;
+    border: 0 !important;
+    border-bottom: solid 1px #fff !important;
+}
+.ui-tabs-active {
+    background: white !important;
+    border: solid 1px #ddd !important;
+    border-top: solid 3px #1B80B6 !important;
+    border-bottom: 0 !important;
+}
+.ui-tabs-active:hover {
+    background: white !important;
+    border: solid 1px #ddd !important;
+    border-top: solid 3px #1B80B6 !important;
+    border-bottom: 0 !important;
+}
+.ui-tabs-active a {
+    color: #333 !important;
+    font-weight: bold !important;
+}
+
+/**********************************************************************/
+/************************ PRODUCT ************************************/
+/********************************************************************/
+
+#productWrap {
+	padding-top: 0px;
+	padding-bottom: 0px;
+}
+#productWrap .productFeatures {
+	margin-top: 0px;
+}
+#productWrap .productFeatures h3 {
+	margin-top: 0;
+	color: #428BCA;
+}
+#productWrap .productFeatures p {
+	margin-bottom: 50px;
+}
+#productWrap .productFeatures .icon {
+	text-align: right;
+	color: #428BCA;
+	font-size: 20px;
+}
+
+#gallery .text-center {text-align: center; padding: 10px 0;}
+#gallery {width: 100%; margin: 0 0;}
+#gallery #main-img {padding: 0px; text-align: center; width:100%}
+#gallery ul {
+    margin-top: 10px;
+    margin-bottom: 5px
+}
+#gallery li {
+    display: inline-block;
+    margin-right: 0px;
+}
+
+.button-map {
+    height: 35px;
+    width: 35px;
+    margin-left: 3px;
+    border-radius: 5px;
+    line-height: 35px;
+    font-size: 18px;
+    color: #eee;
+}
+.button-lag {
+    background: #555;
+}
+.button-lead {
+    background: #1B80B6;
+}
+.button-active {
+    background: #E8932A;
+}
+
+#map-instruct {
+    font-size: 15px;
+}
+#subscribe {
+    margin-top: 20px;
+    margin-left: 2px;
+    padding: 20px;
+    border-radius: 3px;
+    background: #1B80B6;
+    color: #fff;
+}
+#subscribe a {
+    /*color: #FFE270;*/
+    color: #9FE7F5;
+}
+#sci-slfc {
+    margin-top: 40px;
+    color: #333;
+}

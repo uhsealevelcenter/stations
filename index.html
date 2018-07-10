@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>001 Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.0/css/bootstrap-datepicker.min.css" />
+  <link rel="stylesheet" href="css/custom.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <style>
+    #datumtable table,
+    th,
+    td {
+      /* border: 1px solid black; */
+      padding: 4px 10px 4px 5px;
+      background-color: rgba(255, 255, 255, 0.0);
+    }
+
+    #datumtable table,
+    th, td {
+      text-align: left;
+    }
+
+    #datumtable th {
+        background-color: #56b4ea;
+        color: white;
+    }
+
+    /* #datumtable tr {
+        background-color: red !important;
+        color: black;
+    } */
+
+    #datumtable tr:nth-child(odd) {background-color: #f2f2f2;}
+
+  </style>
+</head>
+
+<body>
+
+  <div class="container-fluid">
+
+    <div class="row">
+      <div class="page-header">
+        <a class="" href="/">
+                <img src="https://uhslc.soest.hawaii.edu/data/assets/img/uhslcLogoText36_2.png">
+              </a>
+      </div>
+      <div id="selectbox"></div>
+      <div class="wrapper" id="tabs">
+        <ul>
+          <li><a href="#tidetab">Water Levels</a></li>
+          <li><a href="#predtab">Tide Predictions</a></li>
+          <li><a href="#datumtab">Datums</a></li>
+        </ul>
+        <div id="tidetab">
+          <div id="tideplot1" style="min-width: 310px; height: 400px; margin: 0 auto">
+          </div>
+          <div id="tideplot2" style="min-width: 310px; height: 400px; margin: 0 auto">
+          </div>
+        </div>
+        <div id="predtab">
+          <p>
+            <div class="col-sm-12 col-lg-12 col-xs-offset-2 col-sm-offset-2 col-lg-offset-5" id="datepicker" data-date-start-date="-24m" data-date-end-date="+24m">
+            </div>
+            <div class="row">
+            <div class="col-sm-6 "  style="padding: 5px">
+              <form method="get" action="fd007/p007_201912.pdf" id="plot-btn">
+              <button class="btn btn-info" type="submit"><i class="fa fa-download"></i> Download figure</button>
+              </form>
+            </div>
+            <div class="col-sm-6" style="padding: 5px">
+              <form method="get" action="fd007/t007_201912.txt" id="text-btn">
+              <button class="btn btn-info"  type="submit"><i class="fa fa-download"></i> Download text</button>
+              </form>
+            </div>
+          </div>
+            <div class="row">
+            <div class="col-sm-6 " id="predcal" >
+
+            </div>
+            <div class="col-sm-6" id="predtable" style="white-space: pre;font-family:courier;"></div>
+          </div>
+          </p>
+        </div>
+        <div id="datumtab" style: "min-height: 800px;">
+          <p>
+            <div class="col-sm-8" id="datumtable"></div>
+            <div class="col-sm-4" id="datumgraphic"></div>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Placed at the end of the document so the pages load faster -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+  <!--<script src="https://code.highcharts.com/highcharts.js"></script> -->
+  <!--<script src="https://code.highcharts.com/modules/exporting.js"></script> -->
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.0/js/bootstrap-datepicker.min.js"></script>
+  <script src='config.js'></script>
+  <script type="text/javascript">
+    $.ajaxSetup({
+      cache: false
+    });
+
+    // var url = "test.json";
+
+    /*var pdata = (function () {
+        var pdata = null;
+        $.ajax({
+            'async': false,
+            'global': false,
+            'url': url,
+            'dataType': "json",
+            'success': function (data) {
+                pdata = data;
+            }
+        });
+        return pdata;
+    })();
+    */
+
+    // var pdata;
+    // $.getJSON(url, function(json) {
+    //   pdata = json;
+    // });
+    //
+    // a = pdata;
+    // console.log(a);
+
+    // function getParameterByName(name, url) {
+    //   if (!url) {
+    //     url = window.location.href;
+    //   }
+    //   name = name.replace(/[\[\]]/g, "\\$&");
+    //   var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+    //     results = regex.exec(url);
+    //   if (!results) return null;
+    //   if (!results[2]) return '';
+    //   return decodeURIComponent(results[2].replace(/\+/g, " "));
+    // }
+
+    var stn = null;
+    var URL_pre = ""
+    if (DEVELOPMENT)
+      URL_pre = SERVER_URL;
+    // var tabid = getParameterByName('tabid');
+
+    function loadtabs(stn, date) {
+      $.ajax({
+        url: URL_pre+'fd' + stn + "/datumTable_" + stn + ".html",
+        success: function(result) {
+          plotData(stn);
+          loadTide(stn, date)
+          $("#datumtable").html(result);
+          $("#datumgraphic").empty().append("<img class='img-responsive' src="+ URL_pre+"fd" + stn + "/d" + stn + ".png />");
+
+          $("#tabs").tabs("destroy");
+          $("#tabs").tabs();
+          // $( "#tabs" ).tabs({ active: tabid });
+        },
+        error: function(xhr, ajaxOptions, thrownError) {
+          if (stn) {
+            alert("Datum table for station " + stn + " does not exist");
+            plotData(stn);
+          }
+        }
+      });
+    }
+    $(function() {
+      $("#tabs").tabs();
+    });
+
+    $("#tabs").tabs({
+         heightStyle: 'fill'
+     });
+
+    function loadTide(stn, date) {
+      $.get(URL_pre+"fd" + stn + '/p' + stn + '_' + date + '.png')
+        .done(function() {
+          $("#predcal").empty().append("<img class='img-responsive' src="+ URL_pre+"fd" + stn + '/p' + stn + '_' + date + '.png />');
+          $("#predtable").load(URL_pre+"fd" + stn + '/t' + stn + '_' + date + '.txt');
+        }).fail(function() {
+          $("#predcal").empty().append("The data for the selected time period doesn't exist");
+          $("#predtable").empty().append("The data for the selected time period doesn't exist")
+        })
+
+        $("#plot-btn").attr("action", URL_pre+"fd" + stn + '/p' + stn + '_' + date + '.pdf');
+        $("#text-btn").attr("action", URL_pre+"fd" + stn + '/t' + stn + '_' + date + '.txt');
+    };
+
+    $("#button1").button();
+
+    //    $('select2 option[stn=stn]').attr('selected','selected');
+    $('select2').attr('selected', 'selected');
+
+
+
+
+    // automagically resize tab content div
+    $("#tabs").tabs().css({
+            // 'min-height': '400px',
+      'overflow': 'auto'
+    });
+
+    // prepare the form when the DOM is ready
+    $(document).ready(function() {
+      $('#selectbox').load('selectbox.html', function() {
+        // $("select2").select2();
+        $('select').trigger('change.select2');
+        if (!stn) {
+          datatype = '001';
+        }
+
+        $('#selectbox').on('select2:select', function(e) {
+          var data = e.params.data;
+          stn = data.id;
+          loadtabs(stn, getCurrentDate());
+        });
+
+
+
+        // stn = window.location.href.split("#")[1];
+        stn = $("select").val();
+
+        loadtabs(stn, getCurrentDate());
+        //        $('#datumtable').load('fd001/datumTable_001.html');
+        //         $('#datumgraphic').append("<img src='fd001/d001.png' />");
+
+        // Adding a placeholder to the select2 search field as per
+        // https://github.com/select2/select2/issues/3362
+        (function($) {
+
+        	var Defaults = $.fn.select2.amd.require('select2/defaults');
+
+          $.extend(Defaults.defaults, {
+          	searchInputPlaceholder: ''
+          });
+
+          var SearchDropdown = $.fn.select2.amd.require('select2/dropdown/search');
+
+          var _renderSearchDropdown = SearchDropdown.prototype.render;
+
+          SearchDropdown.prototype.render = function(decorated) {
+
+            // invoke parent method
+            var $rendered = _renderSearchDropdown.apply(this, Array.prototype.slice.apply(arguments));
+
+            this.$search.attr('placeholder', this.options.get('searchInputPlaceholder'));
+
+            return $rendered;
+          };
+
+        })(window.jQuery);
+
+          $(".select2").select2({
+          	searchInputPlaceholder: 'Search for a station...'
+          });
+      });
+    });
+
+    /*
+    $(function () {
+        var myChart = Highcharts.chart('tideplot1', {
+            chart: {
+                type: 'line'
+            },
+            title: {
+                text: 'pred'
+            },
+            xAxis: {
+                type: 'datetime'
+            },
+            yAxis: {
+                title: {
+                    text: 'level'
+                }
+            },
+            series: [{
+                name: 'Prd',
+                data: [1, 2, 4]
+            }]
+        });
+    });
+    */
+    var myerror = null;
+
+    function plotData(_stn) {
+      Plotly.d3.csv(URL_pre+"RAPID/" + _stn + ".csv", function(err, rows) {
+          // if(err & err.status==404){
+          //   console.log("Data for this station not found");
+          //   return
+          // }
+          function unpack(rows, key) {
+            if (err) {
+              Plotly.purge("tideplot1");
+              Plotly.purge("tideplot2");
+              $("#tideplot1").text("Real-time water level data for station number: " + _stn + " is missing. Tide data is available.");
+              // alert("Water Levels data for station number: " + _stn + " is missing");
+            }else{
+              $("#tideplot1").empty()
+            }
+            return rows.map(function(row) {
+              return row[key];
+            });
+          }
+          myerror = err;
+
+          var trace1 = {
+            type: "scatter",
+            mode: "lines",
+            name: 'Tidal prediction',
+            x: unpack(rows, 'Time'),
+            y: unpack(rows, 'Prediction'),
+            line: {
+              color: 'rgb(86, 180, 233)'
+            }
+          }
+
+          var trace2 = {
+            type: "scatter",
+            mode: "lines",
+            name: 'Tide gauge observation',
+            x: unpack(rows, 'Time'),
+            y: unpack(rows, 'Observation'),
+            line: {
+              color: 'rgb(213, 94, 0)'
+            }
+          }
+
+          var trace3 = {
+            type: "scatter",
+            mode: "lines",
+            name: 'Residual (observation minus prediction)',
+            x: unpack(rows, 'Time'),
+            y: unpack(rows, 'Residual'),
+            line: {
+              color: 'rgb(0, 158, 115)'
+            }
+          }
+
+
+          var trace4 = {
+            type: "scatter",
+            mode: "lines",
+            name: 'Extreme low (5%)',
+            x: unpack(rows, 'Time'),
+            y: unpack(rows, 'ExtremeLow'),
+            line: {
+              color: 'rgb(0, 0, 0)',
+              dash: 'dashdot'
+            }
+          }
+
+          var trace5 = {
+            type: "scatter",
+            mode: "lines",
+            name: 'Extreme high (5%)',
+            x: unpack(rows, 'Time'),
+            y: unpack(rows, 'ExtremeHigh'),
+            line: {
+              color: 'rgb(0, 0, 0)',
+              dash: 'dashdot'
+            }
+          }
+
+          var data123 = [trace1, trace2, trace3, trace4, trace5];
+          var data3 = [trace3];
+
+          var layout123 = {
+            title: 'Stn:' + _stn,
+            xaxis: {
+              autorange: true,
+              rangeselector: {
+                buttons: [{
+                    count: 7,
+                    label: '1w',
+                    step: 'day',
+                    stepmode: 'backward'
+                  },
+                  {
+                    count: 1,
+                    label: '1m',
+                    step: 'month',
+                    stepmode: 'backward'
+                  },
+                  {
+                    step: 'all'
+                  }
+                ]
+              },
+              rangeslider: {},
+              type: 'date'
+            },
+            yaxis: {
+              title: 'Relative water level (cm, MLLW)',
+              autorange: true,
+              range: [0, 1000],
+              type: 'linear'
+            }
+          };
+
+          var layout3 = {
+            showlegend: true,
+            title: 'Residual (observation minus prediction)',
+            xaxis: {
+              autorange: true,
+              rangeselector: {
+                buttons: [{
+                    count: 7,
+                    label: '1w',
+                    step: 'day',
+                    stepmode: 'backward'
+                  },
+                  {
+                    count: 1,
+                    label: '1m',
+                    step: 'month',
+                    stepmode: 'backward'
+                  },
+                  {
+                    step: 'all'
+                  }
+                ]
+              },
+              rangeslider: {},
+              type: 'date'
+            },
+            yaxis: {
+              title: 'Relative water level (cm)',
+              autorange: true,
+              range: [0, 1000],
+              type: 'linear'
+            }
+          };
+
+          Plotly.newPlot('tideplot1', data123, layout123, {
+            displayModeBar: false
+          });
+
+          Plotly.newPlot('tideplot2', data3, layout3, {
+            displayModeBar: false
+          });
+
+
+        }
+        // , function(error) {
+        //   myerror = error;
+        //   console.log(error);
+        //   alert("Data for station number: "+_stn+" is missing");
+        // }
+      )
+
+    };
+
+    $('#datepicker').datepicker({
+      format: "mm/yyyy",
+      // startDate: "01/2017",
+      // endDate: "02/2020",
+      startView: 1,
+      minViewMode: 1,
+      maxViewMode: 2,
+      todayHighlight: true
+    });
+
+    $('#datepicker').on('changeDate', function() {
+      var date = $('#datepicker').datepicker('getFormattedDate').split("/")
+      var formattedDate = date[1] + date[0];
+      loadTide(stn, formattedDate);
+    });
+
+    function getCurrentDate() {
+      var d = new Date();
+      var m = ('0' + (d.getMonth() + 1).toString()).slice(-2);
+      var y = d.getFullYear().toString();
+      return y + m;
+    }
+
+    function UrlExists(url) {
+      $.get(url)
+        .done(function() {
+          return false;
+        }).fail(function() {
+          return true;
+        })
+    }
+  </script>
+
+</body>
+
+</html>
