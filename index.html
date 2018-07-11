@@ -1,8 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-
 <head>
-  <title>001 Example</title>
+  <title>UHSLC Stations</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -11,33 +8,6 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.0/css/bootstrap-datepicker.min.css" />
   <link rel="stylesheet" href="css/custom.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <style>
-    #datumtable table,
-    th,
-    td {
-      /* border: 1px solid black; */
-      padding: 4px 10px 4px 5px;
-      background-color: rgba(255, 255, 255, 0.0);
-    }
-
-    #datumtable table,
-    th, td {
-      text-align: left;
-    }
-
-    #datumtable th {
-        background-color: #56b4ea;
-        color: white;
-    }
-
-    /* #datumtable tr {
-        background-color: red !important;
-        color: black;
-    } */
-
-    #datumtable tr:nth-child(odd) {background-color: #f2f2f2;}
-
-  </style>
 </head>
 
 <body>
@@ -45,57 +15,98 @@
   <div class="container-fluid">
 
     <div class="row">
+      
+      <!-- header and navigation -->
       <div class="page-header">
-        <a class="" href="/">
-                <img src="https://uhslc.soest.hawaii.edu/data/assets/img/uhslcLogoText36_2.png">
-              </a>
+        <a class="" href="https://uhslc.soest.hawaii.edu" >
+          <img src="https://uhslc.soest.hawaii.edu/uhslc/wp-content/uploads/2017/03/uhslcLogoText72.png" style="height: 51px; margin-top: 5px">
+        </a>
+        <div id="product_name">STATION EXPLORER</div>
       </div>
-      <div id="selectbox"></div>
+      <!-- end header -->
+      
+      <!-- station selection and section tabs -->
       <div class="wrapper" id="tabs">
+        <div id="selectbox"></div>
         <ul>
-          <li><a href="#tidetab">Water Levels</a></li>
-          <li><a href="#predtab">Tide Predictions</a></li>
           <li><a href="#datumtab">Datums</a></li>
+          <li><a href="#predtab">Tide Calendars</a></li>
+          <li><a href="#tidetab">Water Levels</a></li>
         </ul>
+        
+        <!-- tab1: interactive water level time series -->
         <div id="tidetab">
-          <div id="tideplot1" style="min-width: 310px; height: 400px; margin: 0 auto">
-          </div>
-          <div id="tideplot2" style="min-width: 310px; height: 400px; margin: 0 auto">
-          </div>
-        </div>
+          <div id="tideplot1"></div>
+          <div id="tideplot2"></div>
+        </div> 
+        <!-- end tab1 -->
+        
+        <!-- tab2: predicted tides -->
         <div id="predtab">
-          <p>
-            <div class="col-sm-12 col-lg-12 col-xs-offset-2 col-sm-offset-2 col-lg-offset-5" id="datepicker" data-date-start-date="-24m" data-date-end-date="+24m">
-            </div>
-            <div class="row">
-            <div class="col-sm-6 "  style="padding: 5px">
-              <form method="get" action="fd007/p007_201912.pdf" id="plot-btn">
-              <button class="btn btn-info" type="submit"><i class="fa fa-download"></i> Download figure</button>
-              </form>
-            </div>
-            <div class="col-sm-6" style="padding: 5px">
-              <form method="get" action="fd007/t007_201912.txt" id="text-btn">
-              <button class="btn btn-info"  type="submit"><i class="fa fa-download"></i> Download text</button>
-              </form>
-            </div>
-          </div>
-            <div class="row">
-            <div class="col-sm-6 " id="predcal" >
+          
+          <!-- left side of tides -->
+          <div style="width: 695px; float:left">
+            
+            <!-- <div class="pred-slct-head">Format</div> -->
+            <ul class="nav nav-pills cal-pills cal-format-pills">
+              <li class="active"><a data-toggle="pill" href="#graph_cal">Graphical calendar</a></li>
+              <li><a data-toggle="pill" href="#text_cal">Text calendar</a></li>
+            </ul>
 
+            <div class="tab-content">
+              <div id="graph_cal" class="tab-pane fade in active">
+                <form method="get" action="fd007/p007_201912.pdf" class="dwnld-btn" id="plot-btn">
+                  <button class="btn btn-info" type="submit"><i class="fa fa-download"></i> Download</button>
+                </form>
+                <div id="predcal" ></div>
+              </div>
+              <div id="text_cal" class="tab-pane fade">
+                <form method="get" action="fd007/t007_201912.txt" class="dwnld-btn" id="text-btn">
+                  <button class="btn btn-info"  type="submit"><i class="fa fa-download"></i> Download</button>
+                </form>
+                <div id="predtable" style="white-space: pre; font-family:courier;"></div>
+              </div>
             </div>
-            <div class="col-sm-6" id="predtable" style="white-space: pre;font-family:courier;"></div>
+            
           </div>
-          </p>
+          <!-- end left side -->
+          
+          <!-- right side of tides -->
+          <div style="width: 310px; float:left; margin-left: 40px">
+            <div style="width: 200px; float:left">
+              <!-- <div class="pred-slct-head">Month</div> -->
+              <div id="datepicker" data-date-start-date="-24m" data-date-end-date="+24m"></div>
+            </div>
+            <div style="width: 90px; float:left; margin-left: 20px">
+              <!-- <div class="pred-slct-head">Units</div> -->
+              <ul class="nav nav-pills nav-stacked cal-pills cal-units-pills">
+                <li class="active"><a data-toggle="pill" href="#">Metric</a></li>
+                <li class="disabled"><a data-toggle="pill" href="#" >English</a></li>
+              </ul>
+            </div>
+            <div style="width: 310px; float: left; margin-top: 30px;">
+              <div class="pred-slct-head">Stay up-to-date</div>
+              <div id="about-text"><p>To receive updates when the latest tide predictions are generated, subscribe to our email updates. To subscribe, send an email to: <a href="mailto:tide-grp+subscribe@hawaii.edu">tide-grp+subscribe@hawaii.edu</a>.</p><p> For more information about how these predictions were calculated, please contact <a href="mailto:mwidlans@hawaii.edu">Matthew Widlansky</a>.</p></div>
+            </div>
+          </div>
+          <!-- end right side -->
+          
         </div>
-        <div id="datumtab" style: "min-height: 800px;">
-          <p>
-            <div class="col-sm-8" id="datumtable"></div>
-            <div class="col-sm-4" id="datumgraphic"></div>
-          </p>
+        <!-- end tab2 -->
+        
+        <!-- tab3: datums -->
+        <div id="datumtab" style="min-height: 800px;">
+          <div class="col-sm-8" id="datumtable"></div>
+          <div class="col-sm-4" id="datumgraphic"></div>
         </div>
+        <!-- end tab3 -->
+        
       </div>
+      <!-- end #tabs -->
     </div>
+    <!-- end .row -->
   </div>
+  <!-- end .container-fluid -->
 
   <!-- Placed at the end of the document so the pages load faster -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -157,12 +168,12 @@
 
     function loadtabs(stn, date) {
       $.ajax({
-        url: URL_pre+'fd' + stn + "/datumTable_" + stn + ".html",
+        url: URL_pre + 'fd' + stn + "/datumTable_" + stn + ".html",
         success: function(result) {
           plotData(stn);
           loadTide(stn, date)
           $("#datumtable").html(result);
-          $("#datumgraphic").empty().append("<img class='img-responsive' src="+ URL_pre+"fd" + stn + "/d" + stn + ".png />");
+          $("#datumgraphic").empty().append("<a href=" + URL_pre + "fd" + stn + "/d" + stn + ".png><img class='img-responsive' src=" + URL_pre + "fd" + stn + "/d" + stn + ".png /></a><p align='center'>[click image to view full size]</p>");
 
           $("#tabs").tabs("destroy");
           $("#tabs").tabs();
@@ -304,7 +315,7 @@
             if (err) {
               Plotly.purge("tideplot1");
               Plotly.purge("tideplot2");
-              $("#tideplot1").text("Real-time water level data for station number: " + _stn + " is missing. Tide data is available.");
+              $("#tideplot1").text("Real-time water level data for station " + _stn + " is not available. Tide tables and datum information are available on subsequent tabs.");
               // alert("Water Levels data for station number: " + _stn + " is missing");
             }else{
               $("#tideplot1").empty()
@@ -378,6 +389,9 @@
 
           var layout123 = {
             title: 'Stn:' + _stn,
+            width: 1050,
+            height: 450,
+            autoresize: true,
             xaxis: {
               autorange: true,
               rangeselector: {
@@ -412,6 +426,9 @@
           var layout3 = {
             showlegend: true,
             title: 'Residual (observation minus prediction)',
+            width: 1050,
+            height: 450,
+            autoresize: true,
             xaxis: {
               autorange: true,
               rangeselector: {
