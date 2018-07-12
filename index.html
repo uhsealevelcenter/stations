@@ -15,38 +15,38 @@
   <div class="container-fluid">
 
     <div class="row">
-      
+
       <!-- header and navigation -->
       <div class="page-header">
-        <a class="" href="https://uhslc.soest.hawaii.edu" >
+        <a class="" href="https://uhslc.soest.hawaii.edu">
           <img src="https://uhslc.soest.hawaii.edu/uhslc/wp-content/uploads/2017/03/uhslcLogoText72.png" style="height: 51px; margin-top: 5px">
         </a>
         <div id="product_name">STATION EXPLORER</div>
       </div>
       <!-- end header -->
-      
+
       <!-- station selection and section tabs -->
       <div class="wrapper" id="tabs">
         <div id="selectbox"></div>
         <ul>
-          <li><a href="#datumtab">Datums</a></li>
-          <li><a href="#predtab">Tide Calendars</a></li>
-          <li><a href="#tidetab">Water Levels</a></li>
+          <li><a href="#datumtab" class="tablinks">Datums</a></li>
+          <li><a href="#predtab" class="tablinks">Tide Calendars</a></li>
+          <li><a href="#tidetab" class="tablinks" id="defaultTab">Water Levels</a></li>
         </ul>
-        
+
         <!-- tab1: interactive water level time series -->
         <div id="tidetab">
           <div id="tideplot1"></div>
           <div id="tideplot2"></div>
-        </div> 
+        </div>
         <!-- end tab1 -->
-        
+
         <!-- tab2: predicted tides -->
         <div id="predtab">
-          
+
           <!-- left side of tides -->
           <div style="width: 695px; float:left">
-            
+
             <!-- <div class="pred-slct-head">Format</div> -->
             <ul class="nav nav-pills cal-pills cal-format-pills">
               <li class="active"><a data-toggle="pill" href="#graph_cal">Graphical calendar</a></li>
@@ -58,19 +58,19 @@
                 <form method="get" action="fd007/p007_201912.pdf" class="dwnld-btn" id="plot-btn">
                   <button class="btn btn-info" type="submit"><i class="fa fa-download"></i> Download</button>
                 </form>
-                <div id="predcal" ></div>
+                <div id="predcal"></div>
               </div>
               <div id="text_cal" class="tab-pane fade">
                 <form method="get" action="fd007/t007_201912.txt" class="dwnld-btn" id="text-btn">
-                  <button class="btn btn-info"  type="submit"><i class="fa fa-download"></i> Download</button>
+                  <button class="btn btn-info" type="submit"><i class="fa fa-download"></i> Download</button>
                 </form>
                 <div id="predtable" style="white-space: pre; font-family:courier;"></div>
               </div>
             </div>
-            
+
           </div>
           <!-- end left side -->
-          
+
           <!-- right side of tides -->
           <div style="width: 310px; float:left; margin-left: 40px">
             <div style="width: 200px; float:left">
@@ -81,26 +81,29 @@
               <!-- <div class="pred-slct-head">Units</div> -->
               <ul class="nav nav-pills nav-stacked cal-pills cal-units-pills">
                 <li class="active"><a data-toggle="pill" href="#">Metric</a></li>
-                <li class="disabled"><a data-toggle="pill" href="#" >English</a></li>
+                <li class="disabled"><a data-toggle="pill" href="#">English</a></li>
               </ul>
             </div>
             <div style="width: 310px; float: left; margin-top: 30px;">
               <div class="pred-slct-head">Stay up-to-date</div>
-              <div id="about-text"><p>To receive updates when the latest tide predictions are generated, subscribe to our email updates. To subscribe, send an email to: <a href="mailto:tide-grp+subscribe@hawaii.edu">tide-grp+subscribe@hawaii.edu</a>.</p><p> For more information about how these predictions were calculated, please contact <a href="mailto:mwidlans@hawaii.edu">Matthew Widlansky</a>.</p></div>
+              <div id="about-text">
+                <p>To receive updates when the latest tide predictions are generated, subscribe to our email updates. To subscribe, send an email to: <a href="mailto:tide-grp+subscribe@hawaii.edu">tide-grp+subscribe@hawaii.edu</a>.</p>
+                <p> For more information about how these predictions were calculated, please contact <a href="mailto:mwidlans@hawaii.edu">Matthew Widlansky</a>.</p>
+              </div>
             </div>
           </div>
           <!-- end right side -->
-          
+
         </div>
         <!-- end tab2 -->
-        
+
         <!-- tab3: datums -->
         <div id="datumtab" style="min-height: 800px;">
           <div class="col-sm-8" id="datumtable"></div>
           <div class="col-sm-4" id="datumgraphic"></div>
         </div>
         <!-- end tab3 -->
-        
+
       </div>
       <!-- end #tabs -->
     </div>
@@ -122,7 +125,8 @@
     $.ajaxSetup({
       cache: false
     });
-
+    // Opening a specific tab on page load
+    document.getElementById("defaultTab").click();
     // var url = "test.json";
 
     /*var pdata = (function () {
@@ -159,7 +163,7 @@
     //   if (!results[2]) return '';
     //   return decodeURIComponent(results[2].replace(/\+/g, " "));
     // }
-
+    // document.getElementsByClassName('tablinks')[2].click();
     var stn = null;
     var URL_pre = ""
     if (DEVELOPMENT)
@@ -181,7 +185,7 @@
         },
         error: function(xhr, ajaxOptions, thrownError) {
           if (stn) {
-            alert("Datum table for station " + stn + " does not exist");
+            alert("Station " + stn + " does not exist");
             plotData(stn);
           }
         }
@@ -192,21 +196,21 @@
     });
 
     $("#tabs").tabs({
-         heightStyle: 'fill'
-     });
+      heightStyle: 'fill'
+    });
 
     function loadTide(stn, date) {
-      $.get(URL_pre+"fd" + stn + '/p' + stn + '_' + date + '.png')
+      $.get(URL_pre + "fd" + stn + '/p' + stn + '_' + date + '.png')
         .done(function() {
-          $("#predcal").empty().append("<img class='img-responsive' src="+ URL_pre+"fd" + stn + '/p' + stn + '_' + date + '.png />');
-          $("#predtable").load(URL_pre+"fd" + stn + '/t' + stn + '_' + date + '.txt');
+          $("#predcal").empty().append("<img class='img-responsive' src=" + URL_pre + "fd" + stn + '/p' + stn + '_' + date + '.png />');
+          $("#predtable").load(URL_pre + "fd" + stn + '/t' + stn + '_' + date + '.txt');
         }).fail(function() {
           $("#predcal").empty().append("The data for the selected time period doesn't exist");
           $("#predtable").empty().append("The data for the selected time period doesn't exist")
         })
 
-        $("#plot-btn").attr("action", URL_pre+"fd" + stn + '/p' + stn + '_' + date + '.pdf');
-        $("#text-btn").attr("action", URL_pre+"fd" + stn + '/t' + stn + '_' + date + '.txt');
+      $("#plot-btn").attr("action", URL_pre + "fd" + stn + '/p' + stn + '_' + date + '.pdf');
+      $("#text-btn").attr("action", URL_pre + "fd" + stn + '/t' + stn + '_' + date + '.txt');
     };
 
     $("#button1").button();
@@ -219,7 +223,7 @@
 
     // automagically resize tab content div
     $("#tabs").tabs().css({
-            // 'min-height': '400px',
+      // 'min-height': '400px',
       'overflow': 'auto'
     });
 
@@ -227,7 +231,7 @@
     $(document).ready(function() {
       $('#selectbox').load('selectbox.html', function() {
         // $("select2").select2();
-        $('select').trigger('change.select2');
+        // $('select').trigger('change.select2');
         if (!stn) {
           datatype = '001';
         }
@@ -238,10 +242,19 @@
           loadtabs(stn, getCurrentDate());
         });
 
+        var url = window.location.href;
 
-
-        // stn = window.location.href.split("#")[1];
-        stn = $("select").val();
+        // check if the url is a direct link and select the correct station in
+        // the dropdown menu
+        var url_pattern = url.split('?stn=');
+        if (url_pattern.length>1 ) {
+          // adding another split based on '#' because we are adding #tidetab
+          // as a default tab.
+          stn = url_pattern[1].split('#')[0];
+          $('.select2').val(stn).trigger('change');
+        } else {
+          stn = $("select").val();
+        }
 
         loadtabs(stn, getCurrentDate());
         //        $('#datumtable').load('fd001/datumTable_001.html');
@@ -251,10 +264,10 @@
         // https://github.com/select2/select2/issues/3362
         (function($) {
 
-        	var Defaults = $.fn.select2.amd.require('select2/defaults');
+          var Defaults = $.fn.select2.amd.require('select2/defaults');
 
           $.extend(Defaults.defaults, {
-          	searchInputPlaceholder: ''
+            searchInputPlaceholder: ''
           });
 
           var SearchDropdown = $.fn.select2.amd.require('select2/dropdown/search');
@@ -273,9 +286,9 @@
 
         })(window.jQuery);
 
-          $(".select2").select2({
-          	searchInputPlaceholder: 'Search for a station...'
-          });
+        $(".select2").select2({
+          searchInputPlaceholder: 'Search for a station...'
+        });
       });
     });
 
@@ -303,10 +316,9 @@
         });
     });
     */
-    var myerror = null;
 
     function plotData(_stn) {
-      Plotly.d3.csv(URL_pre+"RAPID/" + _stn + ".csv", function(err, rows) {
+      Plotly.d3.csv(URL_pre + "RAPID/" + _stn + ".csv", function(err, rows) {
           // if(err & err.status==404){
           //   console.log("Data for this station not found");
           //   return
@@ -317,14 +329,13 @@
               Plotly.purge("tideplot2");
               $("#tideplot1").text("Real-time water level data for station " + _stn + " is not available. Tide tables and datum information are available on subsequent tabs.");
               // alert("Water Levels data for station number: " + _stn + " is missing");
-            }else{
+            } else {
               $("#tideplot1").empty()
             }
             return rows.map(function(row) {
               return row[key];
             });
           }
-          myerror = err;
 
           var trace1 = {
             type: "scatter",
@@ -470,11 +481,7 @@
 
 
         }
-        // , function(error) {
-        //   myerror = error;
-        //   console.log(error);
-        //   alert("Data for station number: "+_stn+" is missing");
-        // }
+
       )
 
     };
