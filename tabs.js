@@ -1,7 +1,7 @@
 $.ajaxSetup({
   cache: false
 });
-
+document.getElementById("defaultTab").click();
 // var url = "test.json";
 
 /*var pdata = (function () {
@@ -66,13 +66,6 @@ function loadtabs(stn, date) {
     }
   });
 }
-$(function() {
-  $("#tabs").tabs();
-});
-
-$("#tabs").tabs({
-  heightStyle: 'fill'
-});
 
 function loadTide(stn, date) {
   $.get(URL_pre+"fd" + stn + '/p' + stn + '_' + date + '.png')
@@ -93,17 +86,20 @@ $("#button1").button();
 //    $('select2 option[stn=stn]').attr('selected','selected');
 $('select2').attr('selected', 'selected');
 
-
-
-
-// automagically resize tab content div
-$("#tabs").tabs().css({
-  // 'min-height': '400px',
-  'overflow': 'auto'
-});
-
+$(".tab-list").fadeIn(500);
 // prepare the form when the DOM is ready
 $(document).ready(function() {
+  // automagically resize tab content div
+  $("#tabs").tabs().css({
+    // 'min-height': '400px',
+    'overflow': 'auto'
+  });
+  $(function() {
+    $("#tabs").tabs();
+  });
+  $("#tabs").tabs({
+    heightStyle: 'fill'
+  });
   $('#selectbox').load('selectbox.html', function() {
     // $("select2").select2();
     $('select').trigger('change.select2');
@@ -117,10 +113,19 @@ $(document).ready(function() {
       loadtabs(stn, getCurrentDate());
     });
 
+    var url = window.location.href;
 
-
-    // stn = window.location.href.split("#")[1];
-    stn = $("select").val();
+    // check if the url is a direct link and select the correct station in
+    // the dropdown menu
+    var url_pattern = url.split('?stn=');
+    if (url_pattern.length > 1) {
+      // adding another split based on '#' because we are adding #tidetab
+      // as a default tab.
+      stn = url_pattern[1].split('#')[0];
+      $('.select2').val(stn).trigger('change');
+    } else {
+      stn = $("select").val();
+    }
 
     loadtabs(stn, getCurrentDate());
     //        $('#datumtable').load('fd001/datumTable_001.html');
