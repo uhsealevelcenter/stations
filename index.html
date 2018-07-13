@@ -28,10 +28,10 @@
       <!-- station selection and section tabs -->
       <div class="wrapper" id="tabs">
         <div id="selectbox"></div>
-        <ul>
-          <li><a href="#datumtab" class="tablinks">Datums</a></li>
-          <li><a href="#predtab" class="tablinks">Tide Calendars</a></li>
-          <li><a href="#tidetab" class="tablinks" id="defaultTab">Water Levels</a></li>
+        <ul class="tab-list" style="display: none">
+          <li><a href="#datumtab">Datums</a></li>
+          <li><a href="#predtab">Tide Calendars</a></li>
+          <li><a href="#tidetab" id="defaultTab">Water Levels</a></li>
         </ul>
 
         <!-- tab1: interactive water level time series -->
@@ -42,7 +42,7 @@
         <!-- end tab1 -->
 
         <!-- tab2: predicted tides -->
-        <div id="predtab">
+        <div id="predtab" style="display: none;">
 
           <!-- left side of tides -->
           <div style="width: 695px; float:left">
@@ -181,6 +181,7 @@
 
           $("#tabs").tabs("destroy");
           $("#tabs").tabs();
+
           // $( "#tabs" ).tabs({ active: tabid });
         },
         error: function(xhr, ajaxOptions, thrownError) {
@@ -191,13 +192,7 @@
         }
       });
     }
-    $(function() {
-      $("#tabs").tabs();
-    });
 
-    $("#tabs").tabs({
-      heightStyle: 'fill'
-    });
 
     function loadTide(stn, date) {
       $.get(URL_pre + "fd" + stn + '/p' + stn + '_' + date + '.png')
@@ -221,14 +216,22 @@
 
 
 
-    // automagically resize tab content div
-    $("#tabs").tabs().css({
-      // 'min-height': '400px',
-      'overflow': 'auto'
-    });
 
     // prepare the form when the DOM is ready
     $(document).ready(function() {
+
+      // automagically resize tab content div
+      $("#tabs").tabs().css({
+        // 'min-height': '400px',
+        'overflow': 'auto'
+      });
+      $(function() {
+        $("#tabs").tabs();
+      });
+      $("#tabs").tabs({
+        heightStyle: 'fill'
+      });
+      $(".tab-list").fadeIn(500);
       $('#selectbox').load('selectbox.html', function() {
         // $("select2").select2();
         // $('select').trigger('change.select2');
@@ -247,7 +250,7 @@
         // check if the url is a direct link and select the correct station in
         // the dropdown menu
         var url_pattern = url.split('?stn=');
-        if (url_pattern.length>1 ) {
+        if (url_pattern.length > 1) {
           // adding another split based on '#' because we are adding #tidetab
           // as a default tab.
           stn = url_pattern[1].split('#')[0];
