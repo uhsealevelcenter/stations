@@ -1,7 +1,7 @@
 $.ajaxSetup({
   cache: false
 });
-document.getElementById("defaultTab").click();
+
 // var url = "test.json";
 
 /*var pdata = (function () {
@@ -42,7 +42,7 @@ return pdata;
 var stn = null;
 var URL_pre = ""
 if (DEVELOPMENT)
-URL_pre = SERVER_URL;
+  URL_pre = SERVER_URL;
 // var tabid = getParameterByName('tabid');
 
 function loadtabs(stn, date) {
@@ -68,17 +68,17 @@ function loadtabs(stn, date) {
 }
 
 function loadTide(stn, date) {
-  $.get(URL_pre+"fd" + stn + '/p' + stn + '_' + date + '.png')
-  .done(function() {
-    $("#predcal").empty().append("<img class='img-responsive' src="+ URL_pre+"fd" + stn + '/p' + stn + '_' + date + '.png />');
-    $("#predtable").load(URL_pre+"fd" + stn + '/t' + stn + '_' + date + '.txt');
-  }).fail(function() {
-    $("#predcal").empty().append("The data for the selected time period doesn't exist");
-    $("#predtable").empty().append("The data for the selected time period doesn't exist")
-  })
+  $.get(URL_pre + "fd" + stn + '/p' + stn + '_' + date + '.png')
+    .done(function() {
+      $("#predcal").empty().append("<img class='img-responsive' src=" + URL_pre + "fd" + stn + '/p' + stn + '_' + date + '.png />');
+      $("#predtable").load(URL_pre + "fd" + stn + '/t' + stn + '_' + date + '.txt');
+    }).fail(function() {
+      $("#predcal").empty().append("The data for the selected time period doesn't exist");
+      $("#predtable").empty().append("The data for the selected time period doesn't exist")
+    })
 
-  $("#plot-btn").attr("action", URL_pre+"fd" + stn + '/p' + stn + '_' + date + '.pdf');
-  $("#text-btn").attr("action", URL_pre+"fd" + stn + '/t' + stn + '_' + date + '.txt');
+  $("#plot-btn").attr("action", URL_pre + "fd" + stn + '/p' + stn + '_' + date + '.pdf');
+  $("#text-btn").attr("action", URL_pre + "fd" + stn + '/t' + stn + '_' + date + '.txt');
 };
 
 $("#button1").button();
@@ -87,8 +87,22 @@ $("#button1").button();
 $('select2').attr('selected', 'selected');
 
 $(".tab-list").fadeIn(500);
+
+
+if(window.location.hash)
+  document.getElementById(window.location.hash.split('#')[1]).click();
+else {
+  document.getElementById("defaultTab").click();
+}
+
+$("#tabs").on( "tabsactivate", function(event, ui) {
+ window.location.hash = ui.newPanel.attr('id');
+ // window.location = window.location + window.location.hash
+ // console.log("loca "+  window.location);
+});
 // prepare the form when the DOM is ready
 $(document).ready(function() {
+
   // automagically resize tab content div
   $("#tabs").tabs().css({
     // 'min-height': '400px',
