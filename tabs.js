@@ -2,43 +2,6 @@ $.ajaxSetup({
   cache: false
 });
 
-// var url = "test.json";
-
-/*var pdata = (function () {
-var pdata = null;
-$.ajax({
-'async': false,
-'global': false,
-'url': url,
-'dataType': "json",
-'success': function (data) {
-pdata = data;
-}
-});
-return pdata;
-})();
-*/
-
-// var pdata;
-// $.getJSON(url, function(json) {
-//   pdata = json;
-// });
-//
-// a = pdata;
-// console.log(a);
-
-// function getParameterByName(name, url) {
-//   if (!url) {
-//     url = window.location.href;
-//   }
-//   name = name.replace(/[\[\]]/g, "\\$&");
-//   var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
-//     results = regex.exec(url);
-//   if (!results) return null;
-//   if (!results[2]) return '';
-//   return decodeURIComponent(results[2].replace(/\+/g, " "));
-// }
-
 var stn = null;
 var URL_pre = ""
 if (DEVELOPMENT)
@@ -52,7 +15,7 @@ function loadtabs(stn, date) {
       plotData(stn);
       loadTide(stn, date)
       $("#datumtable").html(result);
-      $("#datumgraphic").empty().append("<a href=" + URL_pre + "fd" + stn + "/d" + stn + ".png><img class='img-responsive' src=" + URL_pre + "fd" + stn + "/d" + stn + ".png /></a><p align='center'>[click image to view full size]</p>");
+      $("#datumgraphic").empty().append("<a href=" + URL_pre + "fd" + stn + "/d" + stn + ".png target='_blank'><img class='img-responsive' src=" + URL_pre + "fd" + stn + "/d" + stn + ".png /></a><p align='center'>[click image to view full size]</p>");
 
       $("#tabs").tabs("destroy");
       $("#tabs").tabs();
@@ -88,21 +51,21 @@ $('select2').attr('selected', 'selected');
 
 $(".tab-list").fadeIn(500);
 
-
+// Display a tab based on tab anchor
+// e,g ...#datumtab
 if(window.location.hash)
   document.getElementById(window.location.hash.split('#')[1]).click();
 else {
   document.getElementById("defaultTab").click();
 }
 
+// adds an anchor to the URL on tab change
 $("#tabs").on( "tabsactivate", function(event, ui) {
  window.location.hash = ui.newPanel.attr('id');
- // window.location = window.location + window.location.hash
- // console.log("loca "+  window.location);
 });
+
 // prepare the form when the DOM is ready
 $(document).ready(function() {
-
   // automagically resize tab content div
   $("#tabs").tabs().css({
     // 'min-height': '400px',
@@ -117,17 +80,17 @@ $(document).ready(function() {
   $('#selectbox').load('selectbox.html', function() {
     // $("select2").select2();
     $('select').trigger('change.select2');
-    if (!stn) {
-      datatype = '001';
-    }
 
     $('#selectbox').on('select2:select', function(e) {
       var data = e.params.data;
       stn = data.id;
+      // update the address bar when selection in the dropdown has changed
+      history.pushState(null, '', window.location.pathname+"?stn="+stn+window.location.hash);
       loadtabs(stn, getCurrentDate());
     });
 
     var url = window.location.href;
+    console.log("URL "+url);
 
     // check if the url is a direct link and select the correct station in
     // the dropdown menu
@@ -139,6 +102,8 @@ $(document).ready(function() {
       $('.select2').val(stn).trigger('change');
     } else {
       stn = $("select").val();
+      // Updated the address bar when first landing on page
+      history.pushState(null, '', window.location.pathname+"?stn="+"001"+window.location.hash);
     }
 
     loadtabs(stn, getCurrentDate());
