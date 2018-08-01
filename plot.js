@@ -12,8 +12,9 @@ function plotData(_stn) {
           Plotly.purge("tideplot2");
           $("#tideplot1").text("Real-time water level data for station " + _stn + " is not available. Tide tables and datum information are available on subsequent tabs.");
           // alert("Water Levels data for station number: " + _stn + " is missing");
+          $("#product_desc").hide()
         } else {
-          $("#tideplot1").empty()
+          $("#tideplot1").empty();
         }
         return rows.map(function(row) {
           return row[key];
@@ -195,6 +196,7 @@ function plotData(_stn) {
       Plotly.newPlot('tideplot2', data3, layout3, {
         displayModeBar: false
       });
+      $("#product_desc").show();
 
 
     }

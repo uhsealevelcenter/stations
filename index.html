@@ -39,7 +39,7 @@
           <div id="tideplot1"></div>
           <div id="tideplot2"></div>
           <hr>
-          <div>
+          <div id="product_desc" style="display: none;">
             <p>This product provides a preliminary look at the recent hourly water levels <span style="background-color: #ff7f0e;padding: 5px">observed</span>
               by the tide gauge station compared to the astronomical tidal <span style="background-color: #1f77b4; color:white;padding: 5px">prediction</span>.
               <span style="background-color: #2ca02c; color:white;padding: 5px">Residuals</span>
@@ -57,7 +57,14 @@
 
         <!-- tab2: predicted tides -->
         <div id="tidecal" style="display: none;">
+          <div id="" align="justify";>
+          <h3>Information</h3>
 
+            <p>Tide predictions are calculated based on harmonic analysis of the hourly water levels measured during the <a href="https://uhslc.soest.hawaii.edu/stations/datums#stat">Station Datum Epoch</a>. That is, observations of the past are used to predict the future. While called <i>predictions</i>, the tidal calendars are extremely deterministic many years into the future. Astronomical knowledge (relative positions of the Earth-Moon-Sun) provides information about the gravitational pull on the oceans, which forces most of the tidal cycles.</p>
+<p>We update the span of tide calendars on a yearly basis to cover the previous and future couple of years. Graphical calendars from the early months include observed water levels overlaid on the prediction, which gives a sense of how well the tide prediction performed in the past. </p>
+
+          </div>
+          <hr>
           <!-- left side of tides -->
           <div style="width: 695px; float:left">
 
@@ -99,25 +106,20 @@
               </ul>
             </div>
             <div style="width: 310px; float: left; margin-top: 30px;">
-              <div class="pred-slct-head">Information</div>
-              <div id="about-text">
-                <p>Tide predictions are calculated based on harmonic analysis of the hourly water levels measured during the Station Datum Epoch. That is, observations of the past are used to predict the future. While called predictions, the tidal calendars are extremely deterministic many years into the future. Astronomical knowledge (relative positions of the Earth-Moon-Sun) provides information about the gravitational pull on the oceans, which forces most of the tidal cycles.
-We update the span of tide calendars on a yearly basis to cover the previous and future couple of years. Graphical calendars from the early months include observed water levels overlaid on the prediction, which gives a sense of how well the tide prediction performed in the past. </p>
 
-              </div>
             </div>
             <div style="width: 310px; float: left; margin-top: 30px;">
               <div class="pred-slct-head">Details</div>
-              <div id="about-text">
+              <div id="about-text" align="justify">
                 <p>Tidal harmonics and the associated predicted future water levels are calculated using the <a href="http://www.po.gso.uri.edu/~codiga/utide/utide.htm">Unified Tidal Analysis and Prediction “UTide”</a> procedure. Harmonic analysis is performed over the Station Datum Epoch, which is ideally 19-years to cover a full lunar nodal cycle; however, useful tide predictions are often achieved using water level records as short as two years. Our tide predictions are based on 68 harmonic constituents, which include the annual, semi-annual, and nodal (18.6 year wobble of the Moon’s orbit around the Earth) cycles.</p>
+                <p> For more information about how these predictions were calculated, please contact <a href="mailto:mwidlans@hawaii.edu">Matthew Widlansky</a>.</p>
 
               </div>
             </div>
             <div style="width: 310px; float: left; margin-top: 30px;">
               <div class="pred-slct-head">Stay up-to-date</div>
-              <div id="about-text">
+              <div id="about-text" align="justify">
                 <p>To receive updates when the latest tide predictions are generated, subscribe to our email updates. To subscribe, send an email to: <a href="mailto:tide-grp+subscribe@hawaii.edu">tide-grp+subscribe@hawaii.edu</a>.</p>
-                <p> For more information about how these predictions were calculated, please contact <a href="mailto:mwidlans@hawaii.edu">Matthew Widlansky</a>.</p>
               </div>
             </div>
           </div>
