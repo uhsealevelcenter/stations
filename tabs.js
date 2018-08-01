@@ -62,6 +62,12 @@ else {
 // adds an anchor to the URL on tab change
 $("#tabs").on( "tabsactivate", function(event, ui) {
  window.location.hash = ui.newPanel.attr('id');
+ // NK 7/31/18
+ // On tab change if the tab content is not within the view the page scrolls down a bit
+ // This probably has to do something with jqeury UI used for tabs. For now, I
+ // am setting the page scroll back to 0 so the page doesn't jump on tab change
+ var element = document.body;
+ element.scrollTop = 0
 });
 
 // prepare the form when the DOM is ready
