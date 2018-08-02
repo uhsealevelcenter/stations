@@ -83,7 +83,7 @@ $(document).ready(function() {
   $("#tabs").tabs({
     heightStyle: 'fill'
   });
-  $('#selectbox').load('selectbox.html', function() {
+  $('#selectbox').load(URL_pre + 'selectbox.html', function() {
     // $("select2").select2();
     $('select').trigger('change.select2');
 
