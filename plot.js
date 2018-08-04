@@ -47,7 +47,7 @@ function plotData(_stn) {
       var trace3 = {
         type: "scatter",
         mode: "lines",
-        name: 'Residual (observation minus prediction)',
+        name: 'Residual (observation minus tide)',
         x: unpack(rows, 'Time'),
         y: unpack(rows, 'Residual'),
         line: {
@@ -84,7 +84,7 @@ function plotData(_stn) {
       var data3 = [trace3];
 
       var layout123 = {
-        title: 'Stn:' + _stn,
+        // title: 'Stn:' + _stn,
         width: 1050,
         height: 450,
         autoresize: true,
@@ -138,7 +138,7 @@ function plotData(_stn) {
 
       var layout3 = {
         showlegend: true,
-        title: 'Residual (observation minus prediction)',
+        // title: 'Residual (observation minus prediction)',
         width: 1050,
         height: 450,
         autoresize: true,

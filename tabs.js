@@ -3,7 +3,8 @@ $.ajaxSetup({
 });
 
 var stn = null;
-var URL_pre = ""
+var URL_pre = "";
+var DEF_STATION = "007";
 if (DEVELOPMENT)
   URL_pre = SERVER_URL;
 // var tabid = getParameterByName('tabid');
@@ -72,6 +73,10 @@ $("#tabs").on( "tabsactivate", function(event, ui) {
 
 // prepare the form when the DOM is ready
 $(document).ready(function() {
+// Sharing the same HTML element between all tabs  
+$metaBox = $("#metaBox");
+$metaBox.addClass("ui-tabs-panel-meta");
+$metaBox.show();
   // automagically resize tab content div
   $("#tabs").tabs().css({
     // 'min-height': '400px',
@@ -85,7 +90,8 @@ $(document).ready(function() {
   });
   $('#selectbox').load(URL_pre + 'selectbox.html', function() {
     // $("select2").select2();
-    $('select').trigger('change.select2');
+    // $('select').trigger('change.select2');
+    $('.select2').val(DEF_STATION).trigger('change');
 
     $('#selectbox').on('select2:select', function(e) {
       var data = e.params.data;
@@ -109,7 +115,7 @@ $(document).ready(function() {
     } else {
       stn = $("select").val();
       // Updated the address bar when first landing on page
-      history.pushState(null, '', window.location.pathname+"?stn="+"001"+window.location.hash);
+      history.pushState(null, '', window.location.pathname+"?stn="+DEF_STATION+window.location.hash);
     }
 
     loadtabs(stn, getCurrentDate());

@@ -116,6 +116,7 @@ h3.sectionTitle {
 }
 .ui-tabs-panel {
     border: solid 1px #ddd !important;
+    border-top: 0 !important;
     padding: 25px 25px !important;
 }
 
@@ -124,8 +125,11 @@ h3.sectionTitle {
     font-size: 14px !important;
 }
 
+
+
 div#levels.ui-tabs-panel {
-    border: solid 1px #ddd !important;
+    border: solid 1px #ddd ;
+    border-top: 0 !important;
     padding-left:7px !important;
     padding-right:7px !important;
 }
@@ -276,9 +280,22 @@ th, td {
     color: white;
 }
 
+#datumtable tr:nth-child(1) {display: none;} /* remove table header*/
+#datumtable tr:nth-child(odd) {background-color: #f2f2f2;}
+
+#metaBox {
+    display: none;
+
+    /* margin: 10px auto; */
+}
+/* Meta data element that is shared across tabs */
+.ui-tabs-panel-meta {
+  border: solid 1px #ddd;
+  border-bottom: 0;
+  padding: 25px 25px !important;
+}
+
 /* #datumtable tr {
     background-color: red !important;
     color: black;
 } */
-
-#datumtable tr:nth-child(odd) {background-color: #f2f2f2;}
