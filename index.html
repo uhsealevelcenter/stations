@@ -34,10 +34,17 @@
           <li><a href="#levels" id="defaultTab">Water Levels</a></li>
         </ul>
         <div id="metaBox">
-            <span id="metaData">Meta Data Here</span>
+          <span id="metaData">Meta Data Here</span>
         </div>
         <!-- tab1: interactive water level time series -->
         <div id="levels">
+          <div class="units" style="display: inline;">
+            <!-- <button class="btn" id="datumToggle">MLLW</button> -->
+            <button class="btn" id="unitToggle">Metric</button>
+          </div>
+          <div class="datum" style="display: inline;">
+            <button class="btn" id="datumToggle">MLLW</button>
+          </div>
           <div id="tideplot1"></div>
           <div id="tideplot2"></div>
           <hr>
@@ -72,79 +79,83 @@
               <div id="graph_cal" class="tab-pane fade in active">
                 <form method="get" action="fd007/p007_201912.pdf" class="dwnld-btn" id="plot-btn" target="_blank">
                   <button class="btn btn-info" type="submit"><i class="fa fa-download"></i> Download</button>
-                </form>
-                <div id="predcal"></div>
-              </div>
-              <div id="text_cal" class="tab-pane fade">
-                <form method="get" action="fd007/t007_201912.txt" class="dwnld-btn" id="text-btn" target="_blank">
-                  <button class="btn btn-info" type="submit"><i class="fa fa-download"></i> Download</button>
-                </form>
-                <div id="predtable" style="white-space: pre; font-family:courier;"></div>
-              </div>
-            </div>
-
+            </form>
+            <div id="predcal"></div>
           </div>
-          <!-- end left side -->
-
-          <!-- right side of tides -->
-          <div style="width: 310px; float:left; margin-left: 40px">
-            <div style="width: 200px; float:left">
-              <!-- <div class="pred-slct-head">Month</div> -->
-              <div id="datepicker" data-date-start-date="-24m" data-date-end-date="+24m"></div>
-            </div>
-            <div style="width: 90px; float:left; margin-left: 20px">
-              <!-- <div class="pred-slct-head">Units</div> -->
-              <ul class="nav nav-pills nav-stacked cal-pills cal-units-pills">
-                <li class="active"><a data-toggle="pill" href="#">Metric</a></li>
-                <li class="disabled"><a data-toggle="pill" href="#">English</a></li>
-              </ul>
-            </div>
-            <div style="width: 310px; float: left; margin-top: 30px;">
-              <div class="pred-slct-head">Information</div>
-              <div id="about-text" align="justify">
-                <p>Tide predictions are calculated based on harmonic analysis of the hourly water levels measured during the <a href="https://uhslc.soest.hawaii.edu/stations/datums#stat">Station Datum Epoch</a>. That is, observations of the past are used to predict the future. While called <i>predictions</i>, the tidal calendars are extremely deterministic many years into the future. Astronomical knowledge (relative positions of the Earth-Moon-Sun) provides information about the gravitational pull on the oceans, which forces most of the tidal cycles.</p>
-    <p>We update the span of tide calendars on a yearly basis to cover the previous and future couple of years. Graphical calendars from the early months include observed water levels overlaid on the prediction, which gives a sense of how well the tide prediction performed in the past. </p>
-
-              </div>
-            </div>
-            <div style="width: 310px; float: left; margin-top: 30px;">
-              <div class="pred-slct-head">Details</div>
-              <div id="about-text" align="justify">
-                <p>Tidal harmonics and the associated predicted future water levels are calculated using the <a href="http://www.po.gso.uri.edu/~codiga/utide/utide.htm">Unified Tidal Analysis and Prediction “UTide”</a> procedure. Harmonic analysis is performed over the Station Datum Epoch, which is ideally 19-years to cover a full lunar nodal cycle; however, useful tide predictions are often achieved using water level records as short as two years. Our tide predictions are based on 68 harmonic constituents, which include the annual, semi-annual, and nodal (18.6 year wobble of the Moon’s orbit around the Earth) cycles.</p>
-                <p> For more information about how these predictions were calculated, please contact <a href="mailto:mwidlans@hawaii.edu">Matthew Widlansky</a>.</p>
-
-              </div>
-            </div>
-
-            <div style="width: 310px; float: left; margin-top: 30px;">
-              <div class="pred-slct-head">Stay up-to-date</div>
-              <div id="about-text">
-                <p>To receive updates when the latest tide predictions are generated, subscribe to our email updates. To subscribe, send an email to: <a href="mailto:tide-grp+subscribe@hawaii.edu">tide-grp+subscribe@hawaii.edu</a>.</p>
-              </div>
-            </div>
+          <div id="text_cal" class="tab-pane fade">
+            <form method="get" action="fd007/t007_201912.txt" class="dwnld-btn" id="text-btn" target="_blank">
+              <button class="btn btn-info" type="submit"><i class="fa fa-download"></i> Download</button>
+            </form>
+            <div id="predtable" style="white-space: pre; font-family:courier;"></div>
           </div>
-          <!-- end right side -->
-
         </div>
-        <!-- end tab2 -->
-
-        <!-- tab3: datums -->
-        <div id="datums" style="min-height: 800px;">
-          <div class="col-sm-8" id="datumtable"></div>
-          <div class="col-sm-4" id="datumgraphic"></div>
-        </div>
-        <!-- end tab3 -->
 
       </div>
-      <!-- end #tabs -->
-      <hr>
-      <footer>
-        <p><strong>Disclaimer: The Station Explorer is a <i>research</i> product.</strong> The data are provided free of charge
-          without warranty of any kind. <a href="https://uhslc.soest.hawaii.edu/">UHSLC</a> requests that attribution be given whenever the <a href="https://uhslc.soest.hawaii.edu/stations/">Station Explorer</a>
-          material is reproduced and re-disseminated.</p>
-      </footer>
+      <!-- end left side -->
+
+      <!-- right side of tides -->
+      <div style="width: 310px; float:left; margin-left: 40px">
+        <div style="width: 200px; float:left">
+          <!-- <div class="pred-slct-head">Month</div> -->
+          <div id="datepicker" data-date-start-date="-24m" data-date-end-date="+24m"></div>
+        </div>
+        <div style="width: 90px; float:left; margin-left: 20px">
+          <!-- <div class="pred-slct-head">Units</div> -->
+          <ul class="nav nav-pills nav-stacked cal-pills cal-units-pills">
+            <li class="active"><a data-toggle="pill" href="#">Metric</a></li>
+            <li class="disabled"><a data-toggle="pill" href="#">English</a></li>
+          </ul>
+        </div>
+        <div style="width: 310px; float: left; margin-top: 30px;">
+          <div class="pred-slct-head">Information</div>
+          <div id="about-text" align="justify">
+            <p>Tide predictions are calculated based on harmonic analysis of the hourly water levels measured during the <a href="https://uhslc.soest.hawaii.edu/stations/datums#stat">Station Datum Epoch</a>. That is, observations of the past are used to
+              predict the future. While called <i>predictions</i>, the tidal calendars are extremely deterministic many years into the future. Astronomical knowledge (relative positions of the Earth-Moon-Sun) provides information about the gravitational
+              pull on the oceans, which forces most of the tidal cycles.</p>
+            <p>We update the span of tide calendars on a yearly basis to cover the previous and future couple of years. Graphical calendars from the early months include observed water levels overlaid on the prediction, which gives a sense of how well the
+              tide prediction performed in the past. </p>
+
+          </div>
+        </div>
+        <div style="width: 310px; float: left; margin-top: 30px;">
+          <div class="pred-slct-head">Details</div>
+          <div id="about-text" align="justify">
+            <p>Tidal harmonics and the associated predicted future water levels are calculated using the <a href="http://www.po.gso.uri.edu/~codiga/utide/utide.htm">Unified Tidal Analysis and Prediction “UTide”</a> procedure. Harmonic analysis is performed
+              over the Station Datum Epoch, which is ideally 19-years to cover a full lunar nodal cycle; however, useful tide predictions are often achieved using water level records as short as two years. Our tide predictions are based on 68 harmonic
+              constituents, which include the annual, semi-annual, and nodal (18.6 year wobble of the Moon’s orbit around the Earth) cycles.</p>
+            <p> For more information about how these predictions were calculated, please contact <a href="mailto:mwidlans@hawaii.edu">Matthew Widlansky</a>.</p>
+
+          </div>
+        </div>
+
+        <div style="width: 310px; float: left; margin-top: 30px;">
+          <div class="pred-slct-head">Stay up-to-date</div>
+          <div id="about-text">
+            <p>To receive updates when the latest tide predictions are generated, subscribe to our email updates. To subscribe, send an email to: <a href="mailto:tide-grp+subscribe@hawaii.edu">tide-grp+subscribe@hawaii.edu</a>.</p>
+          </div>
+        </div>
+      </div>
+      <!-- end right side -->
+
     </div>
-    <!-- end .row -->
+    <!-- end tab2 -->
+
+    <!-- tab3: datums -->
+    <div id="datums" style="min-height: 800px;">
+      <div class="col-sm-8" id="datumtable"></div>
+      <div class="col-sm-4" id="datumgraphic"></div>
+    </div>
+    <!-- end tab3 -->
+
+  </div>
+  <!-- end #tabs -->
+  <hr>
+  <footer>
+    <p><strong>Disclaimer: The Station Explorer is a <i>research</i> product.</strong> The data are provided free of charge without warranty of any kind. <a href="https://uhslc.soest.hawaii.edu/">UHSLC</a> requests that attribution be given whenever the
+      <a href="https://uhslc.soest.hawaii.edu/stations/">Station Explorer</a> material is reproduced and re-disseminated.</p>
+  </footer>
+  </div>
+  <!-- end .row -->
 
   </div>
   <!-- end .container-fluid -->
