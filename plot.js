@@ -10,8 +10,7 @@ function plotData(_stn) {
       //   console.log("Data for this station not found");
       //   return
       // }
-      function unpack(rows, key, unit, datum) {
-        console.log("Called");
+      function unpack(rows, key, unit, datum,ml,mh,lst) {
         if (err) {
           Plotly.purge("tideplot1");
           Plotly.purge("tideplot2");
@@ -26,7 +25,12 @@ function plotData(_stn) {
             row[key] = "NaN";
           if (key === "Time") {
             return row[key] + ":00";
-          } else {
+          }
+          // if seeking datum or time zone value return the value so the "else" portion is not executed
+          if (key === "MHHW_NTDE" || key === "MLLW_NTDE" || key === "time_zone") {
+            return row[key];
+          }
+          else {
             if (unit.innerHTML === DEFAULT_VALUES.unit && datum.innerHTML === DEFAULT_VALUES.datum) {
               //Do nothing
               // console.log("NO conversion on station change");
@@ -36,21 +40,13 @@ function plotData(_stn) {
               // console.log("Convert only units on station change");
               return row[key] * 0.0328084;
             } else if (unit.innerHTML === DEFAULT_VALUES.unit && datum.innerHTML != DEFAULT_VALUES.datum) {
-              // console.log("Convert only datum on station change");
-              return row[key];
+                  return (row[key]*1+(ml-mh));
             } else {
               // console.log("Convert both units and datum on station change");
-                return row[key] * 0.0328084;
+                return (row[key]*1+(ml-mh)) * 0.0328084;
             }
           }
 
-
-
-
-          // if (key === "Time")
-          //   return row[key] + ":00";
-          // else
-          //   return row[key];
         });
       }
 
@@ -67,29 +63,32 @@ function plotData(_stn) {
       }
       var currentUnit = document.getElementById("unitToggle");
       var currentDatum = document.getElementById("datumToggle");
-      var yLabel1,yLabel2 = "";
+      var unitYlabel = getLabels(currentUnit,currentDatum).unit;
+      var datumYlabel = getLabels(currentUnit,currentDatum).datum;
+      var yLabel1='Relative water level ('+unitYlabel+', '+datumYlabel+')';
+      var yLabel2='Relative water level ('+unitYlabel+')';
+
+
+      var MLLW = parseFloat (unpack(rows, 'MLLW_NTDE',currentUnit,currentDatum)[0]);
+      var MHHW = parseFloat(unpack(rows, 'MHHW_NTDE',currentUnit,currentDatum)[0]);
+      var time_zone =  parseFloat(unpack(rows, 'time_zone',currentUnit,currentDatum)[0]);
+
       // There is no need to unpack time vector for every tracer
       // because it is the same for each tracer
-      timeVector = unpack(rows, 'Time', currentUnit, currentDatum);
-      if (currentUnit.innerHTML==="Metric")
-        {
-          yLabel1='Relative water level (cm, MLLW)';
-          yLabel2='Relative water level (cm)';
-        }
-        else {
-          yLabel1='Relative water level (ft, MLLW)';
-          yLabel2='Relative water level (ft)';
-        }
+      timeVector = unpack(rows, 'Time', currentUnit, currentDatum, MLLW, MHHW, time_zone);
+
+
       var trace1 = {
         type: "scatter",
         mode: "lines",
         name: 'Tidal prediction',
         x: timeVector,
-        y: unpack(rows, 'Prediction', currentUnit, currentDatum),
+        y: unpack(rows, 'Prediction', currentUnit, currentDatum, MLLW, MHHW, time_zone),
         line: {
           color: 'rgb(86, 180, 233)'
         }
       }
+
       // console.log("Time "+ unpack(rows, 'Time'));
       // console.log("type of time/date "+ typeof (unpack(rows, 'Time')[0]));
       // console.log("T_ZONE "+ unpack(rows, 'time_zone')[0]);
@@ -98,7 +97,7 @@ function plotData(_stn) {
         mode: "lines",
         name: 'Tide gauge observation',
         x: timeVector,
-        y: unpack(rows, 'Observation', currentUnit, currentDatum),
+        y: unpack(rows, 'Observation', currentUnit, currentDatum, MLLW, MHHW, time_zone),
         line: {
           color: 'rgb(213, 94, 0)'
         }
@@ -109,7 +108,7 @@ function plotData(_stn) {
         mode: "lines",
         name: 'Residual (observation minus tide)',
         x: timeVector,
-        y: unpack(rows, 'Residual', currentUnit, currentDatum),
+        y: unpack(rows, 'Residual', currentUnit, currentDatum, MLLW, MHHW, time_zone),
         line: {
           color: 'rgb(0, 158, 115)'
         }
@@ -121,7 +120,7 @@ function plotData(_stn) {
         mode: "lines",
         name: 'Extreme low (5%)',
         x: timeVector,
-        y: unpack(rows, 'ExtremeLow', currentUnit, currentDatum),
+        y: unpack(rows, 'ExtremeLow', currentUnit, currentDatum, MLLW, MHHW, time_zone),
         line: {
           color: 'rgb(0, 0, 0)',
           dash: 'dashdot'
@@ -133,7 +132,7 @@ function plotData(_stn) {
         mode: "lines",
         name: 'Extreme high (5%)',
         x: timeVector,
-        y: unpack(rows, 'ExtremeHigh', currentUnit, currentDatum),
+        y: unpack(rows, 'ExtremeHigh', currentUnit, currentDatum, MLLW, MHHW, time_zone),
         line: {
           color: 'rgb(0, 0, 0)',
           dash: 'dashdot'
@@ -290,27 +289,30 @@ function plotData(_stn) {
         else {
           currentDatum.innerHTML = "MLLW";
         }
+        updatePlot(currentUnit,currentDatum);
       });
 
       function updatePlot(unit, datum) {
         var columns = ["Prediction", "Observation", "Residual", "ExtremeLow", "ExtremeHigh"];
+        unitYlabel = getLabels(currentUnit,currentDatum).unit;
+        datumYlabel = getLabels(currentUnit,currentDatum).datum;
 
         for (var i = 0; i < columns.length; i++) {
           var update = {
-            y: [unpack(rows, columns[i], unit, datum)]
+            y: [unpack(rows, columns[i], unit, datum, MLLW, MHHW, time_zone)]
           };
           var layout_update = {
             yaxis: {
-              title: 'Relative water level (ft, MLLW)',
+              title: 'Relative water level ('+unitYlabel+', '+datumYlabel+')',
               autorange: true,
               range: [0, 1000],
               type: 'linear',
             }
           };
-          layout_update.yaxis.title = "Relative water level (ft, MLLW)";
+          // layout_update.yaxis.title = "Relative water level (ft, MLLW)";
           Plotly.update('tideplot1', update, layout_update, [i]);
           if (columns[i] === "Residual") {
-            layout_update.yaxis.title = "Relative water level (ft)";
+            layout_update.yaxis.title = 'Relative water level ('+unitYlabel+')';
             Plotly.update('tideplot2', update, layout_update, [0]);
           }
         }
@@ -324,3 +326,43 @@ function plotData(_stn) {
   )
 
 };
+
+function getLabels(unit,datum){
+  var combo="";
+  var unt = "cm";
+  var dtm = "MLLW";
+  if (unit.innerHTML === DEFAULT_VALUES.unit && datum.innerHTML === DEFAULT_VALUES.datum)
+    //Metric + MLLW
+      {
+        combo = "ML";
+        unt = "cm";
+        dtm = "MLLW";
+      }
+  else if (unit.innerHTML != DEFAULT_VALUES.unit && datum.innerHTML === DEFAULT_VALUES.datum)
+    //English units + MLLW
+      {
+        combo = "EL";
+        unt = "ft";
+        dtm = "MLLW";
+      }
+  else if (unit.innerHTML === DEFAULT_VALUES.unit && datum.innerHTML != DEFAULT_VALUES.datum)
+    //Metric + MHHW
+      {
+        combo = "MH";
+        unt = "cm";
+        dtm = "MHHW";
+      }
+  else
+    // English + MHHW
+      {
+        combo = "EH";
+        unt = "ft";
+        dtm = "MHHW";
+      }
+  var result = {
+    "unit":unt,
+    "datum":dtm
+  }
+  return result;
+
+}
