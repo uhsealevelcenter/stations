@@ -70,13 +70,15 @@ $("#tabs").on( "tabsactivate", function(event, ui) {
  var element = document.body;
  element.scrollTop = 0
 });
-
+$('[data-toggle="tooltip"]').tooltip();
 // prepare the form when the DOM is ready
 $(document).ready(function() {
-// Sharing the same HTML element between all tabs  
+// Sharing the same HTML element between all tabs
 $metaBox = $("#metaBox");
 $metaBox.addClass("ui-tabs-panel-meta");
 $metaBox.show();
+// Activate the bootstrap tooltip fpr buttons
+$('[data-toggle="tooltip"]').tooltip();
   // automagically resize tab content div
   $("#tabs").tabs().css({
     // 'min-height': '400px',

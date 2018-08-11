@@ -24,7 +24,12 @@ function plotData(_stn) {
           if (row[key] == "")
             row[key] = "NaN";
           if (key === "Time") {
-            return row[key] + ":00";
+            row[key]=row[key]+ ":00Z";
+            var date = new Date(row[key]);
+            date.setHours(date.getHours()+lst);
+            return date.toISOString();
+            // return row[key];
+
           }
           // if seeking datum or time zone value return the value so the "else" portion is not executed
           if (key === "MHHW_NTDE" || key === "MLLW_NTDE" || key === "time_zone") {
@@ -73,10 +78,13 @@ function plotData(_stn) {
       var MHHW = parseFloat(unpack(rows, 'MHHW_NTDE',currentUnit,currentDatum)[0]);
       var time_zone =  parseFloat(unpack(rows, 'time_zone',currentUnit,currentDatum)[0]);
 
+      var currentTZ = document.getElementById("timeToggle");
+
+
       // There is no need to unpack time vector for every tracer
       // because it is the same for each tracer
-      timeVector = unpack(rows, 'Time', currentUnit, currentDatum, MLLW, MHHW, time_zone);
-
+      var timeVector = unpack(rows, 'Time', currentUnit, currentDatum, MLLW, MHHW, time_zone);
+      console.log(time_zone);
 
       var trace1 = {
         type: "scatter",
@@ -273,21 +281,27 @@ function plotData(_stn) {
       // }
 
       // On button click station behavior
-      $('.units button').unbind().click(function() {
+      $( "#unitToggle" ).off().on('click',function() {
+
         if (currentUnit.innerHTML === "Metric") {
+        $( "#unitToggle" ).attr('tooltip', "Change to Metric");
           currentUnit.innerHTML = "English";
         } else if (currentUnit.innerHTML === "English") {
           currentUnit.innerHTML = "Metric";
+          $( "#unitToggle" ).attr('tooltip', "Change to English");
         }
           updatePlot(currentUnit,currentDatum);
-      });
+});
 
-      $('.datum button').unbind().click(function() {
+      $('#datumToggle').off().on('click',function() {
         // console.log(currentDatum.innerHTML);
-        if (currentDatum.innerHTML === "MLLW")
+        if (currentDatum.innerHTML === "MLLW"){
           currentDatum.innerHTML = "MHHW";
+          $( "#datumToggle" ).attr('tooltip', "Change to MLLW");
+        }
         else {
           currentDatum.innerHTML = "MLLW";
+          $( "#datumToggle" ).attr('tooltip', "Change to MHHW");
         }
         updatePlot(currentUnit,currentDatum);
       });

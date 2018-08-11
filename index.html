@@ -40,10 +40,15 @@
         <div id="levels">
           <div class="units" style="display: inline;">
             <!-- <button class="btn" id="datumToggle">MLLW</button> -->
-            <button class="btn" id="unitToggle">Metric</button>
+            <button class="btn" id="unitToggle" style="width:80px; " tooltip="Change unit">Metric</button>
           </div>
           <div class="datum" style="display: inline;">
-            <button class="btn" id="datumToggle">MLLW</button>
+            <!-- <button class="btn" id="datumToggle" style="width:80px;"  data-toggle="tooltip" title="Change datum">MLLW</button> -->
+            <button class="btn" id="datumToggle" style="width:80px;" tooltip="Change datum"> MLLW </button>
+          </div>
+          <div class="time" style="display: inline;">
+            <button class="btn" id="timeToggle" style="width:80px;" tooltip="Change time-zone">GMT</button>
+
           </div>
           <div id="tideplot1"></div>
           <div id="tideplot2"></div>
