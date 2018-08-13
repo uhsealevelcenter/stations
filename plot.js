@@ -29,6 +29,8 @@ function plotData(_stn) {
               // Don't add :00Z if it is already there
               if (!row[key].includes(":"))
                 row[key] = row[key] + ":00Z";
+              if (row[key].includes(" "))
+                row[key]=row[key].replace(" ", "T");
               var date = new Date(row[key]);
               date.setHours(date.getHours() + lst);
               return date.toISOString();
