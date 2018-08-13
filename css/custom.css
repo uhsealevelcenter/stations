@@ -300,6 +300,9 @@ th, td {
     color: black;
 } */
 
+/**********************************************************************/
+/************************ UNIT CONVERSION TOOLTIPS *******************/
+/********************************************************************/
 [tooltip]{
   margin:5px 5px;
   position:relative;
@@ -327,7 +330,7 @@ th, td {
 [tooltip-position='top']::before{
   left:50%;
 }
-[tooltip-position='buttom']::before{
+[tooltip-position='bottom']::before{
   top:100%;
   margin-top:8px;
   transform: translateX(-50%) translatey(-100%) rotate(-180deg)
@@ -367,7 +370,7 @@ th, td {
 [tooltip-position='top']::after{
   left:50%;
 }
-[tooltip-position='buttom']::after{
+[tooltip-position='bottom']::after{
   top:100%;
   margin-top:8px;
   transform: translateX(-50%) translateY(0%);
@@ -381,4 +384,9 @@ th, td {
 
 [tooltip]:hover::after,[tooltip]:hover::before {
    opacity:1
+}
+
+.btn:focus,.btn:active {
+   outline: none !important;
+   box-shadow: none;
 }
