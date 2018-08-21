@@ -8,6 +8,8 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.0/css/bootstrap-datepicker.min.css" />
   <link rel="stylesheet" href="css/custom.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+
 </head>
 
 <body>
@@ -38,7 +40,10 @@
         </div>
         <!-- tab1: interactive water level time series -->
         <div id="levels">
-          <div class="units" style="display: none;">
+          <input class="toggleclass" id="unitToggle" type="checkbox"  data-toggle="toggle" data-on="English" data-off="Metric">
+          <input class="toggleclass" id="datumToggle" type="checkbox"  data-toggle="toggle" data-on="MHHW" data-off="MLLW">
+          <input id="timeToggle" type="checkbox" data-toggle="toggle" data-on="LST" data-off="GMT">
+          <!-- <div class="units" style="display: inline;">
             <button class="btn" id="unitToggle" style="width:80px; " tooltip="Change unit" tooltip-position="bottom">Metric</button>
           </div>
           <div class="datum" style="display: none;">
@@ -46,7 +51,7 @@
           </div>
           <div class="time" style="display: inline;">
             <button class="btn" id="timeToggle" style="width:80px;" tooltip="Change time-zone" tooltip-position="bottom">GMT</button>
-          </div>
+          </div>-->
           <div id="tideplot1"></div>
           <div id="tideplot2"></div>
           <hr>
@@ -104,8 +109,8 @@
         <div style="width: 90px; float:left; margin-left: 20px">
           <!-- <div class="pred-slct-head">Units</div> -->
           <ul class="nav nav-pills nav-stacked cal-pills cal-units-pills">
-            <li class="active"><a data-toggle="pill" href="#">Metric</a></li>
-            <li class="disabled"><a data-toggle="pill" href="#">English</a></li>
+            <li class="active"><a data-toggle="pill" >Metric</a></li>
+            <li class="disabled"><a data-toggle="pill" >English</a></li>
           </ul>
         </div>
         <div style="width: 310px; float: left; margin-top: 30px;">
@@ -166,6 +171,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
   <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.0/js/bootstrap-datepicker.min.js"></script>

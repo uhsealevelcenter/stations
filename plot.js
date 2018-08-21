@@ -1,9 +1,3 @@
-DEFAULT_VALUES = {
-  unit: "Metric",
-  tzone: "GMT",
-  datum: "MLLW"
-}
-
 function plotData(_stn) {
   Plotly.d3.csv(URL_pre + "RAPID/" + _stn + ".csv", function(err, rows) {
       // if(err & err.status==404){
@@ -24,13 +18,13 @@ function plotData(_stn) {
           if (row[key] == "")
             row[key] = "NaN";
           if (key === "Time") {
-            if (tz.innerHTML !== DEFAULT_VALUES.tzone) {
+            if (!tz) {
               // The file that is being loaded is not in ISO format. Adding :00Z to hours for GMT converts to ISO so that we can manipualte the date later
               // Don't add :00Z if it is already there
               if (!row[key].includes(":"))
                 row[key] = row[key] + ":00Z";
               if (row[key].includes(" "))
-                row[key]=row[key].replace(" ", "T");
+                row[key] = row[key].replace(" ", "T");
               var date = new Date(row[key]);
               date.setHours(date.getHours() + lst);
               return date.toISOString();
@@ -41,15 +35,16 @@ function plotData(_stn) {
           if (key === "MHHW_NTDE" || key === "MLLW_NTDE" || key === "time_zone") {
             return row[key];
           } else {
-            if (unit.innerHTML === DEFAULT_VALUES.unit && datum.innerHTML === DEFAULT_VALUES.datum) {
+            if (unit && datum) {
               //Do nothing
               // console.log("NO conversion on station change");
               return row[key];
-            } else if (unit.innerHTML != DEFAULT_VALUES.unit && datum.innerHTML === DEFAULT_VALUES.datum) {
+            } else if (!unit && datum) {
               //convert units to english with default datum
               // console.log("Convert only units on station change");
               return row[key] * 0.0328084;
-            } else if (unit.innerHTML === DEFAULT_VALUES.unit && datum.innerHTML != DEFAULT_VALUES.datum) {
+            } else if (unit && !datum) {
+              // console.log("Convert only datum on station change");
               return (row[key] * 1 + (ml - mh));
             } else {
               // console.log("Convert both units and datum on station change");
@@ -71,12 +66,15 @@ function plotData(_stn) {
           }
         });
       }
-      var currentUnit = document.getElementById("unitToggle");
-      var currentDatum = document.getElementById("datumToggle");
-      var currentTZ = document.getElementById("timeToggle");
 
-      var unitYlabel = getLabels(currentUnit, currentDatum).unit;
-      var datumYlabel = getLabels(currentUnit, currentDatum).datum;
+      // Negated because I want the toggle button to be gray (off) by default
+      // and also want the "off" state to indicate default values
+      var currentUnit = !$('#unitToggle').prop("checked");
+      var currentDatum = !$('#datumToggle').prop("checked");
+      var currentTZ = !$('#timeToggle').prop("checked");
+
+      var unitYlabel = getYLabel(currentUnit, currentDatum).unit;
+      var datumYlabel = getYLabel(currentUnit, currentDatum).datum;
       var yLabel1 = 'Relative water level (' + unitYlabel + ', ' + datumYlabel + ')';
       var yLabel2 = 'Relative water level (' + unitYlabel + ')';
 
@@ -84,9 +82,7 @@ function plotData(_stn) {
       var MLLW = parseFloat(unpack(rows, 'MLLW_NTDE', currentUnit, currentDatum)[0]);
       var MHHW = parseFloat(unpack(rows, 'MHHW_NTDE', currentUnit, currentDatum)[0]);
       var LST = parseFloat(unpack(rows, 'time_zone', currentUnit, currentDatum)[0]);
-
-      var currentTZ = document.getElementById("timeToggle");
-      var xLabel = "Time/Date " + '(' + currentTZ.innerHTML + ')';
+      var xLabel = getXLabel(currentTZ, LST);
 
       // There is no need to unpack time vector for every tracer
       // because it is the same for each tracer
@@ -275,47 +271,20 @@ function plotData(_stn) {
       $("#product_desc").show();
 
       // On button click station behavior
-
-      $("#unitToggle").off().on('click', function() {
-
-        if (currentUnit.innerHTML === "Metric") {
-          $("#unitToggle").attr('tooltip', "Change to Metric");
-          currentUnit.innerHTML = "English";
-        } else if (currentUnit.innerHTML === "English") {
-          currentUnit.innerHTML = "Metric";
-          $("#unitToggle").attr('tooltip', "Change to English");
-        }
-        updatePlotData(currentUnit, currentDatum);
+      $(".toggleclass").off().on('change', function() {
+        // Negated because I want the toggle button to be gray (off) by default
+        // and also want the "off" state to indicate default values
+        updatePlotData(!$('#unitToggle').prop("checked"), !$('#datumToggle').prop("checked"));
       });
-
-      $('#datumToggle').off().on('click', function() {
-        // console.log(currentDatum.innerHTML);
-        if (currentDatum.innerHTML === "MLLW") {
-          currentDatum.innerHTML = "MHHW";
-          $("#datumToggle").attr('tooltip', "Change to MLLW");
-        } else {
-          currentDatum.innerHTML = "MLLW";
-          $("#datumToggle").attr('tooltip', "Change to MHHW");
-        }
-        updatePlotData(currentUnit, currentDatum);
-      });
-
-      $('#timeToggle').off().on('click', function() {
-        // console.log(currentDatum.innerHTML);
-        if (currentTZ.innerHTML === "GMT") {
-          currentTZ.innerHTML = "LST";
-          $("#timeToggle").attr('tooltip', "Change to GMT");
-        } else {
-          currentTZ.innerHTML = "GMT";
-          $("#timeToggle").attr('tooltip', "Change to LST");
-        }
-        updateTime(currentTZ);
+      $("#timeToggle").off().on('change', function() {
+        updateTime(!$('#timeToggle').prop("checked"));
       });
 
       function updatePlotData(unit, datum) {
+
         var columns = ["Prediction", "Observation", "Residual", "ExtremeLow", "ExtremeHigh"];
-        unitYlabel = getLabels(currentUnit, currentDatum).unit;
-        datumYlabel = getLabels(currentUnit, currentDatum).datum;
+        unitYlabel = getYLabel(unit, datum).unit;
+        datumYlabel = getYLabel(unit, datum).datum;
 
         for (var i = 0; i < columns.length; i++) {
           var update = {
@@ -336,10 +305,12 @@ function plotData(_stn) {
             Plotly.update('tideplot2', update, layout_update, [0]);
           }
         }
+
+
       }
 
       function updateTime(tz) {
-        var xLabel = "Time/Date " + '(' + tz.innerHTML + ')';
+        var xLabel = getXLabel(tz, LST);
         var tv = {
           x: [unpack(rows, 'Time', currentUnit, currentDatum, MLLW, MHHW, LST, tz)]
         };
@@ -385,23 +356,23 @@ function plotData(_stn) {
 
 };
 
-function getLabels(unit, datum) {
+function getYLabel(unit, datum) {
   var combo = "";
   var unt = "cm";
   var dtm = "MLLW";
-  if (unit.innerHTML === DEFAULT_VALUES.unit && datum.innerHTML === DEFAULT_VALUES.datum)
+  if (unit && datum)
   //Metric + MLLW
   {
     combo = "ML";
     unt = "cm";
     dtm = "MLLW";
-  } else if (unit.innerHTML != DEFAULT_VALUES.unit && datum.innerHTML === DEFAULT_VALUES.datum)
+  } else if (!unit && datum)
   //English units + MLLW
   {
     combo = "EL";
     unt = "ft";
     dtm = "MLLW";
-  } else if (unit.innerHTML === DEFAULT_VALUES.unit && datum.innerHTML != DEFAULT_VALUES.datum)
+  } else if (unit && !datum)
   //Metric + MHHW
   {
     combo = "MH";
@@ -421,3 +392,16 @@ function getLabels(unit, datum) {
   return result;
 
 }
+ function getXLabel(selection,lst){
+   var xLabel ="";
+   // Format the LST variable so that when it is negative there is a space between the minus sign and the number and
+   // when it is positive add the "+" sign and a space
+   var time_zone_str = lst >= 0 ? '+ '+lst.toString() : [lst.toString().slice(0, 1), " ", lst.toString().slice(1)].join('');
+   if (selection){
+     xLabel = "Time/Date " + '(' + "GMT" + ')';
+   }else{
+     xLabel = "Time/Date " + '(' + "LST" + ' = GMT '+time_zone_str+'hr)';
+   }
+
+   return xLabel;
+ }
