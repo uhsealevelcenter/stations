@@ -288,13 +288,18 @@ function plotData(_stn) {
         datumYlabel = getYLabel(unit, datum).datum;
 
         for (var i = 0; i < columns.length; i++) {
+          var update = {};
           // specifying true for datum because residual should not be scaled
           if (columns[i] === "Residual") {
-            datum = true;
-          }
-          var update = {
+            update = {
+             y: [unpack(rows, columns[i], unit, true, MLLW, MHHW, LST)]
+           };
+         }else{
+           update = {
             y: [unpack(rows, columns[i], unit, datum, MLLW, MHHW, LST)]
           };
+         }
+
           var layout_update = {
             yaxis: {
               title: 'Relative water level (' + unitYlabel + ', ' + datumYlabel + ')',
