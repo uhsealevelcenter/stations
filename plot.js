@@ -119,7 +119,8 @@ function plotData(_stn) {
         mode: "lines",
         name: 'Residual (observation minus tide)',
         x: timeVector,
-        y: unpack(rows, 'Residual', currentUnit, currentDatum, MLLW, MHHW, LST),
+        // specifying true for datum because residual should not be scaled
+        y: unpack(rows, 'Residual', currentUnit, true, MLLW, MHHW, LST),
         line: {
           color: 'rgb(0, 158, 115)'
         }
@@ -287,6 +288,10 @@ function plotData(_stn) {
         datumYlabel = getYLabel(unit, datum).datum;
 
         for (var i = 0; i < columns.length; i++) {
+          // specifying true for datum because residual should not be scaled
+          if (columns[i] === "Residual") {
+            datum = true;
+          }
           var update = {
             y: [unpack(rows, columns[i], unit, datum, MLLW, MHHW, LST)]
           };
