@@ -3,6 +3,11 @@ body {
     font-family: Arial, Helvetica, sans-serif, sans-serif;
     margin-top: -20px;
 }
+
+html {
+  overflow-y: scroll;
+}
+
 .container-fluid {
   max-width: 1100px !important;
   margin: auto !important;
@@ -117,7 +122,7 @@ h3.sectionTitle {
 .ui-tabs-panel {
     border: solid 1px #ddd !important;
     border-top: 0 !important;
-    padding: 25px 25px !important;
+    /* padding: 25px 25px !important; */
 }
 
 .ui-tabs-panel p {
@@ -188,7 +193,7 @@ div#levels.ui-tabs-panel {
     margin-bottom: 25px;
 }
 .cal-format-pills li {
-    width: 50%;
+    width: 33.3%;
     margin: 0 !important;
 }
 
@@ -225,7 +230,7 @@ div#levels.ui-tabs-panel {
 }
 .dwnld-btn {
   position: absolute;
-  left: 615px;
+  left: 665px;
 }
 
 #datepicker {
@@ -239,6 +244,10 @@ div#levels.ui-tabs-panel {
   width: auto;
   margin: 0 auto;
 }
+.datepicker td, .datepicker th {
+  width: 25%;
+}
+
 #about-text {
   border: solid 1px #eee;
   padding: 13px 20px;
@@ -292,7 +301,8 @@ th, td {
 .ui-tabs-panel-meta {
   border: solid 1px #ddd;
   border-bottom: 0;
-  padding: 25px 25px !important;
+  padding: 10px 25px 1px 25px!important;
+  margin-bottom: -20px;
 }
 
 /* #datumtable tr {
@@ -301,92 +311,16 @@ th, td {
 } */
 
 /**********************************************************************/
-/************************ UNIT CONVERSION TOOLTIPS *******************/
+/************************ UNIT TOGGLE BUTTONS *******************/
 /********************************************************************/
-[tooltip]{
-  margin:5px 5px;
-  position:relative;
-  display:inline-block;
-}
-[tooltip]::before {
-    content: "";
-    position: absolute;
-    top:-6px;
-    left:50%;
-    transform: translateX(-50%);
-    border-width: 4px 6px 0 6px;
-    border-style: solid;
-    border-color: rgba(0,0,0,0.7) transparent transparent     transparent;
-    z-index: 99;
-    opacity:0;
-}
+.toggle.android {
+   border-radius: 0px;
+   margin: 2px;
 
-[tooltip-position='left']::before{
-  left:0%;
-  top:50%;
-  margin-left:-12px;
-  transform:translatey(-50%) rotate(-90deg)
-}
-[tooltip-position='top']::before{
-  left:50%;
-}
-[tooltip-position='bottom']::before{
-  top:100%;
-  margin-top:8px;
-  transform: translateX(-50%) translatey(-100%) rotate(-180deg)
-}
-[tooltip-position='right']::before{
-  left:100%;
-  top:50%;
-  margin-left:1px;
-  transform:translatey(-50%) rotate(90deg)
-}
+ }
 
-[tooltip]::after {
-    content: attr(tooltip);
-    position: absolute;
-    left:50%;
-    top:-6px;
-    transform: translateX(-50%)   translateY(-100%);
-    background: rgba(0,0,0,0.7);
-    text-align: center;
-    color: #fff;
-    padding:4px 2px;
-    font-size: 12px;
-    min-width: 80px;
-    border-radius: 5px;
-    pointer-events: none;
-    padding: 4px 4px;
-    z-index:99;
-    opacity:0;
-}
+ .toggle.android .toggle-handle {
+    border-radius: 0px;
+  }
 
-[tooltip-position='left']::after{
-  left:0%;
-  top:50%;
-  margin-left:-8px;
-  transform: translateX(-100%)   translateY(-50%);
-}
-[tooltip-position='top']::after{
-  left:50%;
-}
-[tooltip-position='bottom']::after{
-  top:100%;
-  margin-top:8px;
-  transform: translateX(-50%) translateY(0%);
-}
-[tooltip-position='right']::after{
-  left:100%;
-  top:50%;
-  margin-left:8px;
-  transform: translateX(0%)   translateY(-50%);
-}
-
-[tooltip]:hover::after,[tooltip]:hover::before {
-   opacity:1
-}
-
-.btn:focus,.btn:active {
-   outline: none !important;
-   box-shadow: none;
-}
+  .toggle.ios, .toggle-on.ios, .toggle-off.ios { border-radius: 20px; }

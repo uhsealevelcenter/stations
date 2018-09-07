@@ -29,6 +29,28 @@ function loadtabs(stn, date) {
       }
     }
   });
+  $.getJSON("https://uhslc.soest.hawaii.edu/data/meta.geojson", function(data){
+    var metadata = data;
+    $("#metaName").html(metadata.features[findIndexByStnID(metadata, parseInt(stn))].properties.name);
+    $("#metaCountry").html(metadata.features[findIndexByStnID(metadata, parseInt(stn))].properties.country);
+    $("#metaUHID").html(metadata.features[findIndexByStnID(metadata, parseInt(stn))].properties.uhslc_id);
+    $("#glossID").html(metadata.features[findIndexByStnID(metadata, parseInt(stn))].properties.gloss_id);
+    $("#metaLoc").html(metadata.features[findIndexByStnID(metadata, parseInt(stn))].geometry.coordinates);
+}).done(function() {
+   // request succeeded
+ })
+.fail(function(jqXHR, textStatus, errorThrown) {
+  alert('getJSON request failed! ' + textStatus);
+  $("#metaCountry").html(textStatus + errorThrown);
+})
+.always(function() {
+  // request ended
+});
+function findIndexByStnID(jsonobj, stnID) {
+  return jsonobj.features.findIndex(function(item, i) {
+    return item.properties.uhslc_id === stnID;
+  });
+}
 }
 
 function loadTide(stn, date) {
@@ -54,31 +76,33 @@ $(".tab-list").fadeIn(500);
 
 // Display a tab based on tab anchor
 // e,g ...#datumtab
-if(window.location.hash)
+if (window.location.hash)
   document.getElementById(window.location.hash.split('#')[1]).click();
 else {
   document.getElementById("defaultTab").click();
 }
-
+// Control Display of Unit conversion buttons based on tabs
+unitButtonsController(window.location.hash);
 // adds an anchor to the URL on tab change
-$("#tabs").on( "tabsactivate", function(event, ui) {
- window.location.hash = ui.newPanel.attr('id');
- // NK 7/31/18
- // On tab change if the tab content is not within the view the page scrolls down a bit
- // This probably has to do something with jqeury UI used for tabs. For now, I
- // am setting the page scroll back to 0 so the page doesn't jump on tab change
- var element = document.body;
- element.scrollTop = 0
+$("#tabs").on("tabsactivate", function(event, ui) {
+  window.location.hash = ui.newPanel.attr('id');
+  // NK 7/31/18
+  // On tab change if the tab content is not within the view the page scrolls down a bit
+  // This probably has to do something with jqeury UI used for tabs. For now, I
+  // am setting the page scroll back to 0 so the page doesn't jump on tab change
+  var element = document.body;
+  element.scrollTop = 0
+  // Control Display of Unit conversion buttons based on tabs
+  unitButtonsController(window.location.hash);
 });
-$('[data-toggle="tooltip"]').tooltip();
+
 // prepare the form when the DOM is ready
 $(document).ready(function() {
-// Sharing the same HTML element between all tabs
-$metaBox = $("#metaBox");
-$metaBox.addClass("ui-tabs-panel-meta");
-$metaBox.show();
-// Activate the bootstrap tooltip fpr buttons
-$('[data-toggle="tooltip"]').tooltip();
+  // Sharing the same HTML element between all tabs
+  $metaBox = $("#metaBox");
+  $metaBox.addClass("ui-tabs-panel-meta");
+  $metaBox.show();
+
   // automagically resize tab content div
   $("#tabs").tabs().css({
     // 'min-height': '400px',
@@ -99,12 +123,12 @@ $('[data-toggle="tooltip"]').tooltip();
       var data = e.params.data;
       stn = data.id;
       // update the address bar when selection in the dropdown has changed
-      history.pushState(null, '', window.location.pathname+"?stn="+stn+window.location.hash);
+      history.pushState(null, '', window.location.pathname + "?stn=" + stn + window.location.hash);
       loadtabs(stn, getCurrentDate());
     });
 
     var url = window.location.href;
-    console.log("URL "+url);
+    console.log("URL " + url);
 
     // check if the url is a direct link and select the correct station in
     // the dropdown menu
@@ -117,7 +141,7 @@ $('[data-toggle="tooltip"]').tooltip();
     } else {
       stn = $("select").val();
       // Updated the address bar when first landing on page
-      history.pushState(null, '', window.location.pathname+"?stn="+DEF_STATION+window.location.hash);
+      history.pushState(null, '', window.location.pathname + "?stn=" + DEF_STATION + window.location.hash);
     }
 
     loadtabs(stn, getCurrentDate());
@@ -149,9 +173,23 @@ $('[data-toggle="tooltip"]').tooltip();
       };
 
     })(window.jQuery);
-
+    //Call date picker so that the current month is highlighted
+    $('#datepicker').datepicker('update', getCurrentDate());
     $(".select2").select2({
       searchInputPlaceholder: 'Search for a station...'
     });
   });
+
 });
+
+function unitButtonsController(hash){
+  if (hash === "#tidecal" || hash === "#datums")
+    {
+      $('#timeToggle').bootstrapToggle('disable');
+      $('#datumToggle').bootstrapToggle('disable');
+    }
+    else{
+      $('#timeToggle').bootstrapToggle('enable');
+      $('#datumToggle').bootstrapToggle('enable');
+    }
+}
