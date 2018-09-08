@@ -87,7 +87,6 @@ function plotData(_stn) {
       // There is no need to unpack time vector for every tracer
       // because it is the same for each tracer
       var timeVector = unpack(rows, 'Time', currentUnit, currentDatum, MLLW, MHHW, LST, currentTZ);
-      console.log(LST);
 
       var trace1 = {
         type: "scatter",
@@ -276,6 +275,7 @@ function plotData(_stn) {
         // Negated because I want the toggle button to be gray (off) by default
         // and also want the "off" state to indicate default values
         updatePlotData(!$('#unitToggle').prop("checked"), !$('#datumToggle').prop("checked"));
+        loadtabs(_stn, getCurrentDate());
       });
       $("#timeToggle").off().on('change', function() {
         updateTime(!$('#timeToggle').prop("checked"));

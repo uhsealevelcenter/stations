@@ -230,7 +230,8 @@ div#levels.ui-tabs-panel {
 }
 .dwnld-btn {
   position: absolute;
-  left: 665px;
+  left: 685px;
+  top:273px;
 }
 
 #datepicker {
@@ -301,7 +302,7 @@ th, td {
 .ui-tabs-panel-meta {
   border: solid 1px #ddd;
   border-bottom: 0;
-  padding: 10px 25px 1px 25px!important;
+  padding: 10px 30px 1px 25px!important;
   margin-bottom: -20px;
 }
 

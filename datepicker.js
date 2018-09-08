@@ -13,7 +13,6 @@ $('#datepicker').on('changeDate', function() {
   var date = $('#datepicker').datepicker('getFormattedDate').split("/")
   var formattedDate = date[1] + date[0];
   loadTide(stn, formattedDate);
-  console.log("datepicker on change called");
 });
 
 function getCurrentDate() {
