@@ -200,7 +200,7 @@ function plotData(_stn) {
         },
         margin: {
           l: 70,
-          r: 0, //105
+          r: 30, //105
           b: 40,
           t: 80,
           pad: 3
@@ -254,7 +254,7 @@ function plotData(_stn) {
         },
         margin: {
           l: 70,
-          r: 0, //105
+          r: 30, //105
           b: 40,
           t: 60,
           pad: 3
@@ -292,13 +292,13 @@ function plotData(_stn) {
           // specifying true for datum because residual should not be scaled
           if (columns[i] === "Residual") {
             update = {
-             y: [unpack(rows, columns[i], unit, true, MLLW, MHHW, LST)]
-           };
-         }else{
-           update = {
-            y: [unpack(rows, columns[i], unit, datum, MLLW, MHHW, LST)]
-          };
-         }
+              y: [unpack(rows, columns[i], unit, true, MLLW, MHHW, LST)]
+            };
+          } else {
+            update = {
+              y: [unpack(rows, columns[i], unit, datum, MLLW, MHHW, LST)]
+            };
+          }
 
           var layout_update = {
             yaxis: {
@@ -356,6 +356,15 @@ function plotData(_stn) {
         Plotly.update('tideplot1', tv, update);
         Plotly.update('tideplot2', tv, update);
       }
+      // window.onresize = function() {
+      //
+      //   var update = {
+      //     width: document.getElementById("tideplot1").offsetWidth, // or any new width
+      //   };
+      //
+      //   Plotly.relayout('tideplot1', update);
+      //   Plotly.relayout('tideplot2', update);
+      // };
     }
     // , function(error) {
     //   myerror = error;
@@ -402,16 +411,17 @@ function getYLabel(unit, datum) {
   return result;
 
 }
- function getXLabel(selection,lst){
-   var xLabel ="";
-   // Format the LST variable so that when it is negative there is a space between the minus sign and the number and
-   // when it is positive add the "+" sign and a space
-   var time_zone_str = lst >= 0 ? '+ '+lst.toString() : [lst.toString().slice(0, 1), " ", lst.toString().slice(1)].join('');
-   if (selection){
-     xLabel = "Time/Date " + '(' + "GMT" + ')';
-   }else{
-     xLabel = "Time/Date " + '(' + "LST" + ' = GMT '+time_zone_str+'hr)';
-   }
 
-   return xLabel;
- }
+function getXLabel(selection, lst) {
+  var xLabel = "";
+  // Format the LST variable so that when it is negative there is a space between the minus sign and the number and
+  // when it is positive add the "+" sign and a space
+  var time_zone_str = lst >= 0 ? '+ ' + lst.toString() : [lst.toString().slice(0, 1), " ", lst.toString().slice(1)].join('');
+  if (selection) {
+    xLabel = "Time/Date " + '(' + "GMT" + ')';
+  } else {
+    xLabel = "Time/Date " + '(' + "LST" + ' = GMT ' + time_zone_str + 'hr)';
+  }
+
+  return xLabel;
+}

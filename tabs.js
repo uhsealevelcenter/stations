@@ -41,8 +41,9 @@ function loadtabs(stn, date, unit = "_cm") {
     $("#metaCountry").html(metadata.features[findIndexByStnID(metadata, parseInt(stn))].properties.country);
     $("#metaUHID").html(metadata.features[findIndexByStnID(metadata, parseInt(stn))].properties.uhslc_id);
     $("#glossID").html(metadata.features[findIndexByStnID(metadata, parseInt(stn))].properties.gloss_id);
-    $("#metaLoc").html(metadata.features[findIndexByStnID(metadata, parseInt(stn))].geometry.coordinates);
-}).done(function() {
+    // $("#metaLAT").html(metadata.features[findIndexByStnID(metadata, parseInt(stn))].geometry.coordinates[1]+', '+ metadata.features[findIndexByStnID(metadata, parseInt(stn))].geometry.coordinates[0]);
+    $("#metaLAT").html(metadata.features[findIndexByStnID(metadata, parseInt(stn))].geometry.coordinates[1]);
+    $("#metaLONG").html(metadata.features[findIndexByStnID(metadata, parseInt(stn))].geometry.coordinates[0]);
    // request succeeded
  })
 .fail(function(jqXHR, textStatus, errorThrown) {
