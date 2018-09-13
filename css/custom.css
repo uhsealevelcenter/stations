@@ -144,6 +144,10 @@ div#levels.ui-tabs-panel {
     margin-top: -20px;
 }
 
+div#datums.ui-tabs-panel {
+    padding: 1em 1.35em 1em 1em;
+}
+
 .ui-tabs-tab {
     background: #f2f2f2 !important;
     border: 0 !important;
@@ -173,7 +177,7 @@ div#levels.ui-tabs-panel {
 }
 
 .ui-tabs .ui-tabs-nav .ui-tabs-anchor {
-    padding: 0.5em 1.3em;
+    padding: 0.5em 1.15em;
 }
 
 .cal-pills a {

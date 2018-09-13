@@ -210,6 +210,7 @@ function unitButtonsController(hash) {
 
 function populateMetaDataTables(stnID, jsondata) {
   var metadata = jsondata.features[findIndexByStnID(jsondata, parseInt(stnID))];
+  var basin = metadata.properties.rq_basin;
   $("#metaName").html(metadata.properties.name);
   $("#metaCountry").html(metadata.properties.country);
   $("#metaUHID").html(metadata.properties.uhslc_id);
@@ -227,27 +228,27 @@ function populateMetaDataTables(stnID, jsondata) {
   );
 
   $("#researchD").html(
-    "<a href=\"https://uhslc.soest.hawaii.edu/rqds/pacific/daily/d" + stnID + '.dat' + "\">" + ".dat" + "<\a>" +
-    "<a href=\"https://uhslc.soest.hawaii.edu/data/csv/rqds/pacific/daily/d" + stnID + '.csv' + "\">" + " .csv" + "<\a>" +
-    "<a href=\"https://uhslc.soest.hawaii.edu/data/netcdf/fast/daily/d" + stnID + '.nc' + "\">" + " .nc" + "<\a>" +
-    "<a href=\"https://uhslc.soest.hawaii.edu/woce/d" + stnID + '.nc' + "\">" + " .nc(old)" + "<\a>"
+    "<a href=\"https://uhslc.soest.hawaii.edu/rqds/"+basin+"/daily/d" + stnID + 'a.dat' + "\">" + ".dat" + "<\a>" +
+    "<a href=\"https://uhslc.soest.hawaii.edu/data/csv/rqds/"+basin+"/daily/d" + stnID + 'a.csv' + "\">" + " .csv" + "<\a>" +
+    "<a href=\"https://uhslc.soest.hawaii.edu/data/netcdf/rqds/"+basin+"/daily/d" + stnID + 'a.nc' + "\">" + " .nc" + "<\a>" +
+    "<a href=\"https://uhslc.soest.hawaii.edu/woce/d" + stnID + 'a.nc' + "\">" + " .nc(old)" + "<\a>"
   );
 
   // Populate #metaTable1 with links to data
   $("#fastH").html(
-    "<a href=\"https://uhslc.soest.hawaii.edu/woce/d" + stnID + '.dat' + "\">" + ".dat" + "<\a>" +
-    "<a href=\"https://uhslc.soest.hawaii.edu/data/csv/fast/daily/d" + stnID + '.csv' + "\">" + " .csv" + "<\a>" +
-    "<a href=\"https://uhslc.soest.hawaii.edu/data/netcdf/fast/daily/d" + stnID + '.nc' + "\">" + " .nc" + "<\a>" +
+    "<a href=\"https://uhslc.soest.hawaii.edu/woce/h" + stnID + '.dat' + "\">" + ".dat" + "<\a>" +
+    "<a href=\"https://uhslc.soest.hawaii.edu/data/csv/fast/hourly/h" + stnID + '.csv' + "\">" + " .csv" + "<\a>" +
+    "<a href=\"https://uhslc.soest.hawaii.edu/data/netcdf/fast/hourly/h" + stnID + '.nc' + "\">" + " .nc" + "<\a>" +
     "<a href=\"https://uhslc.soest.hawaii.edu/woce/d" + stnID + '.nc' + "\">" + " .nc(old)" + "<\a>"
   );
 
   $("#researchH").html(
-    "<a href=\"https://uhslc.soest.hawaii.edu/rqds/pacific/daily/d" + stnID + '.dat' + "\">" + ".dat" + "<\a>" +
-    "<a href=\"https://uhslc.soest.hawaii.edu/data/csv/rqds/pacific/daily/d" + stnID + '.csv' + "\">" + " .csv" + "<\a>" +
-    "<a href=\"https://uhslc.soest.hawaii.edu/data/netcdf/fast/daily/d" + stnID + '.nc' + "\">" + " .nc" + "<\a>" +
-    "<a href=\"https://uhslc.soest.hawaii.edu/woce/d" + stnID + '.nc' + "\">" + " .nc(old)" + "<\a>"
+    "<a href=\"https://uhslc.soest.hawaii.edu/rqds/"+basin+"/daily/d" + stnID + 'a.dat' + "\">" + ".dat" + "<\a>" +
+    "<a href=\"https://uhslc.soest.hawaii.edu/data/csv/rqds/"+basin+"/hourly/h" + stnID + 'a.csv' + "\">" + " .csv" + "<\a>" +
+    "<a href=\"https://uhslc.soest.hawaii.edu/data/netcdf/rqds/"+basin+"/hourly/h" + stnID + 'a.nc' + "\">" + " .nc" + "<\a>" +
+    "<a href=\"https://uhslc.soest.hawaii.edu/woce/d" + stnID + 'a.nc' + "\">" + " .nc(old)" + "<\a>"
   );
 
   $("#metadata").html(
-    "<a href=\"https://uhslc.soest.hawaii.edu/rqds/pacific/daily/d" + stnID + '.dat' + "\">" + "<strong>METADATA</strong>" + "<\a>");
+    "<a href=\"https://uhslc.soest.hawaii.edu/rqds/"+basin+"/doc/qa" + stnID + 'a.dmt' + "\">" + "<strong>METADATA</strong>" + "<\a>");
 }
