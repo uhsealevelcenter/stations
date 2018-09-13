@@ -5,24 +5,26 @@ $.ajaxSetup({
 var stn = null;
 var URL_pre = "";
 var DEF_STATION = "007";
+var metaJSON = null;
+
 if (DEVELOPMENT)
   URL_pre = SERVER_URL;
 // var tabid = getParameterByName('tabid');
 // var unit = "_cm";
 function loadtabs(stn, date, unit = "_cm") {
-  if (!$('#unitToggle').prop("checked"))
-    {unit = "_cm";}
-  else {
+  if (!$('#unitToggle').prop("checked")) {
+    unit = "_cm";
+  } else {
     unit = "_ft";
   }
 
   $.ajax({
-    url: "https://uhslc.soest.hawaii.edu/mwidlans/dev/Tide_Predictions/v2018_trim/uhslc/LST/" + 'fd' + stn + "/datumTable_" + stn + unit+".html",
+    url: "https://uhslc.soest.hawaii.edu/mwidlans/dev/Tide_Predictions/v2018_trim/uhslc/LST/" + 'fd' + stn + "/datumTable_" + stn + unit + ".html",
     success: function(result) {
       plotData(stn);
       loadTide(stn, date)
       $("#datumtable").html(result);
-      $("#datumgraphic").empty().append("<a href=" + "https://uhslc.soest.hawaii.edu/mwidlans/dev/Tide_Predictions/v2018_trim/uhslc/LST/" + "fd" + stn + "/d" + stn + unit+".png target='_blank'><img class='img-responsive' src=" + "https://uhslc.soest.hawaii.edu/mwidlans/dev/Tide_Predictions/v2018_trim/uhslc/LST/" + "fd" + stn + "/d" + stn + unit+".png /></a><p align='center'>[click image to view full size]</p>");
+      $("#datumgraphic").empty().append("<a href=" + "https://uhslc.soest.hawaii.edu/mwidlans/dev/Tide_Predictions/v2018_trim/uhslc/LST/" + "fd" + stn + "/d" + stn + unit + ".png target='_blank'><img class='img-responsive' src=" + "https://uhslc.soest.hawaii.edu/mwidlans/dev/Tide_Predictions/v2018_trim/uhslc/LST/" + "fd" + stn + "/d" + stn + unit + ".png /></a><p align='center'>[click image to view full size]</p>");
       $("#datumgraphic").append("<p align=\"justify\">Values are with respect to the <a href=\"https://uhslc.soest.hawaii.edu/datainfo/#22e7eb0370441bb3e\">Station Datum</a>, or zero reference level for the tide gauge, as indicated in the table.</p>");
       $("#tabs").tabs("destroy");
       $("#tabs").tabs();
@@ -35,48 +37,31 @@ function loadtabs(stn, date, unit = "_cm") {
       }
     }
   });
-  $.getJSON("https://uhslc.soest.hawaii.edu/data/meta.geojson", function(data){
-    var metadata = data;
-    $("#metaName").html(metadata.features[findIndexByStnID(metadata, parseInt(stn))].properties.name);
-    $("#metaCountry").html(metadata.features[findIndexByStnID(metadata, parseInt(stn))].properties.country);
-    $("#metaUHID").html(metadata.features[findIndexByStnID(metadata, parseInt(stn))].properties.uhslc_id);
-    $("#glossID").html(metadata.features[findIndexByStnID(metadata, parseInt(stn))].properties.gloss_id);
-    // $("#metaLAT").html(metadata.features[findIndexByStnID(metadata, parseInt(stn))].geometry.coordinates[1]+', '+ metadata.features[findIndexByStnID(metadata, parseInt(stn))].geometry.coordinates[0]);
-    $("#metaLAT").html(metadata.features[findIndexByStnID(metadata, parseInt(stn))].geometry.coordinates[1]);
-    $("#metaLONG").html(metadata.features[findIndexByStnID(metadata, parseInt(stn))].geometry.coordinates[0]);
-   // request succeeded
- })
-.fail(function(jqXHR, textStatus, errorThrown) {
-  alert('getJSON request failed! ' + textStatus);
-  $("#metaCountry").html(textStatus + errorThrown);
-})
-.always(function() {
-  // request ended
-});
+}
+
 function findIndexByStnID(jsonobj, stnID) {
   return jsonobj.features.findIndex(function(item, i) {
     return item.properties.uhslc_id === stnID;
   });
 }
-}
 
 function loadTide(stn, date, unit = "_cm") {
-  if (!$('#unitToggle').prop("checked"))
-    {unit = "_cm";}
-  else {
+  if (!$('#unitToggle').prop("checked")) {
+    unit = "_cm";
+  } else {
     unit = "_ft";
   }
-  $.get("https://uhslc.soest.hawaii.edu/mwidlans/dev/Tide_Predictions/v2018_trim/uhslc/LST/" + "fd" + stn + '/p' + stn + '_' + date + unit+'.png')
+  $.get("https://uhslc.soest.hawaii.edu/mwidlans/dev/Tide_Predictions/v2018_trim/uhslc/LST/" + "fd" + stn + '/p' + stn + '_' + date + unit + '.png')
     .done(function() {
-      $("#predcal").empty().append("<img class='img-responsive' src=" + "https://uhslc.soest.hawaii.edu/mwidlans/dev/Tide_Predictions/v2018_trim/uhslc/LST/" + "fd" + stn + '/p' + stn + '_' + date + unit+'.png />');
-      $("#predtable").load("https://uhslc.soest.hawaii.edu/mwidlans/dev/Tide_Predictions/v2018_trim/uhslc/LST/" + "fd" + stn + '/t' + stn + '_' + date + unit+'.txt');
+      $("#predcal").empty().append("<img class='img-responsive' src=" + "https://uhslc.soest.hawaii.edu/mwidlans/dev/Tide_Predictions/v2018_trim/uhslc/LST/" + "fd" + stn + '/p' + stn + '_' + date + unit + '.png />');
+      $("#predtable").load("https://uhslc.soest.hawaii.edu/mwidlans/dev/Tide_Predictions/v2018_trim/uhslc/LST/" + "fd" + stn + '/t' + stn + '_' + date + unit + '.txt');
     }).fail(function() {
       $("#predcal").empty().append("The data for the selected time period doesn't exist");
       $("#predtable").empty().append("The data for the selected time period doesn't exist")
     })
 
-  $("#plot-btn").attr("action", "https://uhslc.soest.hawaii.edu/mwidlans/dev/Tide_Predictions/v2018_trim/uhslc/LST/" + "fd" + stn + '/p' + stn + '_' + date + unit+'.pdf');
-  $("#text-btn").attr("action", "https://uhslc.soest.hawaii.edu/mwidlans/dev/Tide_Predictions/v2018_trim/uhslc/LST/" + "fd" + stn + '/t' + stn + '_' + date + unit+'.txt');
+  $("#plot-btn").attr("action", "https://uhslc.soest.hawaii.edu/mwidlans/dev/Tide_Predictions/v2018_trim/uhslc/LST/" + "fd" + stn + '/p' + stn + '_' + date + unit + '.pdf');
+  $("#text-btn").attr("action", "https://uhslc.soest.hawaii.edu/mwidlans/dev/Tide_Predictions/v2018_trim/uhslc/LST/" + "fd" + stn + '/t' + stn + '_' + date + unit + '.txt');
 };
 
 $("#button1").button();
@@ -137,6 +122,10 @@ $(document).ready(function() {
       // update the address bar when selection in the dropdown has changed
       history.pushState(null, '', window.location.pathname + "?stn=" + stn + window.location.hash);
       loadtabs(stn, getCurrentDate());
+      // If request for json file with Metadata (below fails) there won't be
+      // another attempt to retrive the file again. Maybe should consider
+      // implementing that feature
+      populateMetaDataTables(stn, metaJSON.responseJSON);
     });
 
     var url = window.location.href;
@@ -156,6 +145,21 @@ $(document).ready(function() {
       history.pushState(null, '', window.location.pathname + "?stn=" + DEF_STATION + window.location.hash);
     }
 
+    // Request json file with Metadata
+    metaJSON = $.getJSON("https://uhslc.soest.hawaii.edu/data/meta.geojson", function(data) {
+        // request succeeded
+
+        console.log("JSON2 LOADED");
+        populateMetaDataTables(stn, data)
+        // loadMetaDataTables(stn);
+      })
+      .fail(function(jqXHR, textStatus, errorThrown) {
+        alert('Metadata request failed! ' + textStatus);
+
+      })
+      .always(function() {
+        // request ended
+      });
     loadtabs(stn, getCurrentDate());
     //        $('#datumtable').load('fd001/datumTable_001.html');
     //         $('#datumgraphic').append("<img src='fd001/d001.png' />");
@@ -194,14 +198,56 @@ $(document).ready(function() {
 
 });
 
-function unitButtonsController(hash){
-  if (hash === "#tidecal" || hash === "#datums")
-    {
-      $('#timeToggle').bootstrapToggle('disable');
-      $('#datumToggle').bootstrapToggle('disable');
-    }
-    else{
-      $('#timeToggle').bootstrapToggle('enable');
-      $('#datumToggle').bootstrapToggle('enable');
-    }
+function unitButtonsController(hash) {
+  if (hash === "#tidecal" || hash === "#datums") {
+    $('#timeToggle').bootstrapToggle('disable');
+    $('#datumToggle').bootstrapToggle('disable');
+  } else {
+    $('#timeToggle').bootstrapToggle('enable');
+    $('#datumToggle').bootstrapToggle('enable');
+  }
+}
+
+function populateMetaDataTables(stnID, jsondata) {
+  var metadata = jsondata.features[findIndexByStnID(jsondata, parseInt(stnID))];
+  $("#metaName").html(metadata.properties.name);
+  $("#metaCountry").html(metadata.properties.country);
+  $("#metaUHID").html(metadata.properties.uhslc_id);
+  $("#glossID").html(metadata.properties.gloss_id);
+  // $("#metaLAT").html(metadata.features[findIndexByStnID(metadata, parseInt(stn))].geometry.coordinates[1]+', '+ metadata.features[findIndexByStnID(metadata, parseInt(stn))].geometry.coordinates[0]);
+  $("#metaLAT").html(metadata.geometry.coordinates[1]);
+  $("#metaLONG").html(metadata.geometry.coordinates[0]);
+
+  // Populate #metaTable1 with links to data
+  $("#fastD").html(
+    "<a href=\"https://uhslc.soest.hawaii.edu/woce/d" + stnID + '.dat' + "\">" + ".dat" + "<\a>" +
+    "<a href=\"https://uhslc.soest.hawaii.edu/data/csv/fast/daily/d" + stnID + '.csv' + "\">" + " .csv" + "<\a>" +
+    "<a href=\"https://uhslc.soest.hawaii.edu/data/netcdf/fast/daily/d" + stnID + '.nc' + "\">" + " .nc" + "<\a>" +
+    "<a href=\"https://uhslc.soest.hawaii.edu/woce/d" + stnID + '.nc' + "\">" + " .nc(old)" + "<\a>"
+  );
+
+  $("#researchD").html(
+    "<a href=\"https://uhslc.soest.hawaii.edu/rqds/pacific/daily/d" + stnID + '.dat' + "\">" + ".dat" + "<\a>" +
+    "<a href=\"https://uhslc.soest.hawaii.edu/data/csv/rqds/pacific/daily/d" + stnID + '.csv' + "\">" + " .csv" + "<\a>" +
+    "<a href=\"https://uhslc.soest.hawaii.edu/data/netcdf/fast/daily/d" + stnID + '.nc' + "\">" + " .nc" + "<\a>" +
+    "<a href=\"https://uhslc.soest.hawaii.edu/woce/d" + stnID + '.nc' + "\">" + " .nc(old)" + "<\a>"
+  );
+
+  // Populate #metaTable1 with links to data
+  $("#fastH").html(
+    "<a href=\"https://uhslc.soest.hawaii.edu/woce/d" + stnID + '.dat' + "\">" + ".dat" + "<\a>" +
+    "<a href=\"https://uhslc.soest.hawaii.edu/data/csv/fast/daily/d" + stnID + '.csv' + "\">" + " .csv" + "<\a>" +
+    "<a href=\"https://uhslc.soest.hawaii.edu/data/netcdf/fast/daily/d" + stnID + '.nc' + "\">" + " .nc" + "<\a>" +
+    "<a href=\"https://uhslc.soest.hawaii.edu/woce/d" + stnID + '.nc' + "\">" + " .nc(old)" + "<\a>"
+  );
+
+  $("#researchH").html(
+    "<a href=\"https://uhslc.soest.hawaii.edu/rqds/pacific/daily/d" + stnID + '.dat' + "\">" + ".dat" + "<\a>" +
+    "<a href=\"https://uhslc.soest.hawaii.edu/data/csv/rqds/pacific/daily/d" + stnID + '.csv' + "\">" + " .csv" + "<\a>" +
+    "<a href=\"https://uhslc.soest.hawaii.edu/data/netcdf/fast/daily/d" + stnID + '.nc' + "\">" + " .nc" + "<\a>" +
+    "<a href=\"https://uhslc.soest.hawaii.edu/woce/d" + stnID + '.nc' + "\">" + " .nc(old)" + "<\a>"
+  );
+
+  $("#metadata").html(
+    "<a href=\"https://uhslc.soest.hawaii.edu/rqds/pacific/daily/d" + stnID + '.dat' + "\">" + "<strong>METADATA</strong>" + "<\a>");
 }
