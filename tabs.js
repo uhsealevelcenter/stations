@@ -129,7 +129,6 @@ $(document).ready(function() {
     });
 
     var url = window.location.href;
-    console.log("URL " + url);
 
     // check if the url is a direct link and select the correct station in
     // the dropdown menu
@@ -148,8 +147,6 @@ $(document).ready(function() {
     // Request json file with Metadata
     metaJSON = $.getJSON("https://uhslc.soest.hawaii.edu/data/meta.geojson", function(data) {
         // request succeeded
-
-        console.log("JSON2 LOADED");
         populateMetaDataTables(stn, data)
         // loadMetaDataTables(stn);
       })
@@ -209,7 +206,6 @@ function unitButtonsController(hash) {
   }
   var x = document.getElementsByClassName("datum-tz");
   for (var i = 0; i<x.length; i++){
-    console.log(x[i]);
     if (hash === "#tidecal" || hash === "#datums") {
       x[i].style.opacity = "0.2";
     } else {
@@ -223,6 +219,7 @@ function populateMetaDataTables(stnID, jsondata) {
   var metadata = jsondata.features[findIndexByStnID(jsondata, parseInt(stnID))];
   var basin = metadata.properties.rq_basin;
   var glossID = metadata.properties.gloss_id;
+  var version = Object.keys(metadata.properties.rq_versions).pop();
   if(glossID == 0){
     glossID = "N/A";
   }
@@ -234,36 +231,36 @@ function populateMetaDataTables(stnID, jsondata) {
   $("#metaLAT").html(metadata.geometry.coordinates[1]);
   $("#metaLONG").html(metadata.geometry.coordinates[0]);
 
-  // Populate #metaTable1 with links to data
+  // Populate #metaTable1 with links to daily data
   $("#fastD").html(
     "<a href=\"https://uhslc.soest.hawaii.edu/woce/d" + stnID + '.dat' + "\">" + ".dat" + "<\a>" +
     "<a href=\"https://uhslc.soest.hawaii.edu/data/csv/fast/daily/d" + stnID + '.csv' + "\">" + " .csv" + "<\a>" +
-    "<a href=\"https://uhslc.soest.hawaii.edu/data/netcdf/fast/daily/d" + stnID + '.nc' + "\">" + " .nc" + "<\a>"
+    "<a target=\"_blank\" href=\"https://uhslc.soest.hawaii.edu/opendap/fast/daily/d" + stnID + '.nc.html' + "\">" + " .nc" + "<\a>"
     // "<a href=\"https://uhslc.soest.hawaii.edu/woce/d" + stnID + '.nc' + "\">" + " .nc(old)" + "<\a>"
   );
 
   $("#researchD").html(
     "<a href=\"https://uhslc.soest.hawaii.edu/rqds/"+basin+"/daily/d" + stnID + 'a.dat' + "\">" + ".dat" + "<\a>" +
     "<a href=\"https://uhslc.soest.hawaii.edu/data/csv/rqds/"+basin+"/daily/d" + stnID + 'a.csv' + "\">" + " .csv" + "<\a>" +
-    "<a href=\"https://uhslc.soest.hawaii.edu/data/netcdf/rqds/"+basin+"/daily/d" + stnID + 'a.nc' + "\">" + " .nc" + "<\a>"
+    "<a target=\"_blank\" href=\"https://uhslc.soest.hawaii.edu/opendap/rqds/"+basin+"/daily/d" + stnID +version +'.nc.html' + "\">" + " .nc" + "<\a>"
     // "<a href=\"https://uhslc.soest.hawaii.edu/woce/d" + stnID + 'a.nc' + "\">" + " .nc(old)" + "<\a>"
   );
 
-  // Populate #metaTable1 with links to data
+  // Populate #metaTable1 with links to hourly data
   $("#fastH").html(
     "<a href=\"https://uhslc.soest.hawaii.edu/woce/h" + stnID + '.dat' + "\">" + ".dat" + "<\a>" +
     "<a href=\"https://uhslc.soest.hawaii.edu/data/csv/fast/hourly/h" + stnID + '.csv' + "\">" + " .csv" + "<\a>" +
-    "<a href=\"https://uhslc.soest.hawaii.edu/data/netcdf/fast/hourly/h" + stnID + '.nc' + "\">" + " .nc" + "<\a>"
+    "<a target=\"_blank\" href=\"https://uhslc.soest.hawaii.edu/opendap/fast/hourly/h" + stnID + '.nc.html' + "\">" + " .nc" + "<\a>"
     // "<a href=\"https://uhslc.soest.hawaii.edu/woce/d" + stnID + '.nc' + "\">" + " .nc(old)" + "<\a>"
   );
 
   $("#researchH").html(
     "<a href=\"https://uhslc.soest.hawaii.edu/rqds/"+basin+"/daily/d" + stnID + 'a.dat' + "\">" + ".dat" + "<\a>" +
     "<a href=\"https://uhslc.soest.hawaii.edu/data/csv/rqds/"+basin+"/hourly/h" + stnID + 'a.csv' + "\">" + " .csv" + "<\a>" +
-    "<a href=\"https://uhslc.soest.hawaii.edu/data/netcdf/rqds/"+basin+"/hourly/h" + stnID + 'a.nc' + "\">" + " .nc" + "<\a>"
+    "<a target=\"_blank\" href=\"https://uhslc.soest.hawaii.edu/opendap/rqds/"+basin+"/hourly/h" + stnID + version +'.nc.html' + "\">" + " .nc" + "<\a>"
     // "<a href=\"https://uhslc.soest.hawaii.edu/woce/d" + stnID + 'a.nc' + "\">" + " .nc(old)" + "<\a>"
   );
 
   $("#metadata").html(
-    "<a href=\"https://uhslc.soest.hawaii.edu/rqds/"+basin+"/doc/qa" + stnID + 'a.dmt' + "\">" + "<strong>METADATA</strong>" + "<\a>");
+    "<a target=\"_blank\" href=\"https://uhslc.soest.hawaii.edu/rqds/"+basin+"/doc/qa" + stnID + 'a.dmt' + "\">" + "<strong>METADATA</strong>" + "<\a>");
 }
