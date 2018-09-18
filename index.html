@@ -8,7 +8,8 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.0/css/bootstrap-datepicker.min.css" />
   <link rel="stylesheet" href="css/custom.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+  <!-- <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet"> -->
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/css-toggle-switch@latest/dist/toggle-switch.css" />
 
 </head>
 
@@ -37,70 +38,96 @@
           </ul>
           <!-- Metadata area -->
           <div id="metaBox" class="col-sm-12">
-            <div id="metaTable1" class="col-sm-8">
-              <table style="border-color: #f2f2f2; width:100%; " border="solid">
-                <tbody>
-                  <tr>
-                    <td style="padding: 4px 0px 4px 0px;text-align: center;" colspan="3" bgcolor="#f2f2f2"><strong>STATION DATA</strong></td>
-                  </tr>
-                  <tr>
-                    <td style="padding: 4px 0px 4px 0px; text-align: center; width: 50%" colspan="2"><strong>Fast Delivery</strong></td>
-                    <td style="text-align: center;"><strong>Research Quality</strong></td>
-                  </tr>
-                  <tr>
-                    <td style="padding: 4px 0px 4px 2px;" bgcolor="#f2f2f2"><strong>HOURLY:</strong></td>
-                    <td bgcolor="#f2f2f2"><span id="fastH">.dat .csv .nc .nc(old)</span></td>
-                    <td style="padding: 4px 0px 4px 10px;" bgcolor="#f2f2f2"><span id="researchH">.dat .csv .nc .nc(old)</span></td>
-                  </tr>
-                  <tr>
-                    <td><strong>DAILY:</strong></td>
-                    <td><span id="fastD">.dat .csv .nc .nc(old)</span></td>
-                    <td style="padding: 4px 0px 4px 10px;"><span id="researchD">.dat .csv .nc .nc(old)</span></td>
-                  </tr>
-                  <tr>
-                    <td style="background-color: #f2f2f2;padding: 4px 0px 0px 0px;"><span id="metadata"><strong>METADATA</strong></span></td>
-                    <td style="background-color: #f2f2f2;padding: 4px 0px 4px 0px;" colspan="2">&nbsp;&nbsp;</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
             <div id="metaTable2" class="col-sm-3">
               <table style="border-color: #f2f2f2; width:100%;" border="solid">
                 <tbody>
                   <tr>
-                    <td style="" bgcolor="silver"><strong>COUNTRY:</strong></td>
-                    <td style="padding-left:10px" bgcolor="silver"><span id="metaCountry"></span></td>
+                    <td style="padding-top: 2px; font-size: 15px;" bgcolor="silver"><strong>COUNTRY:</strong></td>
+                    <td style="padding-left:10px; font-size: 13px;" bgcolor="silver"><span id="metaCountry"></span></td>
                   </tr>
                   <tr>
-                    <td style="" bgcolor="silver"><strong>NAME:</strong></td>
-                    <td style="padding-left:10px" bgcolor="silver"><span id="metaName"></span></td>
+                    <td style="font-size: 15px;" bgcolor="silver"><strong>NAME:</strong></td>
+                    <td style="padding-left:10px; font-size: 13px;" bgcolor="silver"><span id="metaName"></span></td>
                   </tr>
                   <tr>
-                    <td style=""><strong>UHSLC ID:</strong></td>
-                    <td style="padding-left:10px"><span id="metaUHID"></span></td>
+                    <td style="padding-top: 4px;font-size: 15px;"><strong>UHSLC ID:</strong></td>
+                    <td style="padding-left:10px; font-size: 13px;"><span id="metaUHID"></span></td>
                   </tr>
                   <tr>
-                    <td style=""><strong>GLOSS ID:</strong></td>
-                    <td style="padding-left:10px"><span id="glossID"></span></td>
+                    <td style="font-size: 15px;"><strong>GLOSS ID:</strong></td>
+                    <td style="padding-left:10px; font-size: 13px;"><span id="glossID"></span></td>
                   </tr>
                   <tr>
-                    <td style="" bgcolor="silver"><strong>LAT:</strong></td>
-                    <td style="padding-left:10px" bgcolor="silver"><span id="metaLAT"></span></td>
+                    <td style="padding-top: 4px;font-size: 15px;" bgcolor="silver"><strong>LAT:</strong></td>
+                    <td style="padding-left:10px; font-size: 13px;" bgcolor="silver"><span id="metaLAT"></span></td>
                   </tr>
                   <tr>
-                    <td style="" bgcolor="silver"><strong>LON:</strong></td>
-                    <td style="padding-left:10px" bgcolor="silver"><span id="metaLONG"></span></td>
+                    <td style="font-size: 15px;" bgcolor="silver"><strong>LON:</strong></td>
+                    <td style="padding-left:10px; font-size: 13px;" bgcolor="silver"><span id="metaLONG"></span></td>
                     <!-- <td style="" bgcolor="silver"><strong>Station Metadata</strong></td>
             <td style="padding-left:10px" bgcolor="silver"></td> -->
                   </tr>
                 </tbody>
               </table>
             </div>
+            <div id="metaTable1" class="col-sm-6">
+              <table style="border-color: #f2f2f2; width: 100%;" border="solid">
+                <tbody>
+                  <tr>
+                    <td style="padding: 6px 0px; text-align: center; width: 97.1111%; font-size: 15px;" colspan="3" bgcolor="#f2f2f2"><strong>STATION DATA</strong></td>
+                  </tr>
+                  <tr>
+                    <td style="padding: 5px 0px; text-align: center; width: 48.7778%; font-size: 13px;" colspan="2"><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Fast Delivery</strong></td>
+                    <td style="text-align: center; width: 48.3333%; font-size: 13px;"><strong>Research Quality</strong></td>
+                  </tr>
+                  <tr>
+                    <td style="padding: 5px 0px 4px 2px; width: 10.8889%; font-size: 13px;" bgcolor="#f2f2f2"><strong>HOURLY:</strong></td>
+                    <td style="width: 37.8889%; text-align: center;font-size: 13px;" bgcolor="#f2f2f2"><span id="fastH">.dat .csv .nc</span></td>
+                    <td style="padding: 4px 0px 4px 10px; text-align: center; width: 48.3333%; font-size: 13px;" bgcolor="#f2f2f2"><span id="researchH">.dat .csv .nc</span></td>
+                  </tr>
+                  <tr>
+                    <td style="width: 10.8889%; font-size: 13px; padding: 5px 2px;"><strong>DAILY:</strong></td>
+                    <td style="width: 37.8889%; text-align: center;font-size: 13px;"><span id="fastD">.dat .csv .nc</span></td>
+                    <td style="padding: 4px 0px 4px 10px; text-align: center; width: 48.3333%;font-size: 13px;"><span id="researchD">.dat .csv .nc</span></td>
+                  </tr>
+                  <tr>
+                    <td style="background-color: #f2f2f2; padding: 4px 2px; width: 10.8889%; font-size: 13px;"><span id="metadata"><strong>METADATA</strong></span></td>
+                    <td style="background-color: #f2f2f2; padding: 0px 0px; width: 86.2222%;" colspan="2">&nbsp;&nbsp;</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
 
-            <div class="col-sm-1" style="padding: 0px 10px 5px 0px">
-              <input class="toggleclass" id="unitToggle" type="checkbox" data-toggle="toggle" data-style="android" data-width="100%" data-on="English" data-off="Metric">
-              <input class="toggleclass" id="datumToggle" type="checkbox" data-toggle="toggle" data-style="android" data-width="100%" data-on="MHHW" data-off="MLLW">
-              <input id="timeToggle" type="checkbox" data-toggle="toggle" data-width="100%" data-style="android" data-on="LST" data-off="GMT">
+            <div class="col-sm-3">
+              <label class="switch-light switch-candy" onclick="">
+              <input class="toggleclass" type="checkbox" id="unitToggle">
+              <span>
+                <span>Metric</span>
+                <span>English</span>
+                <a></a>
+              </span>
+            </label>
+
+            <label  id="testing" class="switch-light switch-candy datum-tz" onclick="">
+            <input class="toggleclass" type="checkbox" id="datumToggle">
+            <span>
+              <span >MLLW</span>
+              <span>MHHW</span>
+              <a></a>
+            </span>
+          </label>
+
+          <label class="switch-light switch-candy datum-tz" onclick="">
+          <input type="checkbox" id="timeToggle">
+          <span>
+            <span>GMT</span>
+            <span>LST</span>
+            <a></a>
+          </span>
+        </label>
+              <!-- <input class="toggleclass" id="unitToggle" type="checkbox" data-toggle="toggle" data-style="android" data-width="100%" data-on="English" data-off="Metric">-->
+              <!-- <input class="toggleclass" id="datumToggle" type="checkbox" data-toggle="toggle" data-style="android" data-width="100%" data-on="MHHW" data-off="MLLW"> -->
+              <!-- <input id="timeToggle" type="checkbox" data-toggle="toggle" data-width="100%" data-style="android" data-on="LST" data-off="GMT">  -->
             </div>
 
             <!-- <p id="fastData">Fast delivery link</p>
@@ -211,7 +238,7 @@
         </div>
         <!-- end #tabs -->
       </div>
-      <div class="col-sm-12"  style="padding:10px 15px 30px 15px;;">
+      <div class="col-sm-12" style="padding:10px 15px 30px 15px;;">
         <!-- <hr> -->
         <footer style="border: solid 1px #ddd; padding:10px 30px 10px 30px;">
           <p><strong>Disclaimer: The Station Explorer is a <i>research</i> product.</strong> The data are provided free of charge without warranty of any kind. <a href="https://uhslc.soest.hawaii.edu/">UHSLC</a> requests that attribution be given whenever

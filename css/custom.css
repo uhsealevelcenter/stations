@@ -141,7 +141,7 @@ div#levels.ui-tabs-panel {
     border-top: 0 !important;
     padding-left:7px !important;
     padding-right:7px !important;
-    margin-top: -20px;
+    margin-top: -10px;
 }
 
 div#datums.ui-tabs-panel {
@@ -371,8 +371,8 @@ td {
 .ui-tabs-panel-meta {
   border: solid 1px #ddd;
   border-bottom: 0;
-  padding: 20px 23px 10px 20px!important;
-  margin-bottom: -20px;
+  padding: 20px 23px 20px 20px!important;
+  margin-bottom: -10px;
 }
 
 /* #datumtable tr {
@@ -383,22 +383,41 @@ td {
 /**********************************************************************/
 /************************ UNIT TOGGLE BUTTONS *******************/
 /********************************************************************/
-.toggle.android {
-   border-radius: 0px;
-   margin-bottom: 11px;
-   min-height: 38px !important;
-
- }
-
- .toggle.android .toggle-handle {
-    border-radius: 0px;
+.switch-toggle.switch-candy,
+  .switch-light.switch-candy > span {
+    background-color: #f2f2f2 !important;
+    border-radius: 0px !important;
+    /* box-shadow: none !important; */
   }
+  .switch-light.switch-candy span span,
+  .switch-light.switch-candy input:checked ~ span span:first-child,
+  .switch-toggle.switch-candy label {
+    color: black !important;
+    font-weight: normal  !important;
+    text-align: center;
+    text-shadow: none !important;
+    min-height: 2.6em !important;
+    line-height: 2.6em !important;
+  }
+  .switch-light.switch-candy input ~ span span:first-child,
+  .switch-light.switch-candy input:checked ~ span span:nth-child(2),
+  .switch-candy input:checked + label {
+    color: white !important;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5); }
+  .switch-candy a {
+    border: none !important;
+    border-radius: 0px !important;
+    box-shadow: none !important;
+    background-color: #1B80B6 !important;
+    background-image: none !important; }
+  .switch-candy-blue a {
+    background-color: #38a3d4; }
+  .switch-candy-yellow a {
+    background-color: #f5e560; }
 
-  .btn.disabled, .btn[disabled], fieldset[disabled] .btn {
-    opacity: 0.25;
-}
-
-  .toggle.ios, .toggle-on.ios, .toggle-off.ios { border-radius: 20px; }
+    label{
+      margin-bottom: 10px !important;
+    }
 
   #metaCountry, #metaLAT, #metaLONG{
     display: block;
@@ -407,3 +426,14 @@ td {
     white-space: nowrap;
     text-overflow: ellipsis;
   }
+
+  .switch-light:hover{
+    cursor: pointer;
+  }
+
+  /* input[type=checkbox]:disabled {
+    cursor: not-allowed;
+}
+.datum-tz:hover:disabled {
+  cursor: none;
+} */
