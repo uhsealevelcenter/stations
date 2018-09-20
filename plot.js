@@ -203,7 +203,7 @@ function plotData(_stn) {
           r: 30, //105
           b: 40,
           t: 80,
-          pad: 3
+          pad: 0
         },
       };
 
@@ -257,7 +257,7 @@ function plotData(_stn) {
           r: 30, //105
           b: 40,
           t: 60,
-          pad: 3
+          pad: 0
         },
       };
       // console.log(rows[0]);
@@ -306,7 +306,7 @@ function plotData(_stn) {
               autorange: true,
               range: [0, 1000],
               type: 'linear',
-            }
+            },
           };
           // layout_update.yaxis.title = "Relative water level (ft, MLLW)";
           Plotly.update('tideplot1', update, layout_update, [i]);
