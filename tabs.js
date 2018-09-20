@@ -6,9 +6,13 @@ var stn = null;
 var URL_pre = "";
 var DEF_STATION = "007";
 var metaJSON = null;
+var LST_URL = "LST/";
 
 if (DEVELOPMENT)
-  URL_pre = SERVER_URL;
+  {
+    URL_pre = SERVER_URL;
+    LST_URL = DEV_LST_URL;
+  }
 // var tabid = getParameterByName('tabid');
 // var unit = "_cm";
 function loadtabs(stn, date, unit = "_cm") {
@@ -19,12 +23,12 @@ function loadtabs(stn, date, unit = "_cm") {
   }
 
   $.ajax({
-    url: "https://uhslc.soest.hawaii.edu/mwidlans/dev/Tide_Predictions/v2018_trim/uhslc/LST/" + 'fd' + stn + "/datumTable_" + stn + unit + ".html",
+    url: LST_URL + 'fd' + stn + "/datumTable_" + stn + unit + ".html",
     success: function(result) {
       plotData(stn);
       loadTide(stn, date)
       $("#datumtable").html(result);
-      $("#datumgraphic").empty().append("<a href=" + "https://uhslc.soest.hawaii.edu/mwidlans/dev/Tide_Predictions/v2018_trim/uhslc/LST/" + "fd" + stn + "/d" + stn + unit + ".png target='_blank'><img class='img-responsive' src=" + "https://uhslc.soest.hawaii.edu/mwidlans/dev/Tide_Predictions/v2018_trim/uhslc/LST/" + "fd" + stn + "/d" + stn + unit + ".png /></a><p align='center'>[click image to view full size]</p>");
+      $("#datumgraphic").empty().append("<a href=" + LST_URL + "fd" + stn + "/d" + stn + unit + ".png target='_blank'><img class='img-responsive' src=" + LST_URL + "fd" + stn + "/d" + stn + unit + ".png /></a><p align='center'>[click image to view full size]</p>");
       $("#datumgraphic").append("<p align=\"justify\">Values are with respect to the <a href=\"https://uhslc.soest.hawaii.edu/datainfo/#22e7eb0370441bb3e\">Station Datum</a>, or zero reference level for the tide gauge, as indicated in the table.</p>");
       $("#tabs").tabs("destroy");
       $("#tabs").tabs();
@@ -51,16 +55,16 @@ function loadTide(stn, date, unit = "_cm") {
   } else {
     unit = "_ft";
   }
-  $.get("https://uhslc.soest.hawaii.edu/mwidlans/dev/Tide_Predictions/v2018_trim/uhslc/LST/" + "fd" + stn + '/p' + stn + '_' + date + unit + '.png')
+  $.get(LST_URL + "fd" + stn + '/p' + stn + '_' + date + unit + '.png')
     .done(function() {
-      $("#predcal").empty().append("<img class='img-responsive' src=" + "https://uhslc.soest.hawaii.edu/mwidlans/dev/Tide_Predictions/v2018_trim/uhslc/LST/" + "fd" + stn + '/p' + stn + '_' + date + unit + '.png />');
-      $("#predtable").load("https://uhslc.soest.hawaii.edu/mwidlans/dev/Tide_Predictions/v2018_trim/uhslc/LST/" + "fd" + stn + '/t' + stn + '_' + date + unit + '.txt');
+      $("#predcal").empty().append("<img class='img-responsive' src=" + LST_URL + "fd" + stn + '/p' + stn + '_' + date + unit + '.png />');
+      $("#predtable").load(LST_URL + "fd" + stn + '/t' + stn + '_' + date + unit + '.txt');
     }).fail(function() {
       $("#predcal").empty().append("The data for the selected time period doesn't exist");
       $("#predtable").empty().append("The data for the selected time period doesn't exist")
     })
 
-  $("#plot-btn").attr("action", "https://uhslc.soest.hawaii.edu/mwidlans/dev/Tide_Predictions/v2018_trim/uhslc/LST/" + "fd" + stn + '/p' + stn + '_' + date + unit + '.pdf');
+  $("#plot-btn").attr("action", LST_URL + "fd" + stn + '/p' + stn + '_' + date + unit + '.pdf');
   $("#text-btn").attr("action", "https://uhslc.soest.hawaii.edu/mwidlans/dev/Tide_Predictions/v2018_trim/uhslc/LST/" + "fd" + stn + '/t' + stn + '_' + date + unit + '.txt');
 };
 
