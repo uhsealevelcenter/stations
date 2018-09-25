@@ -26,7 +26,7 @@ function loadtabs(stn, date, unit = "_cm") {
     url: LST_URL + 'fd' + stn + "/datumTable_" + stn + unit + ".html",
     success: function(result) {
       plotData(stn);
-      loadTide(stn, date)
+      loadTide(stn, date);
       $("#datumtable").html(result);
       $("#datumgraphic").empty().append("<a href=" + LST_URL + "fd" + stn + "/d" + stn + unit + ".png target='_blank'><img class='img-responsive' src=" + LST_URL + "fd" + stn + "/d" + stn + unit + ".png /></a><p align='center'>[click image to view full size]</p>");
       $("#datumgraphic").append("<p align=\"justify\">Values are with respect to the <a href=\"https://uhslc.soest.hawaii.edu/datainfo/#22e7eb0370441bb3e\">Station Datum</a>, or zero reference level for the tide gauge, as indicated in the table.</p>");
@@ -65,7 +65,7 @@ function loadTide(stn, date, unit = "_cm") {
     })
 
   $("#plot-btn").attr("action", LST_URL + "fd" + stn + '/p' + stn + '_' + date + unit + '.pdf');
-  $("#text-btn").attr("action", "https://uhslc.soest.hawaii.edu/mwidlans/dev/Tide_Predictions/v2018_trim/uhslc/LST/" + "fd" + stn + '/t' + stn + '_' + date + unit + '.txt');
+  $("#text-btn").attr("action", LST_URL + "fd" + stn + '/t' + stn + '_' + date + unit + '.txt');
 };
 
 $("#button1").button();
@@ -266,5 +266,5 @@ function populateMetaDataTables(stnID, jsondata) {
   );
 
   $("#metadata").html(
-    "<a target=\"_blank\" href=\"https://uhslc.soest.hawaii.edu/rqds/"+basin+"/doc/qa" + stnID + 'a.dmt' + "\">" + "<strong>METADATA</strong>" + "<\a>");
+    "<a target=\"_blank\" href=\"https://uhslc.soest.hawaii.edu/rqds/"+basin+"/doc/qa" + stnID + version +'.dmt' + "\">" + "<strong>METADATA</strong>" + "<\a>");
 }
