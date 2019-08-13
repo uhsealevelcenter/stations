@@ -244,9 +244,9 @@ function populateMetaDataTables(stnID, jsondata) {
   );
 
   $("#researchD").html(
-    "<a href=\"https://uhslc.soest.hawaii.edu/rqds/"+basin+"/daily/d" + stnID + 'a.dat' + "\">" + ".dat" + "<\a>" +
-    "<a href=\"https://uhslc.soest.hawaii.edu/data/csv/rqds/"+basin+"/daily/d" + stnID + 'a.csv' + "\">" + " .csv" + "<\a>" +
-    "<a target=\"_blank\" href=\"https://uhslc.soest.hawaii.edu/opendap/rqds/"+basin+"/daily/d" + stnID +version +'.nc.html' + "\">" + " .nc" + "<\a>"
+    "<a href=\"https://uhslc.soest.hawaii.edu/rqds/"+basin+"/daily/d" + stnID + version + '.dat' + "\">" + ".dat" + "<\a>" +
+    "<a href=\"https://uhslc.soest.hawaii.edu/data/csv/rqds/"+basin+"/daily/d" + stnID + version + '.csv' + "\">" + " .csv" + "<\a>" +
+    "<a target=\"_blank\" href=\"https://uhslc.soest.hawaii.edu/opendap/rqds/"+basin+"/daily/d" + stnID + version + '.nc.html' + "\">" + " .nc" + "<\a>"
     // "<a href=\"https://uhslc.soest.hawaii.edu/woce/d" + stnID + 'a.nc' + "\">" + " .nc(old)" + "<\a>"
   );
 
@@ -259,12 +259,12 @@ function populateMetaDataTables(stnID, jsondata) {
   );
 
   $("#researchH").html(
-    "<a href=\"https://uhslc.soest.hawaii.edu/rqds/"+basin+"/daily/d" + stnID + 'a.dat' + "\">" + ".dat" + "<\a>" +
-    "<a href=\"https://uhslc.soest.hawaii.edu/data/csv/rqds/"+basin+"/hourly/h" + stnID + 'a.csv' + "\">" + " .csv" + "<\a>" +
-    "<a target=\"_blank\" href=\"https://uhslc.soest.hawaii.edu/opendap/rqds/"+basin+"/hourly/h" + stnID + version +'.nc.html' + "\">" + " .nc" + "<\a>"
+    "<a href=\"https://uhslc.soest.hawaii.edu/rqds/"+basin+"/daily/d" + stnID + version + '.dat' + "\">" + ".dat" + "<\a>" +
+    "<a href=\"https://uhslc.soest.hawaii.edu/data/csv/rqds/"+basin+"/hourly/h" + stnID + version + '.csv' + "\">" + " .csv" + "<\a>" +
+    "<a target=\"_blank\" href=\"https://uhslc.soest.hawaii.edu/opendap/rqds/"+basin+"/hourly/h" + stnID + version + '.nc.html' + "\">" + " .nc" + "<\a>"
     // "<a href=\"https://uhslc.soest.hawaii.edu/woce/d" + stnID + 'a.nc' + "\">" + " .nc(old)" + "<\a>"
   );
 
   $("#metadata").html(
-    "<a target=\"_blank\" href=\"https://uhslc.soest.hawaii.edu/rqds/"+basin+"/doc/qa" + stnID + version +'.dmt' + "\">" + "<strong>METADATA</strong>" + "<\a>");
+    "<a target=\"_blank\" href=\"https://uhslc.soest.hawaii.edu/rqds/"+basin+"/doc/qa" + stnID + version + '.dmt' + "\">" + "<strong>METADATA</strong>" + "<\a>");
 }
