@@ -291,6 +291,7 @@ function plotData(_stn) {
         loadtabs(_stn, getCurrentDate());
       });
       $("#timeToggle").off().on('change', function() {
+        console.log("SHOULD CALL UPDATE TIME");
         updateTime(!$('#timeToggle').prop("checked"));
       });
 
@@ -332,6 +333,7 @@ function plotData(_stn) {
       }
 
       function updateTime(tz) {
+        // console.log("TIMEZONE "+tz);
         var xLabel = getXLabel(tz, LST);
         var tv = {
           x: [unpack(rows, 'Time', currentUnit, currentDatum, MLLW, MHHW, LST, tz)]

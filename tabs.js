@@ -27,6 +27,7 @@ function loadtabs(stn, date, unit = "_cm") {
     success: function(result) {
       plotData(stn);
       loadTide(stn, date);
+      plotClimateData(stn);
       $("#datumtable").html(result);
       $("#datumgraphic").empty().append("<a href=" + LST_URL + "fd" + stn + "/d" + stn + unit + ".png target='_blank'><img class='img-responsive' src=" + LST_URL + "fd" + stn + "/d" + stn + unit + ".png /></a><p align='center'>[click image to view full size]</p>");
       $("#datumgraphic").append("<p align=\"justify\">Values are with respect to the <a href=\"https://uhslc.soest.hawaii.edu/datainfo/#22e7eb0370441bb3e\">Station Datum</a>, or zero reference level for the tide gauge, as indicated in the table.</p>");

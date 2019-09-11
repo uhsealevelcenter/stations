@@ -32,6 +32,7 @@
         <div class="wrapper" id="tabs">
           <div id="selectbox"></div>
           <ul class="tab-list" style="display: none">
+            <li><a href="#climatology">Climatology</a></li>
             <li><a href="#datums">Datums</a></li>
             <li><a href="#tidecal">Tide Calendars</a></li>
             <li><a href="#levels" id="defaultTab">Water Levels</a></li>
@@ -235,6 +236,27 @@
           </div>
           <!-- end tab3 -->
 
+          <!-- tab4: climatology -->
+          <div id="climatology" class="col-sm-12 center">
+            <div class="col-sm-6 col-sm-offset-3" >
+                <div class="input-group">
+                  <input id="yearsBox" type="text" class="form-control" placeholder=" e.g. 2005-2009, 2015, 2017-2019 (max 10)" aria-label="Enter Years" aria-describedby="basic-addon2">
+                  <span class="input-group-btn">
+                    <button onclick="plotClimateData.addYears()" class="btn btn-info" type="submit">Add Years</button>
+                  </span>
+                </div>
+            </div>
+
+            <div class="col-sm-12 center" >
+              <p align="center" id="inputMessage"></p>
+            </div>
+
+            <div id="climateDaily" class="col-sm-12"></div>
+            <div id="climateMonthly" class="col-sm-12"></div>
+            <!-- <hr> -->
+          </div>
+          <!-- end tab4 -->
+
         </div>
         <!-- end #tabs -->
       </div>
@@ -248,7 +270,6 @@
       </div>
     </div>
     <!-- end .row -->
-
   </div>
   <!-- end .container-fluid -->
 
@@ -262,6 +283,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.0/js/bootstrap-datepicker.min.js"></script>
   <script src='config.js'></script>
   <script src='plot.js'></script>
+  <script src='climatology.js'></script>
   <script src='datepicker.js'></script>
   <script src='tabs.js'></script>
 
