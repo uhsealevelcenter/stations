@@ -1,8 +1,10 @@
 var patt1 = new RegExp("^(?!([ \\d]*-){2})\\d+(?: *[-,] *\\d+)*$");
+
 function plotClimateData(_stn) {
 
   var dailyData = null;
   var monthlyData = null;
+
   function unpack(rows, key, unit, datum, ml, mh, lst, tz, err) {
     if (err) {
 
@@ -67,286 +69,284 @@ function plotClimateData(_stn) {
 
   Plotly.d3.csv("CLIM/daily_clim057.csv", function(err, rows) {
 
-      if (typeof rows != 'undefined') {
-        var MLLW = parseFloat(unpack(rows, 'MLLW_NTDE', currentUnit, currentDatum)[0]);
-        var MHHW = parseFloat(unpack(rows, 'MHHW_NTDE', currentUnit, currentDatum)[0]);
-        var LST = parseFloat(unpack(rows, 'time_zone', currentUnit, currentDatum)[0]);
+    if (typeof rows != 'undefined') {
+      var MLLW = parseFloat(unpack(rows, 'MLLW_NTDE', currentUnit, currentDatum)[0]);
+      var MHHW = parseFloat(unpack(rows, 'MHHW_NTDE', currentUnit, currentDatum)[0]);
+      var LST = parseFloat(unpack(rows, 'time_zone', currentUnit, currentDatum)[0]);
 
-        // There is no need to unpack time vector for every tracer
-        // because it is the same for each tracer
-        console.log(rows.length);
+      // There is no need to unpack time vector for every tracer
+      // because it is the same for each tracer
+      console.log(rows.length);
 
-        var trace1 = {
-          // meta: {columnNames: {y: 'Avg_High'}},
-          mode: 'lines',
-          name: 'Average high',
-          type: 'scatter',
-          y: unpack(rows, 'Avg_High', currentUnit, currentDatum, MLLW, MHHW, LST),
-          stackgroup: null
-        };
+      var trace1 = {
+        // meta: {columnNames: {y: 'Avg_High'}},
+        mode: 'lines',
+        name: 'Average high',
+        type: 'scatter',
+        y: unpack(rows, 'Avg_High', currentUnit, currentDatum, MLLW, MHHW, LST),
+        stackgroup: null
+      };
 
-        var trace2 = {
-          // meta: {columnNames: {y: 'Record_High'}},
-          mode: 'lines',
-          name: 'Record high',
-          type: 'scatter',
-          y: unpack(rows, 'Record_High', currentUnit, currentDatum, MLLW, MHHW, LST),
-          visible: true,
-          stackgroup: null
-        };
+      var trace2 = {
+        // meta: {columnNames: {y: 'Record_High'}},
+        mode: 'lines',
+        name: 'Record high',
+        type: 'scatter',
+        y: unpack(rows, 'Record_High', currentUnit, currentDatum, MLLW, MHHW, LST),
+        visible: true,
+        stackgroup: null
+      };
 
-        var trace3 = {
-          // meta: {columnNames: {y: '2017'}},
-          mode: 'lines',
-          name: '2017 high',
-          type: 'scatter',
-          y: unpack(rows, '2017', currentUnit, currentDatum, MLLW, MHHW, LST),
-          visible: true,
-          stackgroup: null
-        };
+      var trace3 = {
+        // meta: {columnNames: {y: '2017'}},
+        mode: 'lines',
+        name: '2019 high',
+        type: 'scatter',
+        y: unpack(rows, '2019', currentUnit, currentDatum, MLLW, MHHW, LST),
+        visible: true,
+        stackgroup: null
+      };
 
-        var trace4 = {
-          // meta: {columnNames: {y: '2019'}},
-          mode: 'lines',
-          name: '2019 high',
-          type: 'scatter',
-          y: unpack(rows, '2019', currentUnit, currentDatum, MLLW, MHHW, LST),
-          stackgroup: null
-        };
+      // var trace4 = {
+      //   // meta: {columnNames: {y: '2019'}},
+      //   mode: 'lines',
+      //   name: '2019 high',
+      //   type: 'scatter',
+      //   y: unpack(rows, '2019', currentUnit, currentDatum, MLLW, MHHW, LST),
+      //   stackgroup: null
+      // };
 
 
-        var data123 = [trace1, trace2, trace3, trace4];
-        var data3 = [trace3];
+      var data123 = [trace1, trace2, trace3];
+      var data3 = [trace3];
 
-        var layout123 = {
-          // title: 'Stn:' + _stn,
-          width: 1050,
-          height: 450,
-          autoresize: true,
-          xaxis: {
-            title: {
-              text: 'Days since January 1st'
-            },
-            autorange: true,
-            range: [0, 365]
+      var layout123 = {
+        // title: 'Stn:' + _stn,
+        width: 1050,
+        height: 450,
+        autoresize: true,
+        xaxis: {
+          title: {
+            text: 'Days since January 1st'
           },
+          autorange: true,
+          range: [0, 365]
+        },
+        yaxis: {
+          // title: yLabel1,
+          title: {
+            text: 'Water level above station zero (cm)'
+          },
+          autorange: true,
+          range: [0, 1000],
+          type: 'linear',
+        },
+        legend: {
+          xanchor: "center",
+          yanchor: "top",
+          "orientation": "h",
+          x: 0.5,
+          y: 1.1,
+        },
+        margin: {
+          l: 70,
+          r: 30, //105
+          b: 40,
+          t: 80,
+          pad: 0
+        },
+      };
+
+      Plotly.newPlot('climateDaily', data123, layout123, {
+        displayModeBar: false
+      });
+
+      // Plotly.newPlot('climateMonthly', data3, layout3, {
+      //   displayModeBar: false
+      // });
+      $("#product_desc").show();
+    } else {
+      Plotly.purge("climateDaily");
+      // Plotly.purge("climateMonthly");
+      $("#climateDaily").text("Real-time water level data for station " + _stn + " is not available. Tide tables and datum information are available on subsequent tabs.");
+      // alert("Water Levels data for station number: " + _stn + " is missing");
+      $("#product_desc").hide();
+    }
+
+
+    // On button click station behavior
+    // $(".toggleclass").off().on('change', function() {
+    //   // Negated because I want the toggle button to be gray (off) by default
+    //   // and also want the "off" state to indicate default values
+    //   // if (typeof rows != 'undefined')
+    //   //   updatePlotData(!$('#unitToggle').prop("checked"), !$('#datumToggle').prop("checked"));
+    // });
+    // $("#timeToggle").off().on('change', function() {
+    //   // updateTime(!$('#timeToggle').prop("checked"));
+    // });
+
+    function updatePlotData(unit, datum) {
+      var columns = ["Prediction", "Observation", "Residual", "ExtremeLow", "ExtremeHigh"];
+      unitYlabel = getYLabel(unit, datum).unit;
+      datumYlabel = getYLabel(unit, datum).datum;
+
+      for (var i = 0; i < columns.length; i++) {
+        var update = {};
+        // specifying true for datum because residual should not be scaled
+        if (columns[i] === "Residual") {
+          update = {
+            y: [unpack(rows, columns[i], unit, true, MLLW, MHHW, LST)]
+          };
+        } else {
+          update = {
+            y: [unpack(rows, columns[i], unit, datum, MLLW, MHHW, LST)]
+          };
+        }
+
+        var layout_update = {
           yaxis: {
-            // title: yLabel1,
-            title: {
-              text: 'Water level above station zero (cm)'
-            },
+            title: 'Relative water level (' + unitYlabel + ', ' + datumYlabel + ')',
             autorange: true,
             range: [0, 1000],
             type: 'linear',
           },
-          legend: {
-            xanchor: "center",
-            yanchor: "top",
-            "orientation": "h",
-            x: 0.5,
-            y: 1.1,
-          },
-          margin: {
-            l: 70,
-            r: 30, //105
-            b: 40,
-            t: 80,
-            pad: 0
-          },
         };
-
-        Plotly.newPlot('climateDaily', data123, layout123, {
-          displayModeBar: false
-        });
-
-        // Plotly.newPlot('climateMonthly', data3, layout3, {
-        //   displayModeBar: false
-        // });
-        $("#product_desc").show();
-      } else {
-        Plotly.purge("climateDaily");
-        // Plotly.purge("climateMonthly");
-        $("#climateDaily").text("Real-time water level data for station " + _stn + " is not available. Tide tables and datum information are available on subsequent tabs.");
-        // alert("Water Levels data for station number: " + _stn + " is missing");
-        $("#product_desc").hide();
-      }
-
-
-      // On button click station behavior
-      // $(".toggleclass").off().on('change', function() {
-      //   // Negated because I want the toggle button to be gray (off) by default
-      //   // and also want the "off" state to indicate default values
-      //   // if (typeof rows != 'undefined')
-      //   //   updatePlotData(!$('#unitToggle').prop("checked"), !$('#datumToggle').prop("checked"));
-      // });
-      // $("#timeToggle").off().on('change', function() {
-      //   // updateTime(!$('#timeToggle').prop("checked"));
-      // });
-
-      function updatePlotData(unit, datum) {
-        var columns = ["Prediction", "Observation", "Residual", "ExtremeLow", "ExtremeHigh"];
-        unitYlabel = getYLabel(unit, datum).unit;
-        datumYlabel = getYLabel(unit, datum).datum;
-
-        for (var i = 0; i < columns.length; i++) {
-          var update = {};
-          // specifying true for datum because residual should not be scaled
-          if (columns[i] === "Residual") {
-            update = {
-              y: [unpack(rows, columns[i], unit, true, MLLW, MHHW, LST)]
-            };
-          } else {
-            update = {
-              y: [unpack(rows, columns[i], unit, datum, MLLW, MHHW, LST)]
-            };
-          }
-
-          var layout_update = {
-            yaxis: {
-              title: 'Relative water level (' + unitYlabel + ', ' + datumYlabel + ')',
-              autorange: true,
-              range: [0, 1000],
-              type: 'linear',
-            },
-          };
-          // layout_update.yaxis.title = "Relative water level (ft, MLLW)";
-          Plotly.update('climateDaily', update, layout_update, [i]);
-          if (columns[i] === "Residual") {
-            layout_update.yaxis.title = 'Relative water level (' + unitYlabel + ')';
-            // Plotly.update('climateMonthly', update, layout_update, [0]);
-          }
+        // layout_update.yaxis.title = "Relative water level (ft, MLLW)";
+        Plotly.update('climateDaily', update, layout_update, [i]);
+        if (columns[i] === "Residual") {
+          layout_update.yaxis.title = 'Relative water level (' + unitYlabel + ')';
+          // Plotly.update('climateMonthly', update, layout_update, [0]);
         }
       }
-      dailyData = rows;
     }
-  )
+    dailyData = rows;
+  })
 
   Plotly.d3.csv("CLIM/monthly_clim057.csv", function(err, rows) {
 
 
-      if (typeof rows != 'undefined') {
-        var MLLW = parseFloat(unpack(rows, 'MLLW_NTDE', currentUnit, currentDatum)[0]);
-        var MHHW = parseFloat(unpack(rows, 'MHHW_NTDE', currentUnit, currentDatum)[0]);
-        var LST = parseFloat(unpack(rows, 'time_zone', currentUnit, currentDatum)[0]);
+    if (typeof rows != 'undefined') {
+      var MLLW = parseFloat(unpack(rows, 'MLLW_NTDE', currentUnit, currentDatum)[0]);
+      var MHHW = parseFloat(unpack(rows, 'MHHW_NTDE', currentUnit, currentDatum)[0]);
+      var LST = parseFloat(unpack(rows, 'time_zone', currentUnit, currentDatum)[0]);
 
-        // There is no need to unpack time vector for every tracer
-        // because it is the same for each tracer
-        console.log(rows.length);
+      // There is no need to unpack time vector for every tracer
+      // because it is the same for each tracer
+      console.log(rows.length);
 
-        var trace1 = {
-          // meta: {columnNames: {y: 'Avg_High'}},
-          mode: 'lines',
-          name: 'Record High',
-          type: 'scatter',
-          y: unpack(rows, 'Record_High', currentUnit, currentDatum, MLLW, MHHW, LST),
-          stackgroup: null
-        };
+      var trace1 = {
+        // meta: {columnNames: {y: 'Avg_High'}},
+        mode: 'lines',
+        name: 'Record High',
+        type: 'scatter',
+        y: unpack(rows, 'Record_High', currentUnit, currentDatum, MLLW, MHHW, LST),
+        stackgroup: null
+      };
 
-        var trace2 = {
-          // meta: {columnNames: {y: 'Record_High'}},
-          mode: 'lines',
-          name: 'Record Low',
-          type: 'scatter',
-          y: unpack(rows, 'Record_Low', currentUnit, currentDatum, MLLW, MHHW, LST),
-          visible: true,
-          stackgroup: null
-        };
+      var trace2 = {
+        // meta: {columnNames: {y: 'Record_High'}},
+        mode: 'lines',
+        name: 'Record Low',
+        type: 'scatter',
+        y: unpack(rows, 'Record_Low', currentUnit, currentDatum, MLLW, MHHW, LST),
+        visible: true,
+        stackgroup: null
+      };
 
-        var trace3 = {
-          // meta: {columnNames: {y: '2017'}},
-          mode: 'lines',
-          name: 'Average Monthly',
-          type: 'scatter',
-          y: unpack(rows, 'Avg_Monthly', currentUnit, currentDatum, MLLW, MHHW, LST),
-          visible: true,
-          stackgroup: null
-        };
+      var trace3 = {
+        // meta: {columnNames: {y: '2017'}},
+        mode: 'lines',
+        name: 'Average Monthly',
+        type: 'scatter',
+        y: unpack(rows, 'Avg_Monthly', currentUnit, currentDatum, MLLW, MHHW, LST),
+        visible: true,
+        stackgroup: null
+      };
 
-        var trace4 = {
-          // meta: {columnNames: {y: '2019'}},
-          mode: 'lines',
-          name: '2019 Monthly Mean',
-          type: 'scatter',
-          y: unpack(rows, '2019', currentUnit, currentDatum, MLLW, MHHW, LST),
-          stackgroup: null
-        };
+      var trace4 = {
+        // meta: {columnNames: {y: '2019'}},
+        mode: 'lines',
+        name: '2019 Monthly Mean',
+        type: 'scatter',
+        y: unpack(rows, '2019', currentUnit, currentDatum, MLLW, MHHW, LST),
+        stackgroup: null
+      };
 
 
-        var data123 = [trace1, trace2, trace3, trace4];
-        var data3 = [trace3];
+      var data123 = [trace1, trace2, trace3, trace4];
+      var data3 = [trace3];
 
-        var layout123 = {
-          // title: 'Stn:' + _stn,
-          width: 1050,
-          height: 450,
-          autoresize: true,
-          xaxis: {
-            title: {
-              text: 'Months since January'
-            },
-            autorange: true,
-            range: [0, 11]
+      var layout123 = {
+        // title: 'Stn:' + _stn,
+        width: 1050,
+        height: 450,
+        autoresize: true,
+        xaxis: {
+          title: {
+            text: 'Months since January'
           },
-          yaxis: {
-            // title: yLabel1,
-            title: {
-              text: 'Water level above station zero (cm)'
-            },
-            autorange: true,
-            range: [0, 1000],
-            type: 'linear',
+          autorange: true,
+          range: [0, 11]
+        },
+        yaxis: {
+          // title: yLabel1,
+          title: {
+            text: 'Water level above station zero (cm)'
           },
-          legend: {
-            xanchor: "center",
-            yanchor: "top",
-            "orientation": "h",
-            x: 0.5,
-            y: 1.1,
-          },
-          margin: {
-            l: 70,
-            r: 30, //105
-            b: 40,
-            t: 80,
-            pad: 0
-          },
-        };
+          autorange: true,
+          range: [0, 1000],
+          type: 'linear',
+        },
+        legend: {
+          xanchor: "center",
+          yanchor: "top",
+          "orientation": "h",
+          x: 0.5,
+          y: 1.1,
+        },
+        margin: {
+          l: 70,
+          r: 30, //105
+          b: 40,
+          t: 80,
+          pad: 0
+        },
+      };
 
-        Plotly.newPlot('climateMonthly', data123, layout123, {
-          displayModeBar: false
-        });
+      Plotly.newPlot('climateMonthly', data123, layout123, {
+        displayModeBar: false
+      });
 
-        // Plotly.newPlot('climateMonthly', data3, layout3, {
-        //   displayModeBar: false
-        // });
-        $("#product_desc").show();
-
-        monthlyData = rows;
-      } else {
-        Plotly.purge("climateMonthly");
-        // Plotly.purge("climateMonthly");
-        $("#climateMonthly").text("Real-time water level data for station " + _stn + " is not available. Tide tables and datum information are available on subsequent tabs.");
-        // alert("Water Levels data for station number: " + _stn + " is missing");
-        $("#product_desc").hide();
-      }
-
-
-      // // On button click station behavior
-      // $(".toggleclass").off().on('change', function() {
-      //   // Negated because I want the toggle button to be gray (off) by default
-      //   // and also want the "off" state to indicate default values
-      //   // if (typeof rows != 'undefined')
-      //   //   updatePlotData(!$('#unitToggle').prop("checked"), !$('#datumToggle').prop("checked"));
+      // Plotly.newPlot('climateMonthly', data3, layout3, {
+      //   displayModeBar: false
       // });
-      // $("#timeToggle").off().on('change', function() {
-      //   // updateTime(!$('#timeToggle').prop("checked"));
-      // });
+      $("#product_desc").show();
+
+      monthlyData = rows;
+    } else {
+      Plotly.purge("climateMonthly");
+      // Plotly.purge("climateMonthly");
+      $("#climateMonthly").text("Real-time water level data for station " + _stn + " is not available. Tide tables and datum information are available on subsequent tabs.");
+      // alert("Water Levels data for station number: " + _stn + " is missing");
+      $("#product_desc").hide();
     }
-  )
-var prevUnique;
+
+
+    // // On button click station behavior
+    // $(".toggleclass").off().on('change', function() {
+    //   // Negated because I want the toggle button to be gray (off) by default
+    //   // and also want the "off" state to indicate default values
+    //   // if (typeof rows != 'undefined')
+    //   //   updatePlotData(!$('#unitToggle').prop("checked"), !$('#datumToggle').prop("checked"));
+    // });
+    // $("#timeToggle").off().on('change', function() {
+    //   // updateTime(!$('#timeToggle').prop("checked"));
+    // });
+  })
+  var prevUnique;
   plotClimateData.addYears = addYears;
 
-  function addYears(){
+  function addYears() {
     console.log("addYears called");
     var x, text, allYears;
     var commaSeparatedYears = [];
@@ -361,32 +361,47 @@ var prevUnique;
     // It has to be in range of years available
     // The number of years has to be smaller than the maximum allowed amount of traces
     // Comma separated plus range has to be smaller than the max allowed
-    if(patt1.test(x))
-    {
+    if (patt1.test(x)) {
       // console.log("input was ",x);
       // console.log("Comma separated input", x.split(','));
 
-      for (var i = 0; i < xSeparated.length; i++){
+      for (var i = 0; i < xSeparated.length; i++) {
         // Separate by comas and then find the hyphens and craete a range
-        if(!xSeparated[i].includes("-"))
-        {
+        if (!xSeparated[i].includes("-")) {
           commaSeparatedYears.push(parseInt(xSeparated[i].trim()));
-        }
-        else
-        {
-          ranges.push(range(parseInt(xSeparated[i].split('-')[0]),parseInt(xSeparated[i].split('-')[1]) ));
+        } else {
+          ranges.push(range(parseInt(xSeparated[i].split('-')[0]), parseInt(xSeparated[i].split('-')[1])));
         }
       }
       ranges = [].concat.apply([], ranges);
       allYears = ranges.concat.apply(ranges, commaSeparatedYears);
-      var uniqueYears= [...new Set(allYears)]
-      // console.log("all years",allYears);
-      // console.log("unique years",uniqueYears);
-      if(uniqueYears.length > 10)
-        text = "The total number of years can't exceed 10. " +uniqueYears.length+ " years entered";
-      else{
-        text="";
-        if(prevUnique){
+      var uniqueYears = [...new Set(allYears)]
+
+
+      // Remove the default year
+      // TODO: define the default year
+      var index = uniqueYears.indexOf(2019);
+      if (index > -1) {
+        uniqueYears.splice(index, 1);
+      }
+
+      // Check if years are in the allowed range
+      // TODO: define year limits dinamically
+      var index=uniqueYears.findIndex(function(number) {
+        return number > 2019 || number<1905;
+      });
+
+      if(index>-1)
+      {
+        text = "The year number can't be less than 1905 or greater than 2019";
+      }
+      else
+      {
+      if (uniqueYears.length > 10)
+        text = "The total number of years can't exceed 10. " + uniqueYears.length + " years entered";
+      else {
+        text = "";
+        if (prevUnique) {
           Plotly.deleteTraces("climateDaily", range(-prevUnique.length, -1));
           Plotly.deleteTraces("climateMonthly", range(-prevUnique.length, -1));
         }
@@ -394,78 +409,79 @@ var prevUnique;
         prevUnique = uniqueYears;
         uniqueYears.forEach(myCallback);
       }
+    }
 
-    }else{
+    } else {
       text = "Invalid year range, use e.g. 1995-2000, 2010, 2013-2015";
     }
 
-    document.getElementById("inputMessage").innerHTML = text;
+    document.getElementById("inputMessage").innerText = text;
   }
 
   function myCallback(item, index) {
-  console.log(item,index);
-  if(item != "")
-  {
-    Plotly.addTraces("climateDaily", createNewTrace(item.toString().trim(), dailyData, ' high'));
-    Plotly.addTraces("climateMonthly", createNewTrace(item.toString().trim(), monthlyData, ' Monthly Mean'));
+    console.log(item, index);
+    if (item != "") {
+      Plotly.addTraces("climateDaily", createNewTrace(item.toString().trim(), dailyData, ' high'));
+      Plotly.addTraces("climateMonthly", createNewTrace(item.toString().trim(), monthlyData, ' Monthly Mean'));
+    }
   }
-}
 
-// function separateCallback(item, index) {
-//   var years = [];
-//   if(!item.includes("-"))
-//   {
-//     yers.push(item);
-//   }
-//   return years;
-// }
+  // function separateCallback(item, index) {
+  //   var years = [];
+  //   if(!item.includes("-"))
+  //   {
+  //     yers.push(item);
+  //   }
+  //   return years;
+  // }
 
-const range = (start, end) => {
+  const range = (start, end) => {
     const length = end - start + 1;
-    return Array.from({ length }, (_, i) => start + i);
-}
+    return Array.from({
+      length
+    }, (_, i) => start + i);
+  }
 
-function createNewTrace(year, data, legendText){
-  var currentUnit = !$('#unitToggle').prop("checked");
-  var currentDatum = !$('#datumToggle').prop("checked");
-  var currentTZ = !$('#timeToggle').prop("checked");
-  var MLLW = parseFloat(unpack(data, 'MLLW_NTDE', currentUnit, currentDatum)[0]);
-  var MHHW = parseFloat(unpack(data, 'MHHW_NTDE', currentUnit, currentDatum)[0]);
-  var LST = parseFloat(unpack(data, 'time_zone', currentUnit, currentDatum)[0]);
-  var trace = {
-    // meta: {columnNames: {y: '2019'}},
-    mode: 'lines',
-    name: year +legendText,
-    type: 'scatter',
-    y: unpack(data, year, currentUnit, currentDatum, MLLW, MHHW, LST),
-    stackgroup: null
-  };
+  function createNewTrace(year, data, legendText) {
+    var currentUnit = !$('#unitToggle').prop("checked");
+    var currentDatum = !$('#datumToggle').prop("checked");
+    var currentTZ = !$('#timeToggle').prop("checked");
+    var MLLW = parseFloat(unpack(data, 'MLLW_NTDE', currentUnit, currentDatum)[0]);
+    var MHHW = parseFloat(unpack(data, 'MHHW_NTDE', currentUnit, currentDatum)[0]);
+    var LST = parseFloat(unpack(data, 'time_zone', currentUnit, currentDatum)[0]);
+    var trace = {
+      // meta: {columnNames: {y: '2019'}},
+      mode: 'lines',
+      name: year + legendText,
+      type: 'scatter',
+      y: unpack(data, year, currentUnit, currentDatum, MLLW, MHHW, LST),
+      stackgroup: null
+    };
 
-  return trace;
-}
+    return trace;
+  }
 
 };
 
-$('#yearsBox').keyup(function(event){
-        var keycode = (event.keyCode ? event.keyCode : event.which);
-        console.log((keycode));
-        if(keycode == '13'){
-            plotClimateData.addYears();
-        }
-        else{
-          if(keycode == '8' & document.getElementById("yearsBox").value==""){
-            document.getElementById("inputMessage").innerHTML = "";
-          }
-        //   else
-        //   {
-        //     if(!patt1.test(String.fromCharCode(keycode))){
-        //     document.getElementById("inputMessage").innerHTML = "Invalid year range, use e.g. 1995-2000, 2010, 2013-2015";
-        //   }
-        // }
-        }
+$('#yearsBox').keyup(function(event) {
+  var keycode = (event.keyCode ? event.keyCode : event.which);
+  console.log((keycode));
+  if (keycode == '13') {
+    plotClimateData.addYears();
+  } else {
+    if (keycode == '8' & document.getElementById("yearsBox").value == "") {
+      document.getElementById("inputMessage").innerText = "";
+    }
+    //   else
+    //   {
+    //     if(!patt1.test(String.fromCharCode(keycode))){
+    //     document.getElementById("inputMessage").innerText = "Invalid year range, use e.g. 1995-2000, 2010, 2013-2015";
+    //   }
+    // }
+  }
 
-        // document.getElementById("inputMessage").innerHTML = text;
-    });
+  // document.getElementById("inputMessage").innerText = text;
+});
 
 function getYLabel(unit, datum) {
   var combo = "";
