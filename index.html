@@ -240,10 +240,14 @@
           <div id="climatology" class="col-sm-12 center">
             <div class="col-sm-6 col-sm-offset-3" >
                 <div class="input-group">
+                  <span class="input-group-btn">
+                    <button onclick="plotClimateData.reset()" class="btn btn-info" type="submit">Reset</button>
+                  </span>
                   <input id="yearsBox" type="text" class="form-control" placeholder=" e.g. 2005-2009, 2015, 2017-2019 (max 10)" aria-label="Enter Years" aria-describedby="basic-addon2">
                   <span class="input-group-btn">
                     <button onclick="plotClimateData.addYears()" class="btn btn-info" type="submit">Add Years</button>
                   </span>
+
                 </div>
             </div>
 

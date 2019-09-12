@@ -120,11 +120,35 @@ function plotClimateData(_stn) {
       var data123 = [trace1, trace2, trace3];
       var data3 = [trace3];
 
+      var updatemenus=[
+    {
+        buttons: [
+            {
+                args: [{'visible': [true, false, false, false]},
+                       {'annotations': []}],
+                label: 'Reset',
+                method: 'update'
+            }
+
+        ],
+        direction: 'left',
+        pad: {'r': 10, 't': 10},
+        showactive: true,
+        type: 'buttons',
+        x: 0.1,
+        xanchor: 'left',
+        // y: button_layer_2_height,
+        yanchor: 'top'
+    },
+
+]
+
       var layout123 = {
         // title: 'Stn:' + _stn,
         width: 1050,
         height: 450,
         autoresize: true,
+        // updatemenus: updatemenus,
         xaxis: {
           title: {
             text: 'Days since January 1st'
@@ -344,7 +368,6 @@ function plotClimateData(_stn) {
     // });
   })
   var prevUnique;
-  plotClimateData.addYears = addYears;
 
   function addYears() {
     console.log("addYears called");
@@ -378,7 +401,7 @@ function plotClimateData(_stn) {
       var uniqueYears = [...new Set(allYears)]
 
 
-      // Remove the default year
+      // Look for and remove the default year duplicate
       // TODO: define the default year
       var index = uniqueYears.indexOf(2019);
       if (index > -1) {
@@ -393,6 +416,7 @@ function plotClimateData(_stn) {
 
       if(index>-1)
       {
+        // TODO: define year limits dinamically
         text = "The year number can't be less than 1905 or greater than 2019";
       }
       else
@@ -418,6 +442,9 @@ function plotClimateData(_stn) {
     document.getElementById("inputMessage").innerText = text;
   }
 
+  plotClimateData.addYears = addYears;
+  plotClimateData.reset = reset;
+
   function myCallback(item, index) {
     console.log(item, index);
     if (item != "") {
@@ -440,6 +467,14 @@ function plotClimateData(_stn) {
     return Array.from({
       length
     }, (_, i) => start + i);
+  }
+
+  function reset(){
+    Plotly.deleteTraces("climateDaily", range(-prevUnique.length, -1));
+    Plotly.deleteTraces("climateMonthly", range(-prevUnique.length, -1));
+    prevUnique = [];
+    document.getElementById("yearsBox").value = "";
+    document.getElementById("inputMessage").innerText="";
   }
 
   function createNewTrace(year, data, legendText) {
