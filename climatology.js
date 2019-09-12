@@ -1,3 +1,4 @@
+var patt1 = new RegExp("^(?!([ \\d]*-){2})\\d+(?: *[-,] *\\d+)*$");
 function plotClimateData(_stn) {
 
   var dailyData = null;
@@ -342,7 +343,7 @@ function plotClimateData(_stn) {
       // });
     }
   )
-
+var prevUnique;
   plotClimateData.addYears = addYears;
 
   function addYears(){
@@ -350,8 +351,8 @@ function plotClimateData(_stn) {
     var x, text, allYears;
     var commaSeparatedYears = [];
     var ranges = [];
+
     // var patt1 = new RegExp("^(\\s*\\d+\\s*\\-\\s*\\d+\\s*,?|\\s*\\d+\\s*,?)+$");
-    var patt1 = new RegExp("^(?!([ \\d]*-){2})\\d+(?: *[-,] *\\d+)*$");
 
     // Get the value of the input field with id="yearsBox"
     x = document.getElementById("yearsBox").value;
@@ -379,13 +380,23 @@ function plotClimateData(_stn) {
       ranges = [].concat.apply([], ranges);
       allYears = ranges.concat.apply(ranges, commaSeparatedYears);
       var uniqueYears= [...new Set(allYears)]
-      console.log("all years",allYears);
-      console.log("unique years",uniqueYears);
-      text = "Input OK";
-      uniqueYears.forEach(myCallback);
+      // console.log("all years",allYears);
+      // console.log("unique years",uniqueYears);
+      if(uniqueYears.length > 10)
+        text = "The total number of years can't exceed 10. " +uniqueYears.length+ " years entered";
+      else{
+        text="";
+        if(prevUnique){
+          Plotly.deleteTraces("climateDaily", range(-prevUnique.length, -1));
+          Plotly.deleteTraces("climateMonthly", range(-prevUnique.length, -1));
+        }
+
+        prevUnique = uniqueYears;
+        uniqueYears.forEach(myCallback);
+      }
 
     }else{
-      text = "Input not valid";
+      text = "Invalid year range, use e.g. 1995-2000, 2010, 2013-2015";
     }
 
     document.getElementById("inputMessage").innerHTML = text;
@@ -435,11 +446,22 @@ function createNewTrace(year, data, legendText){
 
 };
 
-$('#yearsBox').keypress(function(event){
+$('#yearsBox').keyup(function(event){
         var keycode = (event.keyCode ? event.keyCode : event.which);
-        // console.log(String.fromCharCode(keycode));
+        console.log((keycode));
         if(keycode == '13'){
             plotClimateData.addYears();
+        }
+        else{
+          if(keycode == '8' & document.getElementById("yearsBox").value==""){
+            document.getElementById("inputMessage").innerHTML = "";
+          }
+        //   else
+        //   {
+        //     if(!patt1.test(String.fromCharCode(keycode))){
+        //     document.getElementById("inputMessage").innerHTML = "Invalid year range, use e.g. 1995-2000, 2010, 2013-2015";
+        //   }
+        // }
         }
 
         // document.getElementById("inputMessage").innerHTML = text;
