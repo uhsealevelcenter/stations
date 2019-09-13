@@ -82,22 +82,46 @@ function plotClimateData(_stn) {
       // because it is the same for each tracer
       console.log(rows.length);
       var timeRange =  range(1, rows.length);
+      var trace_al = {
+        // meta: {columnNames: {y: 'Avg_High'}},
+        mode: 'lines',
+        name: 'Average Low',
+        type: 'scatter',
+        // x: timeRange,
+        x: ALL_DAYS,
+        y: unpack(rows, 'Avg_Low', currentUnit, currentDatum, MLLW, MHHW, LST),
+        stackgroup: null
+      };
       var trace1 = {
         // meta: {columnNames: {y: 'Avg_High'}},
         mode: 'lines',
-        name: 'Average high',
+        name: 'Average High',
         type: 'scatter',
+        // fill: 'tonexty',
         // x: timeRange,
         x: ALL_DAYS,
         y: unpack(rows, 'Avg_High', currentUnit, currentDatum, MLLW, MHHW, LST),
         stackgroup: null
       };
 
+      var trace_rl = {
+        // meta: {columnNames: {y: 'Record_High'}},
+        mode: 'lines',
+        name: 'Record Low',
+        type: 'scatter',
+        // x: timeRange,
+        x: ALL_DAYS,
+        y: unpack(rows, 'Record_Low', currentUnit, currentDatum, MLLW, MHHW, LST),
+        visible: true,
+        stackgroup: null
+      };
+
       var trace2 = {
         // meta: {columnNames: {y: 'Record_High'}},
         mode: 'lines',
-        name: 'Record high',
+        name: 'Record High',
         type: 'scatter',
+        // fill: 'tonexty',
         // x: timeRange,
         x: ALL_DAYS,
         y: unpack(rows, 'Record_High', currentUnit, currentDatum, MLLW, MHHW, LST),
@@ -105,16 +129,32 @@ function plotClimateData(_stn) {
         stackgroup: null
       };
 
+      var trace_ad = {
+        // meta: {columnNames: {y: 'Record_High'}},
+        mode: 'lines',
+        name: 'Average Daily',
+        type: 'scatter',
+        // x: timeRange,
+        x: ALL_DAYS,
+        y: unpack(rows, 'Avg_Daily', currentUnit, currentDatum, MLLW, MHHW, LST),
+        visible: true,
+        stackgroup: null
+      };
+
       var trace3 = {
         // meta: {columnNames: {y: '2017'}},
         mode: 'lines',
-        name: '2019 high',
+        name: '2019 High',
         type: 'scatter',
         // x: timeRange,
         x: ALL_DAYS,
         y: unpack(rows, '2019', currentUnit, currentDatum, MLLW, MHHW, LST),
         visible: true,
-        stackgroup: null
+        stackgroup: null,
+        line: {
+          color: 'rgb(0, 0, 0)',
+          width: 4
+        }
       };
 
       // var trace4 = {
@@ -127,7 +167,7 @@ function plotClimateData(_stn) {
       // };
 
 
-      var data123 = [trace1, trace2, trace3];
+      var data123 = [trace_al, trace1, trace_rl, trace2, trace_ad, trace3];
       var data3 = [trace3];
 
       var layout123 = {
@@ -426,7 +466,7 @@ function plotClimateData(_stn) {
       if (uniqueYears.length > 10)
         text = "The total number of years can't exceed 10. " + uniqueYears.length + " years entered";
       else {
-        text = "TIP: Double click on a legend to isolate one trace";
+        text = "TIP: Double click on a legend to isolate only one trace";
         if (prevUnique) {
           Plotly.deleteTraces("climateDaily", range(-prevUnique.length, -1));
           Plotly.deleteTraces("climateMonthly", range(-prevUnique.length, -1));
@@ -493,7 +533,11 @@ function plotClimateData(_stn) {
       type: 'scatter',
       x: [],
       y: unpack(data, year, currentUnit, currentDatum, MLLW, MHHW, LST),
-      stackgroup: null
+      stackgroup: null,
+      line: {
+        // color: 'rgb(55, 128, 191)',
+        width: 4
+      }
     };
     // TODO: this is just for testing
     // make createNewTrace accept 'daily' or 'monthly' string, istead of doing
