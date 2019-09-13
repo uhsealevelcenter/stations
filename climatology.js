@@ -1,5 +1,9 @@
-var patt1 = new RegExp("^(?!([ \\d]*-){2})\\d+(?: *[-,] *\\d+)*$");
-
+// var patt1 = new RegExp("^(?!([ \\d]*-){2})\\d+(?: *[-,] *\\d+)*$");
+// This one should not allow 5 digit or larger numbers
+var patt1 = new RegExp("^(?!([ \\d]*-){2})\\d{4,4}(?: *[-,] *\\d{4,4})*$")
+// This one below should limit the year between 1905 and 2019
+// var patt1 = new RegExp("^(?!([ \\d]*-){2})\\b(190[5-9]|19[1-9][0-9]|200[0-9]|201[0-9])\\b(?: *[-,] *\\b(190[5-9]|19[1-9][0-9]|200[0-9]|201[0-9])\\b)*$")
+var ALL_DAYS = DOY_to_dates();
 function plotClimateData(_stn) {
 
   var dailyData = null;
@@ -77,12 +81,14 @@ function plotClimateData(_stn) {
       // There is no need to unpack time vector for every tracer
       // because it is the same for each tracer
       console.log(rows.length);
-
+      var timeRange =  range(1, rows.length);
       var trace1 = {
         // meta: {columnNames: {y: 'Avg_High'}},
         mode: 'lines',
         name: 'Average high',
         type: 'scatter',
+        // x: timeRange,
+        x: ALL_DAYS,
         y: unpack(rows, 'Avg_High', currentUnit, currentDatum, MLLW, MHHW, LST),
         stackgroup: null
       };
@@ -92,6 +98,8 @@ function plotClimateData(_stn) {
         mode: 'lines',
         name: 'Record high',
         type: 'scatter',
+        // x: timeRange,
+        x: ALL_DAYS,
         y: unpack(rows, 'Record_High', currentUnit, currentDatum, MLLW, MHHW, LST),
         visible: true,
         stackgroup: null
@@ -102,6 +110,8 @@ function plotClimateData(_stn) {
         mode: 'lines',
         name: '2019 high',
         type: 'scatter',
+        // x: timeRange,
+        x: ALL_DAYS,
         y: unpack(rows, '2019', currentUnit, currentDatum, MLLW, MHHW, LST),
         visible: true,
         stackgroup: null
@@ -120,41 +130,25 @@ function plotClimateData(_stn) {
       var data123 = [trace1, trace2, trace3];
       var data3 = [trace3];
 
-      var updatemenus=[
-    {
-        buttons: [
-            {
-                args: [{'visible': [true, false, false, false]},
-                       {'annotations': []}],
-                label: 'Reset',
-                method: 'update'
-            }
-
-        ],
-        direction: 'left',
-        pad: {'r': 10, 't': 10},
-        showactive: true,
-        type: 'buttons',
-        x: 0.1,
-        xanchor: 'left',
-        // y: button_layer_2_height,
-        yanchor: 'top'
-    },
-
-]
-
       var layout123 = {
         // title: 'Stn:' + _stn,
-        width: 1050,
+        width: 1000,
         height: 450,
         autoresize: true,
         // updatemenus: updatemenus,
         xaxis: {
+          tickformat: '%B',
+          hoverformat: "%B%d",
+          // tickmode: 'linear',
+          // tick0: '1999-12-15',
+		      dtick: "M1", // milliseconds
           title: {
             text: 'Days since January 1st'
           },
+
           autorange: true,
-          range: [0, 365]
+          // range: [0, 365],
+          type: "date"
         },
         yaxis: {
           // title: yLabel1,
@@ -257,12 +251,14 @@ function plotClimateData(_stn) {
       // There is no need to unpack time vector for every tracer
       // because it is the same for each tracer
       console.log(rows.length);
+      var timeRange =  range(1, rows.length);
 
       var trace1 = {
         // meta: {columnNames: {y: 'Avg_High'}},
         mode: 'lines',
         name: 'Record High',
         type: 'scatter',
+        x: timeRange,
         y: unpack(rows, 'Record_High', currentUnit, currentDatum, MLLW, MHHW, LST),
         stackgroup: null
       };
@@ -272,6 +268,7 @@ function plotClimateData(_stn) {
         mode: 'lines',
         name: 'Record Low',
         type: 'scatter',
+        x: timeRange,
         y: unpack(rows, 'Record_Low', currentUnit, currentDatum, MLLW, MHHW, LST),
         visible: true,
         stackgroup: null
@@ -282,6 +279,7 @@ function plotClimateData(_stn) {
         mode: 'lines',
         name: 'Average Monthly',
         type: 'scatter',
+        x: timeRange,
         y: unpack(rows, 'Avg_Monthly', currentUnit, currentDatum, MLLW, MHHW, LST),
         visible: true,
         stackgroup: null
@@ -292,6 +290,7 @@ function plotClimateData(_stn) {
         mode: 'lines',
         name: '2019 Monthly Mean',
         type: 'scatter',
+        x: timeRange,
         y: unpack(rows, '2019', currentUnit, currentDatum, MLLW, MHHW, LST),
         stackgroup: null
       };
@@ -302,15 +301,18 @@ function plotClimateData(_stn) {
 
       var layout123 = {
         // title: 'Stn:' + _stn,
-        width: 1050,
+        width: 1000,
         height: 450,
         autoresize: true,
         xaxis: {
+          tickmode: "array", // If "array", the placement of the ticks is set via `tickvals` and the tick text is `ticktext`.
+          tickvals: timeRange,
+          ticktext: ['January', 'February', 'March', 'April', 'May', 'June', 'July','August', 'September','October', 'November', 'December'],
           title: {
             text: 'Months since January'
           },
-          autorange: true,
-          range: [0, 11]
+          autorange: true
+          // range: [0, 11]
         },
         yaxis: {
           // title: yLabel1,
@@ -417,14 +419,14 @@ function plotClimateData(_stn) {
       if(index>-1)
       {
         // TODO: define year limits dinamically
-        text = "The year number can't be less than 1905 or greater than 2019";
+        text = "The year number must be between 1905 and 2019";
       }
       else
       {
       if (uniqueYears.length > 10)
         text = "The total number of years can't exceed 10. " + uniqueYears.length + " years entered";
       else {
-        text = "";
+        text = "TIP: Double click on a legend to isolate one trace";
         if (prevUnique) {
           Plotly.deleteTraces("climateDaily", range(-prevUnique.length, -1));
           Plotly.deleteTraces("climateMonthly", range(-prevUnique.length, -1));
@@ -489,9 +491,17 @@ function plotClimateData(_stn) {
       mode: 'lines',
       name: year + legendText,
       type: 'scatter',
+      x: [],
       y: unpack(data, year, currentUnit, currentDatum, MLLW, MHHW, LST),
       stackgroup: null
     };
+    // TODO: this is just for testing
+    // make createNewTrace accept 'daily' or 'monthly' string, istead of doing
+    // the check based on legend text
+    if(legendText == ' high')
+      trace.x = ALL_DAYS;
+    else
+      trace.x = range(1,12);
 
     return trace;
   }
@@ -567,4 +577,13 @@ function getXLabel(selection, lst) {
   }
 
   return xLabel;
+}
+
+function DOY_to_dates(){
+	var allDays=[];
+	for(var i=1; i<=366; i++){
+	var date = new Date(2016, 0); // initialize a date in `year-01-01`
+	allDays.push(new Date(date.setDate(i)));
+}
+  return allDays;
 }
