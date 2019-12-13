@@ -445,3 +445,15 @@ td {
 .datum-tz:hover:disabled {
   cursor: none;
 } */
+
+
+/* this will prevent trace 2 from toggling from the legend
+/*
+/* hides the svg dom element that has the click handler responsible for toggling */
+/*#climateDaily .legend .traces:nth-of-type(1) .legendtoggle {
+   display: none;
+} */
+/* just for presentation: shows the default cursor insted of the text cursor */
+/*#climateDaily .legend .traces:nth-of-type(1) .legendtext {
+   cursor: default;
+}*/

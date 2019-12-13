@@ -39,6 +39,7 @@ function loadtabs(stn, date, unit = "_cm") {
       if (stn) {
         alert("Datum table for station " + stn + " does not exist");
         plotData(stn);
+        plotClimateData(stn);
       }
     }
   });

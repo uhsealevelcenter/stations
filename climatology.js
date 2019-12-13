@@ -68,10 +68,11 @@ function plotClimateData(_stn) {
 
   var unitYlabel = getYLabel(currentUnit, currentDatum).unit;
   var datumYlabel = getYLabel(currentUnit, currentDatum).datum;
-  var yLabel1 = 'Relative water level (' + unitYlabel + ', ' + datumYlabel + ')';
-  var yLabel2 = 'Relative water level (' + unitYlabel + ')';
+  var yLabel1 = 'Water level above '+datumYlabel+' ('+unitYlabel+')';
+  // var yLabel1 = 'Relative water level (' + unitYlabel + ', ' + datumYlabel + ')';
+  var yLabel2 = 'Water level above '+datumYlabel+' ('+unitYlabel+')';
 
-  Plotly.d3.csv("CLIM/daily_clim057.csv", function(err, rows) {
+  Plotly.d3.csv("CLIM/daily_clim"+_stn+".csv", function(err, rows) {
 
     if (typeof rows != 'undefined') {
       var MLLW = parseFloat(unpack(rows, 'MLLW_NTDE', currentUnit, currentDatum)[0]);
@@ -92,6 +93,20 @@ function plotClimateData(_stn) {
         y: unpack(rows, 'Avg_Low', currentUnit, currentDatum, MLLW, MHHW, LST),
         stackgroup: null
       };
+
+      var trace_ar = {
+        // meta: {columnNames: {y: 'Avg_High'}},
+        mode: 'none',
+        name: 'Average Range',
+        type: 'scatter',
+        // x: timeRange,
+        x: ALL_DAYS,
+        y: trace_al.y,
+        hoverinfo: 'skip',
+        // stackgroup: null
+        fill: 'tonexty'
+      };
+
       var trace1 = {
         // meta: {columnNames: {y: 'Avg_High'}},
         mode: 'lines',
@@ -114,6 +129,19 @@ function plotClimateData(_stn) {
         y: unpack(rows, 'Record_Low', currentUnit, currentDatum, MLLW, MHHW, LST),
         visible: true,
         stackgroup: null
+      };
+
+      var trace_rr = {
+        // meta: {columnNames: {y: 'Avg_High'}},
+        mode: 'none',
+        name: 'Record Range',
+        type: 'scatter',
+        // x: timeRange,
+        x: ALL_DAYS,
+        y: trace_rl.y,
+        hoverinfo: 'skip',
+        // stackgroup: null
+        fill: 'tonexty'
       };
 
       var trace2 = {
@@ -167,7 +195,7 @@ function plotClimateData(_stn) {
       // };
 
 
-      var data123 = [trace_al, trace1, trace_rl, trace2, trace_ad, trace3];
+      var data123 = [trace2, trace_rr, trace_rl, trace1, trace_ar, trace_al,   trace_ad, trace3];
       var data3 = [trace3];
 
       var layout123 = {
@@ -177,13 +205,13 @@ function plotClimateData(_stn) {
         autoresize: true,
         // updatemenus: updatemenus,
         xaxis: {
-          tickformat: '%B',
-          hoverformat: "%B%d",
+          tickformat: '%b %_d',
+          hoverformat: "%B %d",
           // tickmode: 'linear',
           // tick0: '1999-12-15',
 		      dtick: "M1", // milliseconds
           title: {
-            text: 'Days since January 1st'
+            text: ''
           },
 
           autorange: true,
@@ -191,10 +219,11 @@ function plotClimateData(_stn) {
           type: "date"
         },
         yaxis: {
-          // title: yLabel1,
-          title: {
-            text: 'Water level above station zero (cm)'
-          },
+          title: yLabel1,
+          hoverformat: ".1f",
+          // title: {
+          //   text: 'Water level above station zero (cm)'
+          // },
           autorange: true,
           range: [0, 1000],
           type: 'linear',
@@ -214,10 +243,24 @@ function plotClimateData(_stn) {
           pad: 0
         },
       };
+      var myPlot = document.getElementById('climateDaily');
+
 
       Plotly.newPlot('climateDaily', data123, layout123, {
         displayModeBar: false
       });
+
+      myPlot.on('plotly_legendclick',function(data) {
+        console.log("legend "+data.curveNumber);
+        //TODO: dynamically decide the default year and curve number
+        if(data.curveNumber == 7){
+          alert("Cannot disable default year.")
+          return false;
+        }
+
+        else
+          return true;
+      })
 
       // Plotly.newPlot('climateMonthly', data3, layout3, {
       //   displayModeBar: false
@@ -226,7 +269,7 @@ function plotClimateData(_stn) {
     } else {
       Plotly.purge("climateDaily");
       // Plotly.purge("climateMonthly");
-      $("#climateDaily").text("Real-time water level data for station " + _stn + " is not available. Tide tables and datum information are available on subsequent tabs.");
+      $("#climateDaily").text("");
       // alert("Water Levels data for station number: " + _stn + " is missing");
       $("#product_desc").hide();
     }
@@ -280,7 +323,7 @@ function plotClimateData(_stn) {
     dailyData = rows;
   })
 
-  Plotly.d3.csv("CLIM/monthly_clim057.csv", function(err, rows) {
+  Plotly.d3.csv("CLIM/monthly_clim"+_stn+".csv", function(err, rows) {
 
 
     if (typeof rows != 'undefined') {
@@ -293,15 +336,6 @@ function plotClimateData(_stn) {
       console.log(rows.length);
       var timeRange =  range(1, rows.length);
 
-      var trace1 = {
-        // meta: {columnNames: {y: 'Avg_High'}},
-        mode: 'lines',
-        name: 'Record High',
-        type: 'scatter',
-        x: timeRange,
-        y: unpack(rows, 'Record_High', currentUnit, currentDatum, MLLW, MHHW, LST),
-        stackgroup: null
-      };
 
       var trace2 = {
         // meta: {columnNames: {y: 'Record_High'}},
@@ -313,6 +347,31 @@ function plotClimateData(_stn) {
         visible: true,
         stackgroup: null
       };
+
+      var trace_rr_m = {
+        // meta: {columnNames: {y: 'Avg_High'}},
+        mode: 'none',
+        name: 'Record Range',
+        type: 'scatter',
+        // x: timeRange,
+        x: trace2.x,
+        y: trace2.y,
+        hoverinfo: 'skip',
+        // stackgroup: null
+        fill: 'tonexty'
+      };
+
+      var trace1 = {
+        // meta: {columnNames: {y: 'Avg_High'}},
+        mode: 'lines',
+        name: 'Record High',
+        type: 'scatter',
+        x: timeRange,
+        y: unpack(rows, 'Record_High', currentUnit, currentDatum, MLLW, MHHW, LST),
+        stackgroup: null
+      };
+
+
 
       var trace3 = {
         // meta: {columnNames: {y: '2017'}},
@@ -336,7 +395,7 @@ function plotClimateData(_stn) {
       };
 
 
-      var data123 = [trace1, trace2, trace3, trace4];
+      var data123 = [ trace1,trace_rr_m, trace2,  trace3, trace4];
       var data3 = [trace3];
 
       var layout123 = {
@@ -349,16 +408,17 @@ function plotClimateData(_stn) {
           tickvals: timeRange,
           ticktext: ['January', 'February', 'March', 'April', 'May', 'June', 'July','August', 'September','October', 'November', 'December'],
           title: {
-            text: 'Months since January'
+            text: ''
           },
           autorange: true
           // range: [0, 11]
         },
         yaxis: {
-          // title: yLabel1,
-          title: {
-            text: 'Water level above station zero (cm)'
-          },
+          title: yLabel1,
+          hoverformat: ".1f",
+          // title: {
+          //   text: 'Water level above station zero (cm)'
+          // },
           autorange: true,
           range: [0, 1000],
           type: 'linear',
@@ -379,9 +439,22 @@ function plotClimateData(_stn) {
         },
       };
 
+      var myPlot = document.getElementById('climateMonthly');
       Plotly.newPlot('climateMonthly', data123, layout123, {
         displayModeBar: false
       });
+
+      myPlot.on('plotly_legendclick',function(data) {
+        console.log("legend "+data.curveNumber);
+        if(data.curveNumber == 4){
+          //TODO: dynamically decide the default year and curve number
+          alert("Cannot disable default year.")
+          return false;
+        }
+
+        else
+          return true;
+      })
 
       // Plotly.newPlot('climateMonthly', data3, layout3, {
       //   displayModeBar: false
@@ -392,7 +465,7 @@ function plotClimateData(_stn) {
     } else {
       Plotly.purge("climateMonthly");
       // Plotly.purge("climateMonthly");
-      $("#climateMonthly").text("Real-time water level data for station " + _stn + " is not available. Tide tables and datum information are available on subsequent tabs.");
+      $("#climateMonthly").text("");
       // alert("Water Levels data for station number: " + _stn + " is missing");
       $("#product_desc").hide();
     }
@@ -572,56 +645,6 @@ $('#yearsBox').keyup(function(event) {
   // document.getElementById("inputMessage").innerText = text;
 });
 
-function getYLabel(unit, datum) {
-  var combo = "";
-  var unt = "cm";
-  var dtm = "MLLW";
-  if (unit && datum)
-  //Metric + MLLW
-  {
-    combo = "ML";
-    unt = "cm";
-    dtm = "MLLW";
-  } else if (!unit && datum)
-  //English units + MLLW
-  {
-    combo = "EL";
-    unt = "ft";
-    dtm = "MLLW";
-  } else if (unit && !datum)
-  //Metric + MHHW
-  {
-    combo = "MH";
-    unt = "cm";
-    dtm = "MHHW";
-  } else
-  // English + MHHW
-  {
-    combo = "EH";
-    unt = "ft";
-    dtm = "MHHW";
-  }
-  var result = {
-    "unit": unt,
-    "datum": dtm
-  }
-  return result;
-
-}
-
-function getXLabel(selection, lst) {
-  var xLabel = "";
-  // Format the LST variable so that when it is negative there is a space between the minus sign and the number and
-  // when it is positive add the "+" sign and a space
-  var time_zone_str = lst >= 0 ? '+ ' + lst.toString() : [lst.toString().slice(0, 1), " ", lst.toString().slice(1)].join('');
-  if (selection) {
-    xLabel = "Time/Date " + '(' + "GMT" + ')';
-  } else {
-    xLabel = "Time/Date " + '(' + "LST" + ' = GMT ' + time_zone_str + 'hr)';
-  }
-
-  return xLabel;
-}
 
 function DOY_to_dates(){
 	var allDays=[];
