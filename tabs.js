@@ -202,6 +202,7 @@ $(document).ready(function() {
 });
 
 function unitButtonsController(hash) {
+  console.log("HASH IS "+hash);
   if (hash === "#tidecal" || hash === "#datums") {
     $('#timeToggle').disable = true;
     document.getElementById("timeToggle").disabled = true;
@@ -210,14 +211,29 @@ function unitButtonsController(hash) {
     document.getElementById("timeToggle").disabled = false;
     document.getElementById("datumToggle").disabled = false;
   }
-  var x = document.getElementsByClassName("datum-tz");
+
+  var x = document.getElementsByClassName("datum");
   for (var i = 0; i<x.length; i++){
     if (hash === "#tidecal" || hash === "#datums") {
       x[i].style.opacity = "0.2";
     } else {
       x[i].style.opacity = "1.0";
     }
+  }
 
+  var y = document.getElementsByClassName("tz");
+  for (var i = 0; i<y.length; i++){
+    if (hash === "#tidecal" || hash === "#datums" || hash ==="#climatology") {
+      y[i].style.opacity = "0.2";
+    } else {
+      y[i].style.opacity = "1.0";
+    }
+  }
+
+  if (hash === "#climatology"){
+    // document.getElementById("timeToggle").style.opacity = "0.2";
+    $('#timeToggle').disable = true;
+    document.getElementById("timeToggle").disabled = true;
   }
 }
 

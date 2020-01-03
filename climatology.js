@@ -33,23 +33,27 @@ function plotClimateData(_stn) {
           } else
             return row[key];
         }
+        if(key === "Year_Record_High" || key === "Year_Record_Low"){
+          return row[key];
+        }
+
         // if seeking datum or time zone value return the value so the "else" portion is not executed
         if (key === "MHHW_NTDE" || key === "MLLW_NTDE" || key === "time_zone") {
           return row[key];
         } else {
           if (unit && datum) {
             //Do nothing
-            console.log("Default unit and datum");
+            // console.log("Default unit and datum");
             return row[key]-ml;
           } else if (!unit && datum) {
             //convert units to english with default datum
-            console.log("Convert only units on station change");
+            // console.log("Convert only units on station change");
             return row[key] * 0.0328084;
           } else if (unit && !datum) {
-            console.log("Convert only datum on station change");
+            // console.log("Convert only datum on station change");
             return (row[key] * 1 - (mh));
           } else {
-            console.log("Convert both units and datum on station change");
+            // console.log("Convert both units and datum on station change");
             return (row[key] * 1 - (mh)) * 0.0328084;
           }
         }
@@ -79,13 +83,27 @@ function plotClimateData(_stn) {
       var MHHW = parseFloat(unpack(rows, 'MHHW_NTDE', currentUnit, currentDatum)[0]);
       var LST = parseFloat(unpack(rows, 'time_zone', currentUnit, currentDatum)[0]);
 
-      console.log("currentUnit= "+currentUnit);
-      console.log("currentDatum= "+currentDatum);
-      console.log("MLLW= "+MLLW);
+      // console.log("currentUnit= "+currentUnit);
+      // console.log("currentDatum= "+currentDatum);
+      // console.log("MLLW= "+MLLW);
       // There is no need to unpack time vector for every tracer
       // because it is the same for each tracer
       console.log(rows.length);
+
       var timeRange =  range(1, rows.length);
+
+      // Year record high
+      var trace_yearRH = {
+        x: ALL_DAYS,
+        y: unpack(rows, 'Year_Record_High', currentUnit, currentDatum, MLLW, MHHW, LST),
+      };
+      // Year record low
+      var trace_yearRL = {
+        x: ALL_DAYS,
+        y: unpack(rows, 'Year_Record_Low', currentUnit, currentDatum, MLLW, MHHW, LST),
+      };
+      // console.log("RECORD HIGH YEARS "+trace_yearRH.y);
+
       var trace_al = {
         // meta: {columnNames: {y: 'Avg_High'}},
         mode: 'lines',
@@ -130,6 +148,8 @@ function plotClimateData(_stn) {
         // x: timeRange,
         x: ALL_DAYS,
         y: unpack(rows, 'Record_Low', currentUnit, currentDatum, MLLW, MHHW, LST),
+        hovertemplate:'%{y:.1f}: %{text}',
+        text: trace_yearRL.y,
         visible: true,
         stackgroup: null
       };
@@ -154,8 +174,12 @@ function plotClimateData(_stn) {
         type: 'scatter',
         // fill: 'tonexty',
         // x: timeRange,
+
+
         x: ALL_DAYS,
         y: unpack(rows, 'Record_High', currentUnit, currentDatum, MLLW, MHHW, LST),
+        hovertemplate:'%{y:.1f}: %{text}',
+        text: trace_yearRH.y,
         visible: true,
         stackgroup: null
       };
