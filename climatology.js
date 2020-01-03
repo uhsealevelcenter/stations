@@ -39,18 +39,18 @@ function plotClimateData(_stn) {
         } else {
           if (unit && datum) {
             //Do nothing
-            // console.log("NO conversion on station change");
-            return row[key];
+            console.log("Default unit and datum");
+            return row[key]-ml;
           } else if (!unit && datum) {
             //convert units to english with default datum
-            // console.log("Convert only units on station change");
+            console.log("Convert only units on station change");
             return row[key] * 0.0328084;
           } else if (unit && !datum) {
-            // console.log("Convert only datum on station change");
-            return (row[key] * 1 + (ml - mh));
+            console.log("Convert only datum on station change");
+            return (row[key] * 1 - (mh));
           } else {
-            // console.log("Convert both units and datum on station change");
-            return (row[key] * 1 + (ml - mh)) * 0.0328084;
+            console.log("Convert both units and datum on station change");
+            return (row[key] * 1 - (mh)) * 0.0328084;
           }
         }
 
@@ -79,6 +79,9 @@ function plotClimateData(_stn) {
       var MHHW = parseFloat(unpack(rows, 'MHHW_NTDE', currentUnit, currentDatum)[0]);
       var LST = parseFloat(unpack(rows, 'time_zone', currentUnit, currentDatum)[0]);
 
+      console.log("currentUnit= "+currentUnit);
+      console.log("currentDatum= "+currentDatum);
+      console.log("MLLW= "+MLLW);
       // There is no need to unpack time vector for every tracer
       // because it is the same for each tracer
       console.log(rows.length);
@@ -279,45 +282,42 @@ function plotClimateData(_stn) {
     // $(".toggleclass").off().on('change', function() {
     //   // Negated because I want the toggle button to be gray (off) by default
     //   // and also want the "off" state to indicate default values
-    //   // if (typeof rows != 'undefined')
-    //   //   updatePlotData(!$('#unitToggle').prop("checked"), !$('#datumToggle').prop("checked"));
+    //   if (typeof rows != 'undefined')
+    //     updatePlotData(!$('#unitToggle').prop("checked"), !$('#datumToggle').prop("checked"));
     // });
     // $("#timeToggle").off().on('change', function() {
     //   // updateTime(!$('#timeToggle').prop("checked"));
     // });
 
     function updatePlotData(unit, datum) {
-      var columns = ["Prediction", "Observation", "Residual", "ExtremeLow", "ExtremeHigh"];
+      // var columns = ["Prediction", "Observation", "Residual", "ExtremeLow", "ExtremeHigh"];
       unitYlabel = getYLabel(unit, datum).unit;
       datumYlabel = getYLabel(unit, datum).datum;
+      console.log("UPDAT PLOT CALLED "+ unit + datum);
+      for (var i = 0; i < data123.length; i++) {
 
-      for (var i = 0; i < columns.length; i++) {
+        // console.log("data123 "+data123[i].y.map(function(item) {
+        //   return item - MLLW;
+        // }));
         var update = {};
-        // specifying true for datum because residual should not be scaled
-        if (columns[i] === "Residual") {
-          update = {
-            y: [unpack(rows, columns[i], unit, true, MLLW, MHHW, LST)]
-          };
-        } else {
-          update = {
-            y: [unpack(rows, columns[i], unit, datum, MLLW, MHHW, LST)]
-          };
-        }
+          // update = {
+          //   y: [data123[i].y.map(function(item) {
+          //     return item - MLLW;
+          //   })]
+          // };
+
 
         var layout_update = {
           yaxis: {
-            title: 'Relative water level (' + unitYlabel + ', ' + datumYlabel + ')',
-            autorange: true,
-            range: [0, 1000],
-            type: 'linear',
+            title: 'Water level above '+datumYlabel+' ('+unitYlabel+')',
+            // autorange: true,
+            // range: [0, 1000],
+            // type: 'linear',
           },
         };
         // layout_update.yaxis.title = "Relative water level (ft, MLLW)";
         Plotly.update('climateDaily', update, layout_update, [i]);
-        if (columns[i] === "Residual") {
-          layout_update.yaxis.title = 'Relative water level (' + unitYlabel + ')';
-          // Plotly.update('climateMonthly', update, layout_update, [0]);
-        }
+          layout_update.yaxis.title = 'Water level above '+datumYlabel+' ('+unitYlabel+')';
       }
     }
     dailyData = rows;
