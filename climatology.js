@@ -4,9 +4,14 @@ var patt1 = new RegExp("^(?!([ \\d]*-){2})\\d{4,4}(?: *[-,] *\\d{4,4})*$")
 // This one below should limit the year between 1905 and 2019
 // var patt1 = new RegExp("^(?!([ \\d]*-){2})\\b(190[5-9]|19[1-9][0-9]|200[0-9]|201[0-9])\\b(?: *[-,] *\\b(190[5-9]|19[1-9][0-9]|200[0-9]|201[0-9])\\b)*$")
 var ALL_DAYS = DOY_to_dates();
+var RECORD_HIGH_COLOR = 'rgb(200, 35, 35)';
+var RECORD_LOW_COLOR = RECORD_HIGH_COLOR;
+var AVERAGE_HIGH_COLOR = '#1f77b4';
+var AVERAGE_LOW_COLOR = AVERAGE_HIGH_COLOR;
 function plotClimateData(_stn) {
 
   var dailyData = null;
+  var monthlyHrData = null;
   var monthlyData = null;
 
   function unpack(rows, key, unit, datum, ml, mh, lst, tz, err) {
@@ -75,7 +80,7 @@ function plotClimateData(_stn) {
   var yLabel1 = 'Water level above '+datumYlabel+' ('+unitYlabel+')';
   // var yLabel1 = 'Relative water level (' + unitYlabel + ', ' + datumYlabel + ')';
   var yLabel2 = 'Water level above '+datumYlabel+' ('+unitYlabel+')';
-
+  // DAILY CLIMATOLOGY
   Plotly.d3.csv("CLIM/daily_clim"+_stn+".csv", function(err, rows) {
 
     if (typeof rows != 'undefined') {
@@ -112,6 +117,10 @@ function plotClimateData(_stn) {
         // x: timeRange,
         x: ALL_DAYS,
         y: unpack(rows, 'Avg_Low', currentUnit, currentDatum, MLLW, MHHW, LST),
+        line: {
+          color: AVERAGE_LOW_COLOR,
+          dash: 'dash'
+        },
         stackgroup: null
       };
 
@@ -137,6 +146,10 @@ function plotClimateData(_stn) {
         // x: timeRange,
         x: ALL_DAYS,
         y: unpack(rows, 'Avg_High', currentUnit, currentDatum, MLLW, MHHW, LST),
+        line: {
+          color: AVERAGE_HIGH_COLOR,
+          dash: 'dash'
+        },
         stackgroup: null
       };
 
@@ -148,6 +161,9 @@ function plotClimateData(_stn) {
         // x: timeRange,
         x: ALL_DAYS,
         y: unpack(rows, 'Record_Low', currentUnit, currentDatum, MLLW, MHHW, LST),
+        line: {
+          color: RECORD_LOW_COLOR
+        },
         hovertemplate:'%{y:.1f}: %{text}',
         text: trace_yearRL.y,
         visible: true,
@@ -178,6 +194,9 @@ function plotClimateData(_stn) {
 
         x: ALL_DAYS,
         y: unpack(rows, 'Record_High', currentUnit, currentDatum, MLLW, MHHW, LST),
+        line: {
+          color: RECORD_HIGH_COLOR
+        },
         hovertemplate:'%{y:.1f}: %{text}',
         text: trace_yearRH.y,
         visible: true,
@@ -192,6 +211,9 @@ function plotClimateData(_stn) {
         // x: timeRange,
         x: ALL_DAYS,
         y: unpack(rows, 'Avg_Daily', currentUnit, currentDatum, MLLW, MHHW, LST),
+        line: {
+          color: 'rgb(255, 255, 255)'
+        },
         visible: true,
         stackgroup: null
       };
@@ -260,7 +282,8 @@ function plotClimateData(_stn) {
           yanchor: "top",
           "orientation": "h",
           x: 0.5,
-          y: 1.1,
+          y: 1.15,
+          bgcolor: '#f2f2f2'
         },
         margin: {
           l: 70,
@@ -313,40 +336,328 @@ function plotClimateData(_stn) {
     //   // updateTime(!$('#timeToggle').prop("checked"));
     // });
 
-    function updatePlotData(unit, datum) {
-      // var columns = ["Prediction", "Observation", "Residual", "ExtremeLow", "ExtremeHigh"];
-      unitYlabel = getYLabel(unit, datum).unit;
-      datumYlabel = getYLabel(unit, datum).datum;
-      console.log("UPDAT PLOT CALLED "+ unit + datum);
-      for (var i = 0; i < data123.length; i++) {
-
-        // console.log("data123 "+data123[i].y.map(function(item) {
-        //   return item - MLLW;
-        // }));
-        var update = {};
-          // update = {
-          //   y: [data123[i].y.map(function(item) {
-          //     return item - MLLW;
-          //   })]
-          // };
-
-
-        var layout_update = {
-          yaxis: {
-            title: 'Water level above '+datumYlabel+' ('+unitYlabel+')',
-            // autorange: true,
-            // range: [0, 1000],
-            // type: 'linear',
-          },
-        };
-        // layout_update.yaxis.title = "Relative water level (ft, MLLW)";
-        Plotly.update('climateDaily', update, layout_update, [i]);
-          layout_update.yaxis.title = 'Water level above '+datumYlabel+' ('+unitYlabel+')';
-      }
-    }
+    // function updatePlotData(unit, datum) {
+    //   // var columns = ["Prediction", "Observation", "Residual", "ExtremeLow", "ExtremeHigh"];
+    //   unitYlabel = getYLabel(unit, datum).unit;
+    //   datumYlabel = getYLabel(unit, datum).datum;
+    //   console.log("UPDAT PLOT CALLED "+ unit + datum);
+    //   for (var i = 0; i < data123.length; i++) {
+    //
+    //     // console.log("data123 "+data123[i].y.map(function(item) {
+    //     //   return item - MLLW;
+    //     // }));
+    //     var update = {};
+    //       // update = {
+    //       //   y: [data123[i].y.map(function(item) {
+    //       //     return item - MLLW;
+    //       //   })]
+    //       // };
+    //
+    //
+    //     var layout_update = {
+    //       yaxis: {
+    //         title: 'Water level above '+datumYlabel+' ('+unitYlabel+')',
+    //         // autorange: true,
+    //         // range: [0, 1000],
+    //         // type: 'linear',
+    //       },
+    //     };
+    //     // layout_update.yaxis.title = "Relative water level (ft, MLLW)";
+    //     Plotly.update('climateDaily', update, layout_update, [i]);
+    //       layout_update.yaxis.title = 'Water level above '+datumYlabel+' ('+unitYlabel+')';
+    //   }
+    // }
     dailyData = rows;
-  })
+  });
+  // DAILY CLIMATOLOGY End
+  // MONTHLY hourly
+  Plotly.d3.csv("CLIM/monthlyHr_clim"+_stn+".csv", function(err, rows) {
 
+    if (typeof rows != 'undefined') {
+      var MLLW = parseFloat(unpack(rows, 'MLLW_NTDE', currentUnit, currentDatum)[0]);
+      var MHHW = parseFloat(unpack(rows, 'MHHW_NTDE', currentUnit, currentDatum)[0]);
+      var LST = parseFloat(unpack(rows, 'time_zone', currentUnit, currentDatum)[0]);
+
+      // console.log("currentUnit= "+currentUnit);
+      // console.log("currentDatum= "+currentDatum);
+      // console.log("MLLW= "+MLLW);
+      // There is no need to unpack time vector for every tracer
+      // because it is the same for each tracer
+      console.log(rows.length);
+
+      var timeRange =  range(1, rows.length);
+
+      // Year record high
+      var trace_yearRH = {
+        x: timeRange,
+        y: unpack(rows, 'Year_Record_High', currentUnit, currentDatum, MLLW, MHHW, LST),
+      };
+      // Year record low
+      var trace_yearRL = {
+        x: timeRange,
+        y: unpack(rows, 'Year_Record_Low', currentUnit, currentDatum, MLLW, MHHW, LST),
+      };
+      // console.log("RECORD HIGH YEARS "+trace_yearRH.y);
+
+      var trace_al = {
+        // meta: {columnNames: {y: 'Avg_High'}},
+        mode: 'lines',
+        name: 'Average Low',
+        type: 'scatter',
+        // x: timeRange,
+        x: timeRange,
+        y: unpack(rows, 'Avg_Low', currentUnit, currentDatum, MLLW, MHHW, LST),
+        line: {
+          color: AVERAGE_LOW_COLOR,
+          dash: 'dash'
+        },
+        stackgroup: null
+      };
+
+      var trace_ar = {
+        // meta: {columnNames: {y: 'Avg_High'}},
+        mode: 'none',
+        name: 'Average Range',
+        type: 'scatter',
+        // x: timeRange,
+        x: timeRange,
+        y: trace_al.y,
+        hoverinfo: 'skip',
+        // stackgroup: null
+        fill: 'tonexty'
+      };
+
+      var trace1 = {
+        // meta: {columnNames: {y: 'Avg_High'}},
+        mode: 'lines',
+        name: 'Average High',
+        type: 'scatter',
+        // fill: 'tonexty',
+        // x: timeRange,
+        x: timeRange,
+        y: unpack(rows, 'Avg_High', currentUnit, currentDatum, MLLW, MHHW, LST),
+        line: {
+          color: AVERAGE_HIGH_COLOR,
+          dash: 'dash'
+        },
+        stackgroup: null
+      };
+
+      var trace_rl = {
+        // meta: {columnNames: {y: 'Record_High'}},
+        mode: 'lines',
+        name: 'Record Low',
+        type: 'scatter',
+        // x: timeRange,
+        x: timeRange,
+        y: unpack(rows, 'Record_Low', currentUnit, currentDatum, MLLW, MHHW, LST),
+        line: {
+          color: RECORD_LOW_COLOR
+        },
+        hovertemplate:'%{y:.1f}: %{text}',
+        text: trace_yearRL.y,
+        visible: true,
+        stackgroup: null
+      };
+
+      var trace_rr = {
+        // meta: {columnNames: {y: 'Avg_High'}},
+        mode: 'none',
+        name: 'Record Range',
+        type: 'scatter',
+        // x: timeRange,
+        x: timeRange,
+        y: trace_rl.y,
+        hoverinfo: 'skip',
+        // stackgroup: null
+        fill: 'tonexty'
+      };
+
+      var trace2 = {
+        // meta: {columnNames: {y: 'Record_High'}},
+        mode: 'lines',
+        name: 'Record High',
+        type: 'scatter',
+        // fill: 'tonexty',
+        // x: timeRange,
+
+
+        x: timeRange,
+        y: unpack(rows, 'Record_High', currentUnit, currentDatum, MLLW, MHHW, LST),
+        line: {
+          color: RECORD_HIGH_COLOR
+        },
+        hovertemplate:'%{y:.1f}: %{text}',
+        text: trace_yearRH.y,
+        visible: true,
+        stackgroup: null
+      };
+
+      var trace_ad = {
+        // meta: {columnNames: {y: 'Record_High'}},
+        mode: 'lines',
+        name: 'Average Daily',
+        type: 'scatter',
+        // x: timeRange,
+        x: timeRange,
+        y: unpack(rows, 'Avg_Daily', currentUnit, currentDatum, MLLW, MHHW, LST),
+        line: {
+          color: 'rgb(255, 255, 255)'
+        },
+        visible: true,
+        stackgroup: null
+      };
+
+      var trace3 = {
+        // meta: {columnNames: {y: '2017'}},
+        mode: 'lines',
+        name: '2019 High',
+        type: 'scatter',
+        // x: timeRange,
+        x: timeRange,
+        y: unpack(rows, '2019', currentUnit, currentDatum, MLLW, MHHW, LST),
+        visible: true,
+        stackgroup: null,
+        line: {
+          color: 'rgb(0, 0, 0)',
+          width: 4
+        }
+      };
+
+      // var trace4 = {
+      //   // meta: {columnNames: {y: '2019'}},
+      //   mode: 'lines',
+      //   name: '2019 high',
+      //   type: 'scatter',
+      //   y: unpack(rows, '2019', currentUnit, currentDatum, MLLW, MHHW, LST),
+      //   stackgroup: null
+      // };
+
+
+      var data123 = [trace2, trace_rr, trace_rl, trace1, trace_ar, trace_al,   trace_ad, trace3];
+      var data3 = [trace3];
+
+      var layout123 = {
+        // title: 'Stn:' + _stn,
+        width: 1000,
+        height: 450,
+        autoresize: true,
+        // updatemenus: updatemenus,
+        xaxis: {
+          tickmode: "array", // If "array", the placement of the ticks is set via `tickvals` and the tick text is `ticktext`.
+          tickvals: timeRange,
+          ticktext: ['January', 'February', 'March', 'April', 'May', 'June', 'July','August', 'September','October', 'November', 'December'],
+          title: {
+            text: ''
+          },
+          autorange: true
+          // range: [0, 11]
+        },
+        yaxis: {
+          title: yLabel1,
+          hoverformat: ".1f",
+          // title: {
+          //   text: 'Water level above station zero (cm)'
+          // },
+          autorange: true,
+          range: [0, 1000],
+          type: 'linear',
+        },
+        legend: {
+          xanchor: "center",
+          yanchor: "top",
+          "orientation": "h",
+          x: 0.5,
+          y: 1.15,
+          bgcolor: '#f2f2f2'
+        },
+        margin: {
+          l: 70,
+          r: 30, //105
+          b: 40,
+          t: 80,
+          pad: 0
+        },
+      };
+      var myPlot = document.getElementById('extremeMonthly');
+
+
+      Plotly.newPlot('extremeMonthly', data123, layout123, {
+        displayModeBar: false
+      });
+
+      myPlot.on('plotly_legendclick',function(data) {
+        console.log("legend "+data.curveNumber);
+        //TODO: dynamically decide the default year and curve number
+        if(data.curveNumber == 7){
+          alert("Cannot disable default year.")
+          return false;
+        }
+
+        else
+          return true;
+      })
+
+      // Plotly.newPlot('climateMonthly', data3, layout3, {
+      //   displayModeBar: false
+      // });
+      $("#product_desc").show();
+    } else {
+      Plotly.purge("extremeMonthly");
+      // Plotly.purge("climateMonthly");
+      $("#extremeMonthly").text("");
+      // alert("Water Levels data for station number: " + _stn + " is missing");
+      $("#product_desc").hide();
+    }
+
+
+    // On button click station behavior
+    // $(".toggleclass").off().on('change', function() {
+    //   // Negated because I want the toggle button to be gray (off) by default
+    //   // and also want the "off" state to indicate default values
+    //   if (typeof rows != 'undefined')
+    //     updatePlotData(!$('#unitToggle').prop("checked"), !$('#datumToggle').prop("checked"));
+    // });
+    // $("#timeToggle").off().on('change', function() {
+    //   // updateTime(!$('#timeToggle').prop("checked"));
+    // });
+
+    // function updatePlotData(unit, datum) {
+    //   // var columns = ["Prediction", "Observation", "Residual", "ExtremeLow", "ExtremeHigh"];
+    //   unitYlabel = getYLabel(unit, datum).unit;
+    //   datumYlabel = getYLabel(unit, datum).datum;
+    //   console.log("UPDAT PLOT CALLED "+ unit + datum);
+    //   for (var i = 0; i < data123.length; i++) {
+    //
+    //     // console.log("data123 "+data123[i].y.map(function(item) {
+    //     //   return item - MLLW;
+    //     // }));
+    //     var update = {};
+    //       // update = {
+    //       //   y: [data123[i].y.map(function(item) {
+    //       //     return item - MLLW;
+    //       //   })]
+    //       // };
+    //
+    //
+    //     var layout_update = {
+    //       yaxis: {
+    //         title: 'Water level above '+datumYlabel+' ('+unitYlabel+')',
+    //         // autorange: true,
+    //         // range: [0, 1000],
+    //         // type: 'linear',
+    //       },
+    //     };
+    //     // layout_update.yaxis.title = "Relative water level (ft, MLLW)";
+    //     Plotly.update('extremeMonthly', update, layout_update, [i]);
+    //       layout_update.yaxis.title = 'Water level above '+datumYlabel+' ('+unitYlabel+')';
+    //   }
+    // }
+    monthlyHrData = rows;
+  });
+  // Monthly Hourly End
+
+  // MONTHLY
   Plotly.d3.csv("CLIM/monthly_clim"+_stn+".csv", function(err, rows) {
 
 
@@ -360,6 +671,16 @@ function plotClimateData(_stn) {
       console.log(rows.length);
       var timeRange =  range(1, rows.length);
 
+      // Year record high
+      var trace_yearRH = {
+        x: timeRange,
+        y: unpack(rows, 'Year_Record_High', currentUnit, currentDatum, MLLW, MHHW, LST),
+      };
+      // Year record low
+      var trace_yearRL = {
+        x: timeRange,
+        y: unpack(rows, 'Year_Record_Low', currentUnit, currentDatum, MLLW, MHHW, LST),
+      };
 
       var trace2 = {
         // meta: {columnNames: {y: 'Record_High'}},
@@ -368,6 +689,11 @@ function plotClimateData(_stn) {
         type: 'scatter',
         x: timeRange,
         y: unpack(rows, 'Record_Low', currentUnit, currentDatum, MLLW, MHHW, LST),
+        line: {
+          color: RECORD_LOW_COLOR
+        },
+        hovertemplate:'%{y:.1f}: <extra>%{text} Record Low</extra>',
+        text: trace_yearRL.y,
         visible: true,
         stackgroup: null
       };
@@ -392,6 +718,11 @@ function plotClimateData(_stn) {
         type: 'scatter',
         x: timeRange,
         y: unpack(rows, 'Record_High', currentUnit, currentDatum, MLLW, MHHW, LST),
+        line: {
+          color: RECORD_HIGH_COLOR
+        },
+        hovertemplate:'%{y:.1f}: <extra>%{text} Record High</extra>',
+        text: trace_yearRH.y,
         stackgroup: null
       };
 
@@ -404,6 +735,9 @@ function plotClimateData(_stn) {
         type: 'scatter',
         x: timeRange,
         y: unpack(rows, 'Avg_Monthly', currentUnit, currentDatum, MLLW, MHHW, LST),
+        line:{
+          color: 'rgb(255, 255, 255)'
+        },
         visible: true,
         stackgroup: null
       };
@@ -453,6 +787,7 @@ function plotClimateData(_stn) {
           "orientation": "h",
           x: 0.5,
           y: 1.1,
+          bgcolor: '#f2f2f2'
         },
         margin: {
           l: 70,
@@ -505,7 +840,8 @@ function plotClimateData(_stn) {
     // $("#timeToggle").off().on('change', function() {
     //   // updateTime(!$('#timeToggle').prop("checked"));
     // });
-  })
+  });
+
   var prevUnique;
 
   function addYears() {
@@ -566,6 +902,7 @@ function plotClimateData(_stn) {
         text = "TIP: Double click on a legend to isolate only one trace";
         if (prevUnique) {
           Plotly.deleteTraces("climateDaily", range(-prevUnique.length, -1));
+          Plotly.deleteTraces("extremeMonthly", range(-prevUnique.length, -1));
           Plotly.deleteTraces("climateMonthly", range(-prevUnique.length, -1));
         }
 
@@ -588,6 +925,7 @@ function plotClimateData(_stn) {
     console.log(item, index);
     if (item != "") {
       Plotly.addTraces("climateDaily", createNewTrace(item.toString().trim(), dailyData, ' high'));
+      Plotly.addTraces("extremeMonthly", createNewTrace(item.toString().trim(), monthlyHrData, ' Monthly Mean'));
       Plotly.addTraces("climateMonthly", createNewTrace(item.toString().trim(), monthlyData, ' Monthly Mean'));
     }
   }
@@ -610,6 +948,7 @@ function plotClimateData(_stn) {
 
   function reset(){
     Plotly.deleteTraces("climateDaily", range(-prevUnique.length, -1));
+    Plotly.deleteTraces("extremeMonthly", range(-prevUnique.length, -1));
     Plotly.deleteTraces("climateMonthly", range(-prevUnique.length, -1));
     prevUnique = [];
     document.getElementById("yearsBox").value = "";
