@@ -1008,7 +1008,36 @@ $('#yearsBox').keyup(function(event) {
   // document.getElementById("inputMessage").innerText = text;
 });
 
+$(".funkyradio :input").change(function(e) {
+    // console.log($(this).attr('id')); // points to the clicked input button
+    switch ($(this).attr('id')) {
+      case 'radio1':
+        document.getElementById("climateDaily").style.display = "inline";
+        document.getElementById("extremeMonthly").style.display = "none";
+        document.getElementById("climateMonthly").style.display = "none";
+        break;
+      case 'radio2':
+        document.getElementById("climateDaily").style.display = "none";
+        document.getElementById("extremeMonthly").style.display = "inline";
+        document.getElementById("climateMonthly").style.display = "none";
+        break;
+      case 'radio3':
+        document.getElementById("climateDaily").style.display = "none";
+        document.getElementById("extremeMonthly").style.display = "none";
+        document.getElementById("climateMonthly").style.display = "inline";
+        break;
+      case 'radio4':
+        document.getElementById("climateDaily").style.display = "inline";
+        document.getElementById("extremeMonthly").style.display = "inline";
+        document.getElementById("climateMonthly").style.display = "inline";
+        break;
+      default:
+        document.getElementById("climateDaily").style.display = "inline";
+        document.getElementById("extremeMonthly").style.display = "none";
+        document.getElementById("climateMonthly").style.display = "none";
 
+    }
+});
 function DOY_to_dates(){
 	var allDays=[];
 	for(var i=1; i<=366; i++){
