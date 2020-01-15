@@ -37,7 +37,19 @@ function loadtabs(stn, date, unit = "_cm") {
     },
     error: function(xhr, ajaxOptions, thrownError) {
       if (stn) {
-        alert("Datum table for station " + stn + " does not exist");
+        // alert("Datum table for station " + stn + " does not exist");
+        // Empty elements for which there is no data
+        $("#datumtable").empty();
+        $("#datumgraphic").empty();
+        $("#predcal").empty();
+        $("#predtable").empty();
+
+        // Populate empty elements with text
+        $("#datumtable").html("Datum table for station " + stn + " does not exist");
+        $("#datumgraphic").html("Datum graphic for station " + stn + " does not exist");
+        $("#predcal").html("Graphical tide calendar for station " + stn + " does not exist");
+        $("#predtable").html("Text calendar for station " + stn + " does not exist");
+
         plotData(stn);
         plotClimateData(stn);
       }

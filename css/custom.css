@@ -457,13 +457,14 @@ td {
   display: none;
 }
 
-#rangeText > p {
+#epochRangeText > p {
   background-color: #f2f2f2;
 }
 
 #climatologyLegend{
-  /* border-radius: 3px;
-  border: 1px solid #D1D3D4; */
+  border-radius: 3px;
+  border: 1px solid #D1D3D4;
+  padding: 15px;
 }
 /*Radio button style from: https://bootsnipp.com/snippets/Zk2Pz */
 .funkyradio div {

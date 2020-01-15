@@ -43,7 +43,7 @@ function plotClimateData(_stn) {
         }
 
         // if seeking datum or time zone value return the value so the "else" portion is not executed
-        if (key === "MHHW_NTDE" || key === "MLLW_NTDE" || key === "time_zone") {
+        if (key === "MHHW_NTDE" || key === "MLLW_NTDE" || key === "time_zone" || key === "start_NTDE" || key === "end_NTDE") {
           return row[key];
         } else {
           if (unit && datum) {
@@ -87,9 +87,12 @@ function plotClimateData(_stn) {
       var MLLW = parseFloat(unpack(rows, 'MLLW_NTDE', currentUnit, currentDatum)[0]);
       var MHHW = parseFloat(unpack(rows, 'MHHW_NTDE', currentUnit, currentDatum)[0]);
       var LST = parseFloat(unpack(rows, 'time_zone', currentUnit, currentDatum)[0]);
+      var EPOCH_START = parseFloat(unpack(rows, 'start_NTDE', currentUnit, currentDatum)[0]);
+      var EPOCH_END = parseFloat(unpack(rows, 'end_NTDE', currentUnit, currentDatum)[0]);
 
-      // console.log("currentUnit= "+currentUnit);
-      // console.log("currentDatum= "+currentDatum);
+      // console.log("EPOCH_START= "+EPOCH_START);
+      // console.log("EPOCH_END= "+EPOCH_END);
+      $("#epochRangeText").html("The epoch year range: "+"<strong>"+EPOCH_START+" - "+EPOCH_END+"</strong>");
       // console.log("MLLW= "+MLLW);
       // There is no need to unpack time vector for every tracer
       // because it is the same for each tracer
@@ -116,6 +119,8 @@ function plotClimateData(_stn) {
         type: 'scatter',
         // x: timeRange,
         x: ALL_DAYS,
+        legendgroup: 'average',
+        showlegend: false,
         y: unpack(rows, 'Avg_Low', currentUnit, currentDatum, MLLW, MHHW, LST),
         line: {
           color: AVERAGE_LOW_COLOR,
@@ -129,6 +134,7 @@ function plotClimateData(_stn) {
         mode: 'none',
         name: 'Average Range',
         type: 'scatter',
+        legendgroup: 'average',
         // x: timeRange,
         x: ALL_DAYS,
         y: trace_al.y,
@@ -140,12 +146,14 @@ function plotClimateData(_stn) {
       var trace1 = {
         // meta: {columnNames: {y: 'Avg_High'}},
         mode: 'lines',
-        name: 'Average High',
+        name: 'Average Low/High',
         type: 'scatter',
+        legendgroup: 'average',
         // fill: 'tonexty',
         // x: timeRange,
         x: ALL_DAYS,
         y: unpack(rows, 'Avg_High', currentUnit, currentDatum, MLLW, MHHW, LST),
+        hovertemplate:'%{y:.1f} <extra>Average High</extra>',
         line: {
           color: AVERAGE_HIGH_COLOR,
           dash: 'dash'
@@ -157,9 +165,11 @@ function plotClimateData(_stn) {
         // meta: {columnNames: {y: 'Record_High'}},
         mode: 'lines',
         name: 'Record Low',
+        legendgroup: 'record',
         type: 'scatter',
         // x: timeRange,
         x: ALL_DAYS,
+        showlegend: false,
         y: unpack(rows, 'Record_Low', currentUnit, currentDatum, MLLW, MHHW, LST),
         line: {
           color: RECORD_LOW_COLOR
@@ -174,6 +184,7 @@ function plotClimateData(_stn) {
         // meta: {columnNames: {y: 'Avg_High'}},
         mode: 'none',
         name: 'Record Range',
+        legendgroup: 'record',
         type: 'scatter',
         // x: timeRange,
         x: ALL_DAYS,
@@ -186,18 +197,18 @@ function plotClimateData(_stn) {
       var trace2 = {
         // meta: {columnNames: {y: 'Record_High'}},
         mode: 'lines',
-        name: 'Record High',
+        name: 'Record Low/High',
         type: 'scatter',
+        legendgroup: 'record',
         // fill: 'tonexty',
         // x: timeRange,
-
 
         x: ALL_DAYS,
         y: unpack(rows, 'Record_High', currentUnit, currentDatum, MLLW, MHHW, LST),
         line: {
           color: RECORD_HIGH_COLOR
         },
-        hovertemplate:'%{y:.1f}: %{text}',
+        hovertemplate:'%{y:.1f}: %{text} <extra>Record High</extra>',
         text: trace_yearRH.y,
         visible: true,
         stackgroup: null
@@ -302,14 +313,68 @@ function plotClimateData(_stn) {
 
       myPlot.on('plotly_legendclick',function(data) {
         console.log("legend "+data.curveNumber);
+        // var vals = myPlot.data.map((_, i) =>  0.0);
+        //   var infotext = data.map(function(d){
+        //     console.log("trace name: "+d.data.name);
+        //   return (d.data.name+': x= '+d.x+', y= '+d.y.toPrecision(3));
+        // });
+        // Plotly.restyle(myPlot, 'opacity', vals)
         //TODO: dynamically decide the default year and curve number
-        if(data.curveNumber == 7){
-          alert("Cannot disable default year.")
-          return false;
-        }
+        //   var update = {
+        //     showlegend: true
+        // };
+        // var vals = myPlot.data.map((_, i) => i === data.curveNumber ? 1 || 2 : 0.0);
+        // Plotly.restyle(myPlot, update);
+        // switch (data.curveNumber) {
+        //   case 7:
+        //   alert("Cannot disable default year.")
+        //   return false;
+        //   case 3:
+        //   // // alert("THIS IS THE ONE")
+        //   // var vals = myPlot.data.map((_, i) => i === data.curveNumber ? 3 : 0.0);
+        //   // Plotly.restyle(myPlot, 'opacity', vals);
+        //   return true;
+        //     break;
+        //     case 0:
+        //     // alert("THIS IS THE ONE")
+        //     // var vals = myPlot.data.map((_, i) => i === data.curveNumber ? 1 || 2 : 0.0);
+        //
+        //   //   var update = {
+        //   //     opacity: 0
+        //   // };
+        //     // var vals = myPlot.data.map((_, i) => i === data.curveNumber ? 1 || 2 : 0.0);
+        //     // Plotly.restyle(myPlot, update,[0,1,2,3,4,5,6,7]);
+        //
+        //   //   var update = {
+        //   //     showlegend: false
+        //   // };
+        //   //   // var vals = myPlot.data.map((_, i) => i === data.curveNumber ? 1 || 2 : 0.0);
+        //   //   Plotly.restyle(myPlot, update,[2,5]);
+        //     // Plotly.restyle(myPlot, update, data123[trace1]);
+        //     return true;
+        //       break;
+        //   default:
+        //     return false;
+        // }
 
-        else
-          return true;
+      })
+
+      myPlot.on('plotly_hover',function(data) {
+      //   console.log("trace number "+data.points[0]);
+      //   var pn='',
+      // tn='',
+      // colors=[];
+      //   for(var i=0; i < data.points.length; i++){
+      //      pn = data.points[i].pointNumber;
+      //      tn = data.points[i].curveNumber;
+      //      // colors = data.points[i].data.marker.color;
+      //    };
+      //    console.log("tn "+tn);
+    //   var infotext = data.points.map(function(d){
+    //     console.log("trace name: "+d.data.name);
+    //   return (d.data.name+': x= '+d.x+', y= '+d.y.toPrecision(3));
+    // });
+
       })
 
       // Plotly.newPlot('climateMonthly', data3, layout3, {
@@ -404,9 +469,11 @@ function plotClimateData(_stn) {
         mode: 'lines',
         name: 'Average Low',
         type: 'scatter',
+        legendgroup: 'average',
         // x: timeRange,
         x: timeRange,
         y: unpack(rows, 'Avg_Low', currentUnit, currentDatum, MLLW, MHHW, LST),
+        showlegend: false,
         line: {
           color: AVERAGE_LOW_COLOR,
           dash: 'dash'
@@ -418,6 +485,7 @@ function plotClimateData(_stn) {
         // meta: {columnNames: {y: 'Avg_High'}},
         mode: 'none',
         name: 'Average Range',
+        legendgroup: 'average',
         type: 'scatter',
         // x: timeRange,
         x: timeRange,
@@ -430,12 +498,14 @@ function plotClimateData(_stn) {
       var trace1 = {
         // meta: {columnNames: {y: 'Avg_High'}},
         mode: 'lines',
-        name: 'Average High',
+        name: 'Average Low/High',
+        legendgroup: 'average',
         type: 'scatter',
         // fill: 'tonexty',
         // x: timeRange,
         x: timeRange,
         y: unpack(rows, 'Avg_High', currentUnit, currentDatum, MLLW, MHHW, LST),
+        hovertemplate:'%{y:.1f}: <extra>Average High</extra>',
         line: {
           color: AVERAGE_HIGH_COLOR,
           dash: 'dash'
@@ -448,9 +518,11 @@ function plotClimateData(_stn) {
         mode: 'lines',
         name: 'Record Low',
         type: 'scatter',
+        legendgroup: 'record',
         // x: timeRange,
         x: timeRange,
         y: unpack(rows, 'Record_Low', currentUnit, currentDatum, MLLW, MHHW, LST),
+        showlegend: false,
         line: {
           color: RECORD_LOW_COLOR
         },
@@ -464,6 +536,7 @@ function plotClimateData(_stn) {
         // meta: {columnNames: {y: 'Avg_High'}},
         mode: 'none',
         name: 'Record Range',
+        legendgroup: 'record',
         type: 'scatter',
         // x: timeRange,
         x: timeRange,
@@ -476,7 +549,8 @@ function plotClimateData(_stn) {
       var trace2 = {
         // meta: {columnNames: {y: 'Record_High'}},
         mode: 'lines',
-        name: 'Record High',
+        name: 'Record Low/High',
+        legendgroup: 'record',
         type: 'scatter',
         // fill: 'tonexty',
         // x: timeRange,
@@ -487,7 +561,7 @@ function plotClimateData(_stn) {
         line: {
           color: RECORD_HIGH_COLOR
         },
-        hovertemplate:'%{y:.1f}: %{text}',
+        hovertemplate:'%{y:.1f}: %{text} <extra>Record High</extra>',
         text: trace_yearRH.y,
         visible: true,
         stackgroup: null
@@ -586,17 +660,17 @@ function plotClimateData(_stn) {
         displayModeBar: false
       });
 
-      myPlot.on('plotly_legendclick',function(data) {
-        console.log("legend "+data.curveNumber);
-        //TODO: dynamically decide the default year and curve number
-        if(data.curveNumber == 7){
-          alert("Cannot disable default year.")
-          return false;
-        }
-
-        else
-          return true;
-      })
+      // myPlot.on('plotly_legendclick',function(data) {
+      //   console.log("legend "+data.curveNumber);
+      //   //TODO: dynamically decide the default year and curve number
+      //   if(data.curveNumber == 7){
+      //     alert("Cannot disable default year.")
+      //     return false;
+      //   }
+      //
+      //   else
+      //     return true;
+      // })
 
       // Plotly.newPlot('climateMonthly', data3, layout3, {
       //   displayModeBar: false
@@ -686,6 +760,7 @@ function plotClimateData(_stn) {
         // meta: {columnNames: {y: 'Record_High'}},
         mode: 'lines',
         name: 'Record Low',
+        legendgroup: 'record',
         type: 'scatter',
         x: timeRange,
         y: unpack(rows, 'Record_Low', currentUnit, currentDatum, MLLW, MHHW, LST),
@@ -702,6 +777,7 @@ function plotClimateData(_stn) {
         // meta: {columnNames: {y: 'Avg_High'}},
         mode: 'none',
         name: 'Record Range',
+        legendgroup: 'record',
         type: 'scatter',
         // x: timeRange,
         x: trace2.x,
@@ -715,6 +791,7 @@ function plotClimateData(_stn) {
         // meta: {columnNames: {y: 'Avg_High'}},
         mode: 'lines',
         name: 'Record High',
+        legendgroup: 'record',
         type: 'scatter',
         x: timeRange,
         y: unpack(rows, 'Record_High', currentUnit, currentDatum, MLLW, MHHW, LST),
@@ -803,17 +880,17 @@ function plotClimateData(_stn) {
         displayModeBar: false
       });
 
-      myPlot.on('plotly_legendclick',function(data) {
-        console.log("legend "+data.curveNumber);
-        if(data.curveNumber == 4){
-          //TODO: dynamically decide the default year and curve number
-          alert("Cannot disable default year.")
-          return false;
-        }
-
-        else
-          return true;
-      })
+      // myPlot.on('plotly_legendclick',function(data) {
+      //   console.log("legend "+data.curveNumber);
+      //   if(data.curveNumber == 4){
+      //     //TODO: dynamically decide the default year and curve number
+      //     alert("Cannot disable default year.")
+      //     return false;
+      //   }
+      //
+      //   else
+      //     return true;
+      // })
 
       // Plotly.newPlot('climateMonthly', data3, layout3, {
       //   displayModeBar: false
