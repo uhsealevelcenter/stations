@@ -6,8 +6,10 @@ var patt1 = new RegExp("^(?!([ \\d]*-){2})\\d{4,4}(?: *[-,] *\\d{4,4})*$")
 var ALL_DAYS = DOY_to_dates();
 var RECORD_HIGH_COLOR = 'rgb(200, 35, 35)';
 var RECORD_LOW_COLOR = RECORD_HIGH_COLOR;
-var AVERAGE_HIGH_COLOR = '#1f77b4';
+var AVERAGE_HIGH_COLOR = '#1b80b6';
 var AVERAGE_LOW_COLOR = AVERAGE_HIGH_COLOR;
+var AVERAGE_DAILY_COLOR = '#d1d3d4';
+var AVERAGE_MONTHLY_COLOR = AVERAGE_DAILY_COLOR;
 function plotClimateData(_stn) {
 
   var dailyData = null;
@@ -93,6 +95,8 @@ function plotClimateData(_stn) {
       // console.log("EPOCH_START= "+EPOCH_START);
       // console.log("EPOCH_END= "+EPOCH_END);
       $("#epochRangeText").html("The epoch year range: "+"<strong>"+EPOCH_START+" - "+EPOCH_END+"</strong>");
+//       $("#climatologyLegend").html("The epoch year range: "+"<strong>"+EPOCH_START+" - "+EPOCH_END+"</strong>");
+// climatologyLegend
       // console.log("MLLW= "+MLLW);
       // There is no need to unpack time vector for every tracer
       // because it is the same for each tracer
@@ -124,7 +128,7 @@ function plotClimateData(_stn) {
         y: unpack(rows, 'Avg_Low', currentUnit, currentDatum, MLLW, MHHW, LST),
         line: {
           color: AVERAGE_LOW_COLOR,
-          dash: 'dash'
+          dash: 'solid'
         },
         stackgroup: null
       };
@@ -133,6 +137,7 @@ function plotClimateData(_stn) {
         // meta: {columnNames: {y: 'Avg_High'}},
         mode: 'none',
         name: 'Average Range',
+        showlegend: false,
         type: 'scatter',
         legendgroup: 'average',
         // x: timeRange,
@@ -156,7 +161,7 @@ function plotClimateData(_stn) {
         hovertemplate:'%{y:.1f} <extra>Average High</extra>',
         line: {
           color: AVERAGE_HIGH_COLOR,
-          dash: 'dash'
+          dash: 'solid'
         },
         stackgroup: null
       };
@@ -185,6 +190,7 @@ function plotClimateData(_stn) {
         mode: 'none',
         name: 'Record Range',
         legendgroup: 'record',
+        showlegend: false,
         type: 'scatter',
         // x: timeRange,
         x: ALL_DAYS,
@@ -223,7 +229,7 @@ function plotClimateData(_stn) {
         x: ALL_DAYS,
         y: unpack(rows, 'Avg_Daily', currentUnit, currentDatum, MLLW, MHHW, LST),
         line: {
-          color: 'rgb(255, 255, 255)'
+          color: AVERAGE_DAILY_COLOR
         },
         visible: true,
         stackgroup: null
@@ -294,7 +300,7 @@ function plotClimateData(_stn) {
           "orientation": "h",
           x: 0.5,
           y: 1.15,
-          bgcolor: '#f2f2f2'
+          bgcolor: '#ffffff'
         },
         margin: {
           l: 70,
@@ -476,7 +482,7 @@ function plotClimateData(_stn) {
         showlegend: false,
         line: {
           color: AVERAGE_LOW_COLOR,
-          dash: 'dash'
+          dash: 'solid'
         },
         stackgroup: null
       };
@@ -486,6 +492,7 @@ function plotClimateData(_stn) {
         mode: 'none',
         name: 'Average Range',
         legendgroup: 'average',
+        showlegend: false,
         type: 'scatter',
         // x: timeRange,
         x: timeRange,
@@ -508,7 +515,7 @@ function plotClimateData(_stn) {
         hovertemplate:'%{y:.1f}: <extra>Average High</extra>',
         line: {
           color: AVERAGE_HIGH_COLOR,
-          dash: 'dash'
+          dash: 'solid'
         },
         stackgroup: null
       };
@@ -537,6 +544,7 @@ function plotClimateData(_stn) {
         mode: 'none',
         name: 'Record Range',
         legendgroup: 'record',
+        showlegend: false,
         type: 'scatter',
         // x: timeRange,
         x: timeRange,
@@ -576,7 +584,7 @@ function plotClimateData(_stn) {
         x: timeRange,
         y: unpack(rows, 'Avg_Daily', currentUnit, currentDatum, MLLW, MHHW, LST),
         line: {
-          color: 'rgb(255, 255, 255)'
+          color: AVERAGE_DAILY_COLOR
         },
         visible: true,
         stackgroup: null
@@ -643,7 +651,7 @@ function plotClimateData(_stn) {
           "orientation": "h",
           x: 0.5,
           y: 1.15,
-          bgcolor: '#f2f2f2'
+          bgcolor: '#ffffff'
         },
         margin: {
           l: 70,
@@ -760,6 +768,7 @@ function plotClimateData(_stn) {
         // meta: {columnNames: {y: 'Record_High'}},
         mode: 'lines',
         name: 'Record Low',
+        showlegend: false,
         legendgroup: 'record',
         type: 'scatter',
         x: timeRange,
@@ -777,6 +786,7 @@ function plotClimateData(_stn) {
         // meta: {columnNames: {y: 'Avg_High'}},
         mode: 'none',
         name: 'Record Range',
+        showlegend: false,
         legendgroup: 'record',
         type: 'scatter',
         // x: timeRange,
@@ -790,7 +800,7 @@ function plotClimateData(_stn) {
       var trace1 = {
         // meta: {columnNames: {y: 'Avg_High'}},
         mode: 'lines',
-        name: 'Record High',
+        name: 'Record Low/High',
         legendgroup: 'record',
         type: 'scatter',
         x: timeRange,
@@ -813,7 +823,7 @@ function plotClimateData(_stn) {
         x: timeRange,
         y: unpack(rows, 'Avg_Monthly', currentUnit, currentDatum, MLLW, MHHW, LST),
         line:{
-          color: 'rgb(255, 255, 255)'
+          color: AVERAGE_MONTHLY_COLOR
         },
         visible: true,
         stackgroup: null
@@ -864,7 +874,7 @@ function plotClimateData(_stn) {
           "orientation": "h",
           x: 0.5,
           y: 1.1,
-          bgcolor: '#f2f2f2'
+          bgcolor: '#ffffff'
         },
         margin: {
           l: 70,
@@ -1115,6 +1125,52 @@ $(".funkyradio :input").change(function(e) {
 
     }
 });
+
+function displayPlot(evt, plotName) {
+  var i, tabcontent, tablinks;
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+  tablinks = document.getElementsByClassName("tablinks");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
+  document.getElementById(plotName).style.display = "block";
+  evt.currentTarget.className += " active";
+
+  switch (plotName) {
+    case 'dailyE':
+      document.getElementById("climateDaily").style.display = "inline";
+      document.getElementById("extremeMonthly").style.display = "none";
+      document.getElementById("climateMonthly").style.display = "none";
+      break;
+    case 'monthlyE':
+      document.getElementById("climateDaily").style.display = "none";
+      document.getElementById("extremeMonthly").style.display = "inline";
+      document.getElementById("climateMonthly").style.display = "none";
+      break;
+    case 'monthlyM':
+      document.getElementById("climateDaily").style.display = "none";
+      document.getElementById("extremeMonthly").style.display = "none";
+      document.getElementById("climateMonthly").style.display = "inline";
+      break;
+    case 'combined':
+      document.getElementById("climateDaily").style.display = "inline";
+      document.getElementById("extremeMonthly").style.display = "inline";
+      document.getElementById("climateMonthly").style.display = "inline";
+      break;
+    default:
+      document.getElementById("climateDaily").style.display = "inline";
+      document.getElementById("extremeMonthly").style.display = "none";
+      document.getElementById("climateMonthly").style.display = "none";
+
+  }
+
+}
+
+// Get the element with id="defaultOpen" and click on it
+document.getElementById("defaultOpen").click();
 function DOY_to_dates(){
 	var allDays=[];
 	for(var i=1; i<=366; i++){

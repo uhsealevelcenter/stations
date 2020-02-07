@@ -237,21 +237,34 @@
           <!-- end tab3 -->
 
           <!-- tab4: climatology -->
-          <div id="climatology" class="col-sm-12 center" style="min-height: 750px;">
-            <div class="col-sm-3" >
-                <div class="" style="">
-                  <h4> Graph Selector </h4>
-                  <!-- <form>
-                  <div class="radio">
-                    <label><input type="radio" name="optradio" checked>Daily Extremes</label>
-                  </div>
-                  <div class="radio">
-                    <label><input type="radio" name="optradio">Monthly Extreme</label>
-                  </div>
-                  <div class="radio">
-                    <label><input type="radio" name="optradio" disabled>Monthly Mean</label>
-                  </div>
-                </form> -->
+          <div id="climatology" class="col-sm-12 center" style="min-height: 780px;">
+            <div class="col-sm-12 center">
+              <div class="climatology-title" style="text-align: center;">
+                <h2 id="climatologyTitle"> Daily and Monthly Climatology Records </h2>
+              </div>
+            <div>
+            <div class="col-sm-6" >
+              <div class="col-sm-12" >
+                <h4> Add additional years to the graph. </h4>
+              </div>
+                <div class="col-sm-12" >
+                    <div class="input-group">
+                      <span class="input-group-btn">
+                        <button onclick="plotClimateData.reset()" class="btn btn-info" type="submit">Reset</button>
+                      </span>
+                      <input id="yearsBox" type="text" class="form-control" placeholder=" e.g. 2005-2009, 2015, 2017-2019 (max 10)" aria-label="Enter Years" aria-describedby="basic-addon2">
+                      <span class="input-group-btn">
+                        <button onclick="plotClimateData.addYears()" class="btn btn-info" type="submit">Add Years</button>
+                      </span>
+
+                    </div>
+                </div>
+                <div class="col-sm-12 center" >
+                  <p style="color:red;" align="center" id="inputMessage"></p>
+                </div>
+            </div>
+
+            <!-- <div class="col-sm-3" >
                     <div class="funkyradio">
                       <div class="funkyradio-primary">
                           <input type="radio" name="radio" id="radio1" checked/>
@@ -270,34 +283,41 @@
                           <label for="radio4">All</label>
                       </div>
                   </div>
-                </div>
             </div>
-            <div class="col-sm-6" >
-                <div class="climatology-title" style="text-align: center;">
-                  <h2> Daily and Monthly Climatology Records </h2>
-                </div>
-                <div class="col-sm-12" >
-                    <div class="input-group">
-                      <span class="input-group-btn">
-                        <button onclick="plotClimateData.reset()" class="btn btn-info" type="submit">Reset</button>
-                      </span>
-                      <input id="yearsBox" type="text" class="form-control" placeholder=" e.g. 2005-2009, 2015, 2017-2019 (max 10)" aria-label="Enter Years" aria-describedby="basic-addon2">
-                      <span class="input-group-btn">
-                        <button onclick="plotClimateData.addYears()" class="btn btn-info" type="submit">Add Years</button>
-                      </span>
 
-                    </div>
-                </div>
-            </div>
             <div class="col-sm-3" >
                 <div id="climatologyLegend" style="text-align: center;">
                   <h2> Pre-made legend graph will go here. This is just a placeholder</h2>
                 </div>
-            </div>
+            </div> -->
 
+            <div class="col-sm-6" style="  min-height: 138px;" >
+              <div class="tab">
+                <button class="tablinks" onclick="displayPlot(event, 'dailyE')" id="defaultOpen">Daily Extremes</button>
+                <button class="tablinks" onclick="displayPlot(event, 'monthlyE')">Monthly Extremes</button>
+                <button class="tablinks" onclick="displayPlot(event, 'monthlyM')">Monthly Mean</button>
+                <button class="tablinks" onclick="displayPlot(event, 'combined')">Combined</button>
+              </div>
 
-            <div class="col-sm-12 center" >
-              <p style="color:red;" align="center" id="inputMessage"></p>
+              <div id="dailyE" class="tabcontent">
+                <h3>Daily Extremes</h3>
+                <p>Explanation text here.</p>
+              </div>
+
+              <div id="monthlyE" class="tabcontent">
+                <h3>Monthly Extremes</h3>
+                <p>Some other explanation text here.</p>
+              </div>
+
+              <div id="monthlyM" class="tabcontent">
+                <h3>Monthly Mean</h3>
+                <p>Yet another explanation text here.</p>
+              </div>
+
+              <div id="combined" class="tabcontent">
+                <h3>Combined</h3>
+                <p>Additional info text.</p>
+              </div>
             </div>
 
             <div id="climateDaily" class="col-sm-12"></div>
