@@ -10,6 +10,7 @@ var AVERAGE_HIGH_COLOR = '#1b80b6';
 var AVERAGE_LOW_COLOR = AVERAGE_HIGH_COLOR;
 var AVERAGE_DAILY_COLOR = '#d1d3d4';
 var AVERAGE_MONTHLY_COLOR = AVERAGE_DAILY_COLOR;
+var DEFAULT_YEAR_COLOR = 'rgb(0,0,0)';
 function plotClimateData(_stn) {
 
   var dailyData = null;
@@ -246,7 +247,7 @@ function plotClimateData(_stn) {
         visible: true,
         stackgroup: null,
         line: {
-          color: 'rgb(0, 0, 0)',
+          color: DEFAULT_YEAR_COLOR,
           width: 4
         }
       };
@@ -601,7 +602,7 @@ function plotClimateData(_stn) {
         visible: true,
         stackgroup: null,
         line: {
-          color: 'rgb(0, 0, 0)',
+          color: DEFAULT_YEAR_COLOR,
           width: 4
         }
       };
@@ -836,6 +837,10 @@ function plotClimateData(_stn) {
         type: 'scatter',
         x: timeRange,
         y: unpack(rows, '2019', currentUnit, currentDatum, MLLW, MHHW, LST),
+        line:{
+          color: DEFAULT_YEAR_COLOR,
+          width: 4
+        },
         stackgroup: null
       };
 

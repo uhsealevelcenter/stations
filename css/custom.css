@@ -471,6 +471,10 @@ td {
   margin-top: 0px;
   margin-bottom: 15px;
 }
+
+#textBoxTitle{
+  padding-top: 14px;
+}
 /*Radio button style from: https://bootsnipp.com/snippets/Zk2Pz */
 .funkyradio div {
   clear: both;
@@ -601,6 +605,7 @@ body {font-family: "Lato", sans-serif;} */
   border: 1px solid #ccc;
   border-right-color: #337ab7;
   background-color: #f1f1f1;
+  border-right: none;
   width: 40%;
 
   /* height: 300px; */
@@ -610,11 +615,14 @@ body {font-family: "Lato", sans-serif;} */
 .tab button {
   display: block;
   background-color: inherit;
-  color: black;
+  color: #333333;
   padding: 0px 10px;
   width: 100%;
   height: 34px;
-  border: none;
+  /* border: none; */
+  border-top: none;
+  border-bottom: none;
+  border-right: none;
   outline: none;
   text-align: left;
   cursor: pointer;
@@ -630,18 +638,24 @@ body {font-family: "Lato", sans-serif;} */
 
 /* Create an active/current "tab button" class */
 .tab button.active {
-  background-color: #337ab7;
-  color: white;
+  background-color: white;/*#337ab7*/
+  color: #337ab7;
+  border-left-width: 34px;
+  border-left-color: #337ab7;
+  border-right: none;
+  z-index: 100;
 }
 
 /* Style the tab content */
 .tabcontent {
   float: left;
   padding: 0px 12px;
-  border: 1px solid #337ab7;
-  width: 60%;
+  border: 1px solid #ccc;
   border-left: none;
+  width: 60%;
   height: 138px;
+  /* background-color: #337ab7;
+  color: white; */
 }
 
 
