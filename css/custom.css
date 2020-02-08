@@ -474,6 +474,7 @@ td {
 
 #textBoxTitle{
   padding-top: 14px;
+  text-align: center;
 }
 /*Radio button style from: https://bootsnipp.com/snippets/Zk2Pz */
 .funkyradio div {
