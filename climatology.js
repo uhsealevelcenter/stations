@@ -93,9 +93,23 @@ function plotClimateData(_stn) {
       var EPOCH_START = parseFloat(unpack(rows, 'start_NTDE', currentUnit, currentDatum)[0]);
       var EPOCH_END = parseFloat(unpack(rows, 'end_NTDE', currentUnit, currentDatum)[0]);
 
-      // console.log("EPOCH_START= "+EPOCH_START);
-      // console.log("EPOCH_END= "+EPOCH_END);
-      $("#epochRangeText").html("The epoch year range: "+"<strong>"+EPOCH_START+" - "+EPOCH_END+"</strong>");
+      var headerNames = Plotly.d3.keys(rows[0]);
+
+      // Convert header names to number array
+      var headerNumber = headerNames.map(function(item){
+        return parseInt(item, 10);
+      });
+
+      // Exclude NaNs from the header
+      var allYearsInHeader = headerNumber.filter(function (value){
+        return !Number.isNaN(value);
+      });
+
+      var DATA_START = Math.min.apply(Math, allYearsInHeader);
+      var DATA_END = Math.max.apply(Math, allYearsInHeader);
+
+      $("#epochRangeText").html("The epoch year range for averaging is: "+"<strong>"+EPOCH_START+" - "+EPOCH_END+"</strong>");
+      $("#dataRangeText").html("The data year range for determining records is: "+"<strong>"+DATA_START+" - "+DATA_END+"</strong>");
 //       $("#climatologyLegend").html("The epoch year range: "+"<strong>"+EPOCH_START+" - "+EPOCH_END+"</strong>");
 // climatologyLegend
       // console.log("MLLW= "+MLLW);

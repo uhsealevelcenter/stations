@@ -240,7 +240,7 @@
           <div id="climatology" class="col-sm-12 center" style="min-height: 780px;">
             <div class="col-sm-12 center">
               <div class="climatology-title" style="text-align: center;">
-                <h2 id="climatologyTitle"> Daily and Monthly Climatology Records </h2>
+                <h2 id="climatologyTitle"> Record and Average Water Levels </h2>
               </div>
             <div>
             <div class="col-sm-6" >
@@ -295,35 +295,47 @@
               <div class="tab">
                 <button class="tablinks" onclick="displayPlot(event, 'dailyE')" id="defaultOpen">Daily Extremes</button>
                 <button class="tablinks" onclick="displayPlot(event, 'monthlyE')">Monthly Extremes</button>
-                <button class="tablinks" onclick="displayPlot(event, 'monthlyM')">Monthly Mean</button>
+                <button class="tablinks" onclick="displayPlot(event, 'monthlyM')">Monthly Means [MJW1]</button>
                 <button class="tablinks" onclick="displayPlot(event, 'combined')">Combined</button>
               </div>
 
               <div id="dailyE" class="tabcontent">
                 <h3>Daily Extremes</h3>
-                <p>Explanation text here.</p>
+                <p>Highest and lowest hourly water levels for each <strong>day.</strong></p>
               </div>
 
               <div id="monthlyE" class="tabcontent">
                 <h3>Monthly Extremes</h3>
-                <p>Some other explanation text here.</p>
+                <p>Highest and lowest hourly water levels for each <strong>month.</strong></p>
               </div>
 
               <div id="monthlyM" class="tabcontent">
-                <h3>Monthly Mean</h3>
-                <p>Yet another explanation text here.</p>
+                <h3>Monthly Means</h3>
+                <p>Highest and lowest <strong>monthly mean</strong> water levels, along with monthly data averaged during the epoch and for each selected year(s).</p>
               </div>
 
               <div id="combined" class="tabcontent">
                 <h3>Combined</h3>
-                <p>Additional info text.</p>
+                <p>Displaying all plots in one figure.</p>
               </div>
             </div>
 
             <div id="climateDaily" class="col-sm-12"></div>
             <div id="extremeMonthly" class="col-sm-12"></div>
             <div id="climateMonthly" class="col-sm-12"></div>
-            <div id="epochRangeText" class="col-sm-12" align="center"> <p>Place holder text that will show the year range for each station</p> </div>
+            <div id="epochRangeText" class="col-sm-12" align="center"> <p></p> </div>
+            <div id="dataRangeText" class="col-sm-12" align="center"> <p></p> </div>
+            <div id="climatologyProductDesc" style="" class="col-sm-12">
+              <p>This product provides a preliminary look at the recent or past
+                 water levels compared to the long-term records and climatology
+                 at the tide gauge station. Updates are typically available by the
+                 15<sup>th</sup> day of each month using the UHSLC’s Fast Delivery of tide gauge
+                 data. Similar types of graphical displays are available on the web
+                 for many other types of atmospheric and oceanic data, including
+                 a water level visualization for Miami, Florida <a href="http://bmcnoldy.rsmas.miami.edu/vk/index.html#daily_tide_chart">[MJW1]</a> , which helped
+                 inspire this product.
+              </p>
+            </div>
             <!-- <hr> -->
           </div>
           <!-- end tab4 -->
@@ -331,16 +343,18 @@
         </div>
         <!-- end #tabs -->
       </div>
-      <div class="col-sm-12" style="padding:10px 15px 30px 15px;">
-        <!-- <hr> -->
-        <footer style="border: solid 1px #ddd; padding:10px 30px 10px 30px;">
-          <p><strong>Disclaimer: The Station Explorer is a <i>research</i> product.</strong> The data are provided free of charge without warranty of any kind. <a href="https://uhslc.soest.hawaii.edu/">UHSLC</a> requests that attribution be given whenever
-            the
-            <a href="https://uhslc.soest.hawaii.edu/stations/">Station Explorer</a> material is reproduced and re-disseminated.</p>
-        </footer>
-      </div>
+
     </div>
+
     <!-- end .row -->
+  </div>
+  <div class="col-sm-12" style="padding:10px 15px 30px 15px;">
+    <!-- <hr> -->
+    <footer style="border: solid 1px #ddd; padding:10px 30px 10px 30px;">
+      <p><strong>Disclaimer: The Station Explorer is a <i>research</i> product.</strong> The data are provided free of charge without warranty of any kind. <a href="https://uhslc.soest.hawaii.edu/">UHSLC</a> requests that attribution be given whenever
+        the
+        <a href="https://uhslc.soest.hawaii.edu/stations/">Station Explorer</a> material is reproduced and re-disseminated.</p>
+    </footer>
   </div>
   <!-- end .container-fluid -->
 

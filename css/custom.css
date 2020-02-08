@@ -627,7 +627,7 @@ body {font-family: "Lato", sans-serif;} */
   text-align: left;
   cursor: pointer;
   transition: 0.3s;
-  font-size: 16px;
+  font-size: 1em;
 }
 
 /* Change background color of buttons on hover */
@@ -640,22 +640,41 @@ body {font-family: "Lato", sans-serif;} */
 .tab button.active {
   background-color: white;/*#337ab7*/
   color: #337ab7;
-  border-left-width: 34px;
+  border-left-width: 17px;
   border-left-color: #337ab7;
   border-right: none;
-  z-index: 100;
 }
 
 /* Style the tab content */
 .tabcontent {
   float: left;
   padding: 0px 12px;
-  border: 1px solid #ccc;
+  border: 1px solid #ddd;
   border-left: none;
   width: 60%;
   height: 138px;
   /* background-color: #337ab7;
   color: white; */
+}
+
+.tabcontent h3{
+  margin-top: 10px;
+}
+
+#climatologyProductDesc{
+  padding-top: 15px;
+}
+/* h3{
+  overflow: hidden;
+    animation: slide 0.3s linear;
+    z-index: -100;
+} */
+
+
+@keyframes slide {
+  0% {margin-left: -200px;}
+  50% {margin-left: -100px;}
+  100% {margin-left: 0;}
 }
 
 
