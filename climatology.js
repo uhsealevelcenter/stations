@@ -11,6 +11,8 @@ var AVERAGE_LOW_COLOR = AVERAGE_HIGH_COLOR;
 var AVERAGE_DAILY_COLOR = '#d1d3d4';
 var AVERAGE_MONTHLY_COLOR = AVERAGE_DAILY_COLOR;
 var DEFAULT_YEAR_COLOR = 'rgb(0,0,0)';
+
+var DATA_START, DATA_END;
 function plotClimateData(_stn) {
 
   var dailyData = null;
@@ -105,8 +107,8 @@ function plotClimateData(_stn) {
         return !Number.isNaN(value);
       });
 
-      var DATA_START = Math.min.apply(Math, allYearsInHeader);
-      var DATA_END = Math.max.apply(Math, allYearsInHeader);
+      DATA_START = Math.min.apply(Math, allYearsInHeader);
+      DATA_END = Math.max.apply(Math, allYearsInHeader);
 
       $("#epochRangeText").html("The epoch year range for averaging is: "+"<strong>"+EPOCH_START+" - "+EPOCH_END+"</strong>");
       $("#dataRangeText").html("The data year range for determining records is: "+"<strong>"+DATA_START+" - "+DATA_END+"</strong>");
@@ -992,13 +994,13 @@ function plotClimateData(_stn) {
       // Check if years are in the allowed range
       // TODO: define year limits dinamically
       var index=uniqueYears.findIndex(function(number) {
-        return number > 2019 || number<1905;
+        return number > DATA_END || number<DATA_START;
       });
 
       if(index>-1)
       {
         // TODO: define year limits dinamically
-        text = "The year number must be between 1905 and 2019";
+        text = "The year number for this station must be between "+ DATA_START + " and " + DATA_END;
       }
       else
       {
