@@ -473,11 +473,11 @@ td {
 }
 
 #textBoxTitle{
-  padding-top: 14px;
+  /* padding-top: 14px; */
   text-align: center;
 }
 /*Radio button style from: https://bootsnipp.com/snippets/Zk2Pz */
-.funkyradio div {
+/* .funkyradio div {
   clear: both;
   overflow: hidden;
 }
@@ -595,7 +595,7 @@ td {
 .funkyradio-info input[type="checkbox"]:checked ~ label:before {
   color: #fff;
   background-color: #5bc0de;
-}
+} */
 
 /* * {box-sizing: border-box}
 body {font-family: "Lato", sans-serif;} */
@@ -603,11 +603,11 @@ body {font-family: "Lato", sans-serif;} */
 /* Style the tab */
 .tab {
   float: left;
-  border: 1px solid #ccc;
+  border: 1px solid #ddd;
   border-right-color: #337ab7;
   background-color: #f1f1f1;
   border-right: none;
-  width: 40%;
+  width: 33%;
 
   /* height: 300px; */
 }
@@ -652,7 +652,7 @@ body {font-family: "Lato", sans-serif;} */
   padding: 0px 12px;
   border: 1px solid #ddd;
   border-left: none;
-  width: 60%;
+  width: 67%;
   height: 138px;
   /* background-color: #337ab7;
   color: white; */

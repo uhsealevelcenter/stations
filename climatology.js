@@ -12,6 +12,19 @@ var AVERAGE_DAILY_COLOR = '#d1d3d4';
 var AVERAGE_MONTHLY_COLOR = AVERAGE_DAILY_COLOR;
 var DEFAULT_YEAR_COLOR = 'rgb(0,0,0)';
 
+var defaultColors = [
+    '#1f77b4',  // muted blue
+    '#ff7f0e',  // safety orange
+    '#2ca02c',  // cooked asparagus green
+    '#d62728',  // brick red
+    '#9467bd',  // muted purple
+    '#8c564b',  // chestnut brown
+    '#e377c2',  // raspberry yogurt pink
+    '#7f7f7f',  // middle gray
+    '#bcbd22',  // curry yellow-green
+    '#17becf'   // blue-teal
+];
+
 var DATA_START, DATA_END;
 function plotClimateData(_stn) {
 
@@ -992,14 +1005,12 @@ function plotClimateData(_stn) {
       }
 
       // Check if years are in the allowed range
-      // TODO: define year limits dinamically
       var index=uniqueYears.findIndex(function(number) {
         return number > DATA_END || number<DATA_START;
       });
 
       if(index>-1)
       {
-        // TODO: define year limits dinamically
         text = "The year number for this station must be between "+ DATA_START + " and " + DATA_END;
       }
       else
@@ -1030,11 +1041,16 @@ function plotClimateData(_stn) {
   plotClimateData.reset = reset;
 
   function myCallback(item, index) {
-    console.log(item, index);
+    var offset = parseInt(index + 2);
+//     console.log("item= "+item,"index= " + index);
+// console.log("offset= "+(offset))
+    // console.log("offset color= "+d3colors(parseInt(offset)))
+    var color = defaultColors[offset];
+
     if (item != "") {
-      Plotly.addTraces("climateDaily", createNewTrace(item.toString().trim(), dailyData, ' high'));
-      Plotly.addTraces("extremeMonthly", createNewTrace(item.toString().trim(), monthlyHrData, ' Monthly Mean'));
-      Plotly.addTraces("climateMonthly", createNewTrace(item.toString().trim(), monthlyData, ' Monthly Mean'));
+      Plotly.addTraces("climateDaily", createNewTrace(item.toString().trim(), dailyData, ' high', color ));
+      Plotly.addTraces("extremeMonthly", createNewTrace(item.toString().trim(), monthlyHrData, ' Monthly Mean', color));
+      Plotly.addTraces("climateMonthly", createNewTrace(item.toString().trim(), monthlyData, ' Monthly Mean', color));
     }
   }
 
@@ -1063,7 +1079,7 @@ function plotClimateData(_stn) {
     document.getElementById("inputMessage").innerText="";
   }
 
-  function createNewTrace(year, data, legendText) {
+  function createNewTrace(year, data, legendText, color) {
     var currentUnit = !$('#unitToggle').prop("checked");
     var currentDatum = !$('#datumToggle').prop("checked");
     var currentTZ = !$('#timeToggle').prop("checked");
@@ -1079,7 +1095,7 @@ function plotClimateData(_stn) {
       y: unpack(data, year, currentUnit, currentDatum, MLLW, MHHW, LST),
       stackgroup: null,
       line: {
-        // color: 'rgb(55, 128, 191)',
+        color: color,
         width: 4
       }
     };

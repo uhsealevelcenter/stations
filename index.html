@@ -238,33 +238,11 @@
 
           <!-- tab4: climatology -->
           <div id="climatology" class="col-sm-12 center" style="min-height: 780px;">
+
             <div class="col-sm-12 center">
               <div class="climatology-title" style="text-align: center;">
                 <h2 id="climatologyTitle"> Record and Average Water Levels </h2>
               </div>
-            <div>
-            <div class="col-sm-6" >
-              <div class="col-sm-12" >
-                <h4 id="textBoxTitle"> Add additional years to the graph. </h4>
-              </div>
-                <div class="col-sm-12" >
-                    <div class="input-group">
-                      <span class="input-group-btn">
-                        <button onclick="plotClimateData.reset()" class="btn btn-info" type="submit">Reset</button>
-                      </span>
-                      <input id="yearsBox" type="text" class="form-control" placeholder=" e.g. 2005-2009, 2015, 2017-2019 (max 10)" aria-label="Enter Years" aria-describedby="basic-addon2">
-                      <span class="input-group-btn">
-                        <button onclick="plotClimateData.addYears()" class="btn btn-info" type="submit">Add Years</button>
-                      </span>
-
-                    </div>
-                </div>
-                <div class="col-sm-12 center" >
-                  <p style="color:red;" align="center" id="inputMessage"></p>
-                </div>
-                <div class="col-sm-12 center" >
-                  <p align="center"><sup><strong>*</strong></sup>For user-selected years, only the highest water levels are shown in graphs of daily and monthly extremes.</p>
-                </div>
             </div>
 
             <!-- <div class="col-sm-3" >
@@ -298,18 +276,18 @@
               <div class="tab">
                 <button class="tablinks" onclick="displayPlot(event, 'dailyE')" id="defaultOpen">Daily Extremes</button>
                 <button class="tablinks" onclick="displayPlot(event, 'monthlyE')">Monthly Extremes</button>
-                <button class="tablinks" onclick="displayPlot(event, 'monthlyM')">Monthly Means [MJW1]</button>
+                <button class="tablinks" onclick="displayPlot(event, 'monthlyM')">Monthly Means</button>
                 <button class="tablinks" onclick="displayPlot(event, 'combined')">Combined</button>
               </div>
 
               <div id="dailyE" class="tabcontent">
                 <h3>Daily Extremes</h3>
-                <p>Highest and lowest<sup><strong>*</strong></sup> hourly water levels for each <strong>day.</strong></p>
+                <p>Highest and lowest<sup><strong><span>&#8224;</span></strong></sup> hourly water levels for each <strong>day.</strong></p>
               </div>
 
               <div id="monthlyE" class="tabcontent">
                 <h3>Monthly Extremes</h3>
-                <p>Highest and lowest<sup><strong>*</strong></sup> hourly water levels for each <strong>month.</strong></p>
+                <p>Highest and lowest<sup><strong><span>&#8224;</span></strong></sup> hourly water levels for each <strong>month.</strong></p>
               </div>
 
               <div id="monthlyM" class="tabcontent">
@@ -323,6 +301,32 @@
               </div>
             </div>
 
+            <div class="col-sm-6" >
+              <div class="col-sm-12" >
+                <h4 id="textBoxTitle"> Add additional years to the graph. </h4>
+              </div>
+                <div class="col-sm-12" >
+                    <div class="input-group">
+                      <span class="input-group-btn">
+                        <button onclick="plotClimateData.reset()" class="btn btn-info" type="submit">Reset</button>
+                      </span>
+                      <input id="yearsBox" type="text" class="form-control" placeholder=" e.g. 2005-2009, 2015, 2017-2019 (max 10)" aria-label="Enter Years" aria-describedby="basic-addon2">
+                      <span class="input-group-btn">
+                        <button onclick="plotClimateData.addYears()" class="btn btn-info" type="submit">Add Years</button>
+                      </span>
+
+                    </div>
+                </div>
+                <div class="col-sm-12 center" >
+                  <p style="color:red;" align="center" id="inputMessage"></p>
+                </div>
+                <div class="col-sm-12 center" >
+                  <p align="center"><sup><strong><span>&#8224;</span></strong></sup>For user-selected years, only the highest water levels are shown in graphs of daily and monthly extremes.</p>
+                </div>
+            </div>
+
+
+
             <div id="climateDaily" class="col-sm-12"></div>
             <div id="extremeMonthly" class="col-sm-12"></div>
             <div id="climateMonthly" class="col-sm-12"></div>
@@ -335,7 +339,7 @@
                  15<sup>th</sup> day of each month using the UHSLC’s Fast Delivery of tide gauge
                  data. Similar types of graphical displays are available on the web
                  for many other types of atmospheric and oceanic data, including
-                 a water level visualization for Miami, Florida <a href="http://bmcnoldy.rsmas.miami.edu/vk/index.html#daily_tide_chart">[MJW1]</a> , which helped
+                 a <a href="http://bmcnoldy.rsmas.miami.edu/vk/index.html#daily_tide_chart">water level visualization for Miami, Florida</a>, which helped
                  inspire this product.
               </p>
             </div>
