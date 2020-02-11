@@ -16,7 +16,8 @@ var defaultColors = [
     '#1f77b4',  // muted blue
     '#ff7f0e',  // safety orange
     '#2ca02c',  // cooked asparagus green
-    '#d62728',  // brick red
+    // '#d62728',  // brick red
+    '#FFED33',  // my yellow
     '#9467bd',  // muted purple
     '#8c564b',  // chestnut brown
     '#e377c2',  // raspberry yogurt pink
@@ -680,7 +681,7 @@ function plotClimateData(_stn) {
           yanchor: "top",
           "orientation": "h",
           x: 0.5,
-          y: 1.15,
+          y: 1.25,
           bgcolor: '#ffffff'
         },
         margin: {
@@ -907,7 +908,7 @@ function plotClimateData(_stn) {
           yanchor: "top",
           "orientation": "h",
           x: 0.5,
-          y: 1.1,
+          y: 1.25,
           bgcolor: '#ffffff'
         },
         margin: {
@@ -1041,7 +1042,7 @@ function plotClimateData(_stn) {
   plotClimateData.reset = reset;
 
   function myCallback(item, index) {
-    var offset = parseInt(index + 2);
+    var offset = parseInt(index + 1);
 //     console.log("item= "+item,"index= " + index);
 // console.log("offset= "+(offset))
     // console.log("offset color= "+d3colors(parseInt(offset)))
