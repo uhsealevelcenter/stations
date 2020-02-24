@@ -239,11 +239,11 @@
           <!-- tab4: climatology -->
           <div id="climatology" class="col-sm-12 center" style="min-height: 780px;">
 
-            <div class="col-sm-12 center">
+            <!-- <div class="col-sm-12 center">
               <div class="climatology-title" style="text-align: center;">
                 <h2 id="climatologyTitle"> Record and Average Water Levels </h2>
               </div>
-            </div>
+            </div> -->
 
             <!-- <div class="col-sm-3" >
                     <div class="funkyradio">
@@ -282,12 +282,12 @@
 
               <div id="dailyE" class="tabcontent">
                 <h3>Daily Extremes</h3>
-                <p>Highest and lowest<sup><strong><span>&#8224;</span></strong></sup> hourly water levels for each <strong>day.</strong></p>
+                <p>For each <strong>day</strong>, highest and lowest<sup><strong><span>&#8224;</span></strong></sup> hourly water levels, along with the daily range averaged during the epoch.</p>
               </div>
 
               <div id="monthlyE" class="tabcontent">
                 <h3>Monthly Extremes</h3>
-                <p>Highest and lowest<sup><strong><span>&#8224;</span></strong></sup> hourly water levels for each <strong>month.</strong></p>
+                <p>For each <strong>month</strong>, highest and lowest<sup><strong><span>&#8224;</span></strong></sup> hourly water levels, along with the monthly maximum range averaged during the epoch.</p>
               </div>
 
               <div id="monthlyM" class="tabcontent">
@@ -303,7 +303,7 @@
 
             <div class="col-sm-6" >
               <div class="col-sm-12" >
-                <h4 id="textBoxTitle"> Select up to 10 years to display. </h4>
+                <h4 id="textBoxTitle"> Select up to 10 years to display </h4>
               </div>
                 <div class="col-sm-12" >
                     <div class="input-group">
@@ -337,7 +337,13 @@
                  water levels compared to the long-term records and climatology
                  at the tide gauge station. Updates are typically available by the
                  15<sup>th</sup> day of each month using the UHSLC’s Fast Delivery of tide gauge
-                 data. Similar types of graphical displays are available on the web
+                 data. When viewing individual years of daily extremes, note that days with partial
+                 missing data will sometimes show a spike well below the typical spring-neap
+                 tidal cycle (e.g., if that day’s highest tide was not recorded) that explains
+                 the normal oscillatory nature of the records.
+               </p>
+               <p>
+                 Similar types of graphical displays are available on the web
                  for many other types of atmospheric and oceanic data, including
                  a <a href="http://bmcnoldy.rsmas.miami.edu/vk/index.html#daily_tide_chart">water level visualization for Miami, Florida</a>, which helped
                  inspire this product.

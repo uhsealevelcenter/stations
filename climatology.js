@@ -63,7 +63,16 @@ function plotClimateData(_stn) {
 
         // if seeking datum or time zone value return the value so the "else" portion is not executed
         if (key === "MHHW_NTDE" || key === "MLLW_NTDE" || key === "time_zone" || key === "start_NTDE" || key === "end_NTDE") {
+          if(key==="MHHW_NTDE" || key==="MLLW_NTDE"){
+            // If datums are not defined I am setting them to 0 so that plotly can plot the data
+            if(row[key]==="NaN"){
+              return 0;
+            }else{
+              return row[key];
+            }
+          }
           return row[key];
+
         } else {
           if (unit && datum) {
             //Do nothing
