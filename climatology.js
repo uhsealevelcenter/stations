@@ -311,7 +311,6 @@ function plotClimateData(_stn) {
       //   stackgroup: null
       // };
 
-
       var data123 = [trace2, trace_rr, trace_rl, trace1, trace_ar, trace_al,   trace_ad, trace3];
       var data3 = [trace3];
 
@@ -331,8 +330,8 @@ function plotClimateData(_stn) {
             text: ''
           },
 
-          autorange: true,
-          // range: [0, 365],
+          // autorange: true,
+          range: [ALL_DAYS[0], ALL_DAYS[ALL_DAYS.length-1]],
           type: "date"
         },
         yaxis: {
@@ -690,8 +689,8 @@ function plotClimateData(_stn) {
           title: {
             text: ''
           },
-          autorange: true
-          // range: [0, 11]
+          // autorange: true
+          range: [timeRange[0], timeRange[timeRange.length-1]]
         },
         yaxis: {
           title: yLabel1,
@@ -924,8 +923,8 @@ function plotClimateData(_stn) {
           title: {
             text: ''
           },
-          autorange: true
-          // range: [0, 11]
+          // autorange: true
+          range: [timeRange[0], timeRange[timeRange.length-1]]
         },
         yaxis: {
           title: yLabel1,
