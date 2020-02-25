@@ -118,20 +118,22 @@ function plotClimateData(_stn) {
       var EPOCH_START = parseFloat(unpack(rows, 'start_NTDE', currentUnit, currentDatum)[0]);
       var EPOCH_END = parseFloat(unpack(rows, 'end_NTDE', currentUnit, currentDatum)[0]);
 
-      var headerNames = Plotly.d3.keys(rows[0]);
+      // var headerNames = Plotly.d3.keys(rows[0]);
+      //
+      // // Convert header names to number array
+      // var headerNumber = headerNames.map(function(item){
+      //   return parseInt(item, 10);
+      // });
+      //
+      // // Exclude NaNs from the header
+      // var allYearsInHeader = headerNumber.filter(function (value){
+      //   return !Number.isNaN(value);
+      // });
 
-      // Convert header names to number array
-      var headerNumber = headerNames.map(function(item){
-        return parseInt(item, 10);
-      });
-
-      // Exclude NaNs from the header
-      var allYearsInHeader = headerNumber.filter(function (value){
-        return !Number.isNaN(value);
-      });
-
-      DATA_START = Math.min.apply(Math, allYearsInHeader);
-      DATA_END = Math.max.apply(Math, allYearsInHeader);
+      // DATA_START = Math.min.apply(Math, allYearsInHeader);
+      // DATA_END = Math.max.apply(Math, allYearsInHeader);
+      DATA_START = GetDataYearRange(Plotly.d3.keys(rows[0]))["start"];
+      DATA_END = GetDataYearRange(Plotly.d3.keys(rows[0]))["end"];
 
       $("#epochRangeText").html("The epoch year range for averaging is: "+"<strong>"+EPOCH_START+" - "+EPOCH_END+"</strong>");
       $("#dataRangeText").html("The data year range for determining records is: "+"<strong>"+DATA_START+" - "+DATA_END+"</strong>");
@@ -505,6 +507,9 @@ function plotClimateData(_stn) {
       // because it is the same for each tracer
       console.log(rows.length);
 
+      DATA_START = GetDataYearRange(Plotly.d3.keys(rows[0]))["start"];
+      DATA_END = GetDataYearRange(Plotly.d3.keys(rows[0]))["end"];
+
       var timeRange =  range(1, rows.length);
 
       // Year record high
@@ -803,7 +808,10 @@ function plotClimateData(_stn) {
 
       // There is no need to unpack time vector for every tracer
       // because it is the same for each tracer
-      console.log(rows.length);
+      // console.log(rows.length);
+      DATA_START = GetDataYearRange(Plotly.d3.keys(rows[0]))["start"];
+      DATA_END = GetDataYearRange(Plotly.d3.keys(rows[0]))["end"];
+
       var timeRange =  range(1, rows.length);
 
       // Year record high
@@ -1242,4 +1250,23 @@ function DOY_to_dates(){
 	allDays.push(new Date(date.setDate(i)));
 }
   return allDays;
+}
+
+function GetDataYearRange(plotlyFirstRowKeys){
+  var headerNames = plotlyFirstRowKeys;
+
+  // Convert header names to number array
+  var headerNumber = headerNames.map(function(item){
+    return parseInt(item, 10);
+  });
+
+  // Exclude NaNs from the header
+  var allYearsInHeader = headerNumber.filter(function (value){
+    return !Number.isNaN(value);
+  });
+
+  _DATA_START = Math.min.apply(Math, allYearsInHeader);
+  _DATA_END = Math.max.apply(Math, allYearsInHeader);
+
+  return {start:_DATA_START, end: _DATA_END}
 }
