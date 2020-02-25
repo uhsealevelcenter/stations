@@ -277,18 +277,27 @@ function plotClimateData(_stn) {
 
       var trace3 = {
         // meta: {columnNames: {y: '2017'}},
-        mode: 'lines',
-        name: '2019 High',
-        type: 'scatter',
+        mode: 'lines+markers',
+        name: DATA_END+' High',
+
         // x: timeRange,
         x: ALL_DAYS,
-        y: unpack(rows, '2019', currentUnit, currentDatum, MLLW, MHHW, LST),
+        y: unpack(rows, DATA_END, currentUnit, currentDatum, MLLW, MHHW, LST),
+        type: 'scatter',
         visible: true,
         stackgroup: null,
-        line: {
-          color: DEFAULT_YEAR_COLOR,
-          width: 4
-        }
+        // line: {
+        //   color: DEFAULT_YEAR_COLOR,
+        //   width: 4
+        // }
+        marker: {
+         color: DEFAULT_YEAR_COLOR,
+         size: 8
+       },
+       line: {
+         color: DEFAULT_YEAR_COLOR,
+         width: 4
+       }
       };
 
       // var trace4 = {
@@ -632,18 +641,22 @@ function plotClimateData(_stn) {
 
       var trace3 = {
         // meta: {columnNames: {y: '2017'}},
-        mode: 'lines',
-        name: '2019 High',
+        mode: 'markers+lines',
+        name: DATA_END+' High',
         type: 'scatter',
         // x: timeRange,
         x: timeRange,
-        y: unpack(rows, '2019', currentUnit, currentDatum, MLLW, MHHW, LST),
+        y: unpack(rows, DATA_END, currentUnit, currentDatum, MLLW, MHHW, LST),
         visible: true,
         stackgroup: null,
-        line: {
-          color: DEFAULT_YEAR_COLOR,
-          width: 4
-        }
+        marker: {
+         color: DEFAULT_YEAR_COLOR,
+         size: 8
+       },
+       line: {
+         color: DEFAULT_YEAR_COLOR,
+         width: 4
+       }
       };
 
       // var trace4 = {
@@ -871,15 +884,19 @@ function plotClimateData(_stn) {
 
       var trace4 = {
         // meta: {columnNames: {y: '2019'}},
-        mode: 'lines',
-        name: '2019 Monthly Mean',
+        mode: 'markers+lines',
+        name: DATA_END+' Monthly Mean',
         type: 'scatter',
         x: timeRange,
-        y: unpack(rows, '2019', currentUnit, currentDatum, MLLW, MHHW, LST),
-        line:{
-          color: DEFAULT_YEAR_COLOR,
-          width: 4
-        },
+        y: unpack(rows, DATA_END, currentUnit, currentDatum, MLLW, MHHW, LST),
+        marker: {
+         color: DEFAULT_YEAR_COLOR,
+         size: 8
+       },
+       line: {
+         color: DEFAULT_YEAR_COLOR,
+         width: 4
+       },
         stackgroup: null
       };
 
@@ -1009,7 +1026,7 @@ function plotClimateData(_stn) {
 
       // Look for and remove the default year duplicate
       // TODO: define the default year
-      var index = uniqueYears.indexOf(2019);
+      var index = uniqueYears.indexOf(parseInt(DATA_END));
       if (index > -1) {
         uniqueYears.splice(index, 1);
       }
