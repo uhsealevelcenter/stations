@@ -314,6 +314,13 @@ function plotClimateData(_stn) {
       var data123 = [trace2, trace_rr, trace_rl, trace1, trace_ar, trace_al,   trace_ad, trace3];
       var data3 = [trace3];
 
+      // Add a slight date padding for xaxis range
+      var dayPadding = 3; // in days
+      var d_start = new Date(ALL_DAYS[0]);
+      d_start.setDate(d_start.getDate() - dayPadding);
+      var d_end = new Date(ALL_DAYS[ALL_DAYS.length-1]);
+      d_end.setDate(d_end.getDate() + dayPadding);
+
       var layout123 = {
         // title: 'Stn:' + _stn,
         width: 1000,
@@ -331,7 +338,7 @@ function plotClimateData(_stn) {
           },
 
           // autorange: true,
-          range: [ALL_DAYS[0], ALL_DAYS[ALL_DAYS.length-1]],
+          range: [d_start, d_end],
           type: "date"
         },
         yaxis: {
@@ -690,7 +697,7 @@ function plotClimateData(_stn) {
             text: ''
           },
           // autorange: true
-          range: [timeRange[0], timeRange[timeRange.length-1]]
+          range: [timeRange[0]-timeRange.length/100.0, timeRange[timeRange.length-1]+timeRange.length/100.0]
         },
         yaxis: {
           title: yLabel1,
@@ -924,7 +931,7 @@ function plotClimateData(_stn) {
             text: ''
           },
           // autorange: true
-          range: [timeRange[0], timeRange[timeRange.length-1]]
+          range: [timeRange[0]-timeRange.length/100.0, timeRange[timeRange.length-1]+timeRange.length/100.0]
         },
         yaxis: {
           title: yLabel1,
