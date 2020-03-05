@@ -161,6 +161,7 @@ function plotData(_stn) {
           // title: 'Stn:' + _stn,
           width: 1050,
           height: 450,
+          // autosize: false,
           autoresize: true,
           xaxis: {
             title: xLabel,
@@ -370,15 +371,11 @@ function plotData(_stn) {
         Plotly.update('tideplot1', tv, update);
         Plotly.update('tideplot2', tv, update);
       }
-      // window.onresize = function() {
-      //
-      //   var update = {
-      //     width: document.getElementById("tideplot1").offsetWidth, // or any new width
-      //   };
-      //
-      //   Plotly.relayout('tideplot1', update);
-      //   Plotly.relayout('tideplot2', update);
-      // };
+
+
+      window.onresize = onScreenResize;
+      onScreenResize();
+
     }
     // , function(error) {
     //   myerror = error;
@@ -388,6 +385,25 @@ function plotData(_stn) {
   )
 
 };
+
+function onScreenResize() {
+  console.log("resized");
+  var update = {
+    width: document.getElementById("metaBox").offsetWidth, // or any new width
+    legend: {
+      xanchor: "center",
+      yanchor: "top",
+      "orientation": "h",
+      x: 0.5,
+      y: 2,
+    },
+  };
+  Plotly.relayout('tideplot1', update);
+  var update2 = {
+    width: document.getElementById("metaBox").offsetWidth, // or any new width
+  };
+  Plotly.relayout('tideplot2', update2);
+}
 
 function getYLabel(unit, datum) {
   var combo = "";
