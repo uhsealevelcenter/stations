@@ -30,16 +30,20 @@
       <!-- station selection and section tabs -->
       <div class="col-sm-12">
         <div class="wrapper" id="tabs">
-          <div class="" id="selectbox"></div>
 
-          <div class="scroller">
-          <ul class="tab-list" style="display: none">
-            <li><a href="#climatology">Climatology</a></li>
-            <li><a href="#datums">Datums</a></li>
-            <li><a href="#tidecal">Tide Calendars</a></li>
-            <li><a href="#levels" id="defaultTab">Water Levels</a></li>
-          </ul>
+          <div class="col-sm-12">
+            <div class="" id="selectbox"></div>
+
+            <div class="scroller">
+              <ul class="tab-list" style="display: none">
+                <li><a href="#climatology">Climatology</a></li>
+                <li><a href="#datums">Datums</a></li>
+                <li><a href="#tidecal">Tide Calendars</a></li>
+                <li><a href="#levels" id="defaultTab">Water Levels</a></li>
+              </ul>
+            </div>
           </div>
+
           <!-- Metadata area -->
           <div id="metaBox" class="col-sm-12">
             <div id="metaTable2" class="col-sm-3">
@@ -102,33 +106,33 @@
               </table>
             </div>
 
-            <div class="col-sm-3">
+            <div class="col-sm-3" id="unitsButtonsContainer">
               <label class="switch-light switch-candy" onclick="">
-              <input class="toggleclass" type="checkbox" id="unitToggle">
-              <span>
-                <span>Metric</span>
-                <span>English</span>
-                <a></a>
-              </span>
-            </label>
+                <input class="toggleclass" type="checkbox" id="unitToggle">
+                <span>
+                  <span>Metric</span>
+                  <span>English</span>
+                  <a></a>
+                </span>
+              </label>
 
-            <label  id="testing" class="switch-light switch-candy datum" onclick="">
-            <input class="toggleclass" type="checkbox" id="datumToggle">
-            <span>
-              <span >MLLW</span>
-              <span>MHHW</span>
-              <a></a>
-            </span>
-          </label>
+              <label id="testing" class="switch-light switch-candy datum" onclick="">
+                <input class="toggleclass" type="checkbox" id="datumToggle">
+                <span>
+                  <span>MLLW</span>
+                  <span>MHHW</span>
+                  <a></a>
+                </span>
+              </label>
 
-          <label class="switch-light switch-candy tz" onclick="">
-          <input type="checkbox" id="timeToggle">
-          <span>
-            <span>GMT</span>
-            <span>LST</span>
-            <a></a>
-          </span>
-        </label>
+              <label class="switch-light switch-candy tz" onclick="">
+                <input type="checkbox" id="timeToggle">
+                <span>
+                  <span>GMT</span>
+                  <span>LST</span>
+                  <a></a>
+                </span>
+              </label>
               <!-- <input class="toggleclass" id="unitToggle" type="checkbox" data-toggle="toggle" data-style="android" data-width="100%" data-on="English" data-off="Metric">-->
               <!-- <input class="toggleclass" id="datumToggle" type="checkbox" data-toggle="toggle" data-style="android" data-width="100%" data-on="MHHW" data-off="MLLW"> -->
               <!-- <input id="timeToggle" type="checkbox" data-toggle="toggle" data-width="100%" data-style="android" data-on="LST" data-off="GMT">  -->
@@ -154,11 +158,14 @@
             <div id="tideplot2" class="col-sm-12"></div>
             <hr>
             <div id="product_desc" style="display: none;" class="col-sm-12">
-              <p>This product provides a preliminary look at the recent hourly water levels <span style="background-color: #ff7f0e;padding: 5px">observed</span> by the tide gauge station compared to the astronomical tidal <span style="background-color: #1f77b4; color:white;padding: 5px">prediction</span>.
+              <p>This product provides a preliminary look at the recent hourly water levels <span style="background-color: #ff7f0e;padding: 5px">observed</span> by the tide gauge station compared to the astronomical tidal <span
+                  style="background-color: #1f77b4; color:white;padding: 5px">prediction</span>.
                 <span style="background-color: #2ca02c; color:white;padding: 5px">Residuals</span> (observations minus the predictions) are indicative of the local sea level anomaly.</p>
-              <p>Data processing of high-frequency tide gauge measurements automatically removes most sensor and transmission errors, converts the data into hourly observations, and chooses the best sensor gauge for each station. Daily updates are typically
+              <p>Data processing of high-frequency tide gauge measurements automatically removes most sensor and transmission errors, converts the data into hourly observations, and chooses the best sensor gauge for each station. Daily updates are
+                typically
                 available by 3:00 GMT (17:00 HST) to provide data through the previous day. </p>
-              <p>These observations have not been subjected to the UHSLC’s manual quality control procedures (<a href="https://uhslc.soest.hawaii.edu/data/?fd">Fast Delivery</a> and <a href="https://uhslc.soest.hawaii.edu/data/?rq">Research Quality</a> data).
+              <p>These observations have not been subjected to the UHSLC’s manual quality control procedures (<a href="https://uhslc.soest.hawaii.edu/data/?fd">Fast Delivery</a> and <a href="https://uhslc.soest.hawaii.edu/data/?rq">Research
+                  Quality</a> data).
                 The Rapid Delivery data shown here is for limited public use as preliminary data to be used only with appropriate caution.</p>
             </div>
           </div>
@@ -191,15 +198,20 @@
                 </div>
                 <div id="info_cal" class="tab-pane fade">
                   <div>
-                    <p>Tide predictions are calculated based on harmonic analysis of the hourly water levels measured during the <a href="https://uhslc.soest.hawaii.edu/stations/datums#stat">Station Datum Epoch</a>. That is, observations of the past are
-                      used to predict the future. While called <i>predictions</i>, the tidal calendars are extremely deterministic many years into the future. Astronomical knowledge (relative positions of the Earth-Moon-Sun) provides information about
+                    <p>Tide predictions are calculated based on harmonic analysis of the hourly water levels measured during the <a href="https://uhslc.soest.hawaii.edu/stations/datums#stat">Station Datum Epoch</a>. That is, observations of the past
+                      are
+                      used to predict the future. While called <i>predictions</i>, the tidal calendars are extremely deterministic many years into the future. Astronomical knowledge (relative positions of the Earth-Moon-Sun) provides information
+                      about
                       the gravitational pull on the oceans, which forces most of the tidal cycles.</p>
-                    <p>We update the span of tide calendars on a yearly basis to cover the previous and future couple of years. Graphical calendars from the early months include observed water levels overlaid on the prediction, which gives a sense of how
+                    <p>We update the span of tide calendars on a yearly basis to cover the previous and future couple of years. Graphical calendars from the early months include observed water levels overlaid on the prediction, which gives a sense of
+                      how
                       well the tide prediction performed in the past. </p>
                   </div>
                   <div>
-                    <p>Tidal harmonics and the associated predicted future water levels are calculated using the <a href="http://www.po.gso.uri.edu/~codiga/utide/utide.htm">Unified Tidal Analysis and Prediction “UTide”</a> procedure. Harmonic analysis is
-                      performed over the Station Datum Epoch, which is ideally 19-years to cover a full lunar nodal cycle; however, useful tide predictions are often achieved using water level records as short as two years. Our tide predictions are based
+                    <p>Tidal harmonics and the associated predicted future water levels are calculated using the <a href="http://www.po.gso.uri.edu/~codiga/utide/utide.htm">Unified Tidal Analysis and Prediction “UTide”</a> procedure. Harmonic
+                      analysis is
+                      performed over the Station Datum Epoch, which is ideally 19-years to cover a full lunar nodal cycle; however, useful tide predictions are often achieved using water level records as short as two years. Our tide predictions are
+                      based
                       on 68 harmonic constituents, which include the annual, semi-annual, and nodal (18.6 year wobble of the Moon’s orbit around the Earth) cycles.</p>
                     <p> For more information about how these predictions were calculated, please contact <a href="mailto:mwidlans@hawaii.edu">Matthew Widlansky</a>.</p>
 
@@ -212,7 +224,7 @@
 
             <!-- right side of tides -->
             <div class="col-sm-4">
-              <div>
+              <div id="calendarDiv">
 
                 <div id="datepicker" data-date-start-date="-7m" data-date-end-date="+60m"></div>
               </div>
@@ -275,7 +287,7 @@
                 </div>
             </div> -->
 
-            <div class="col-sm-6" style="  min-height: 138px;" >
+            <div class="col-sm-6" style="  min-height: 138px;">
               <div class="tab">
                 <button class="tablinks" onclick="displayPlot(event, 'dailyE')" id="defaultOpen">Daily Extremes</button>
                 <button class="tablinks" onclick="displayPlot(event, 'monthlyE')">Monthly Extremes</button>
@@ -304,28 +316,28 @@
               </div>
             </div>
 
-            <div class="col-sm-6" >
-              <div class="col-sm-12" >
+            <div class="col-sm-6">
+              <div class="col-sm-12">
                 <h4 id="textBoxTitle"> Select up to 10 years to display </h4>
               </div>
-                <div class="col-sm-12" >
-                    <div class="input-group">
-                      <span class="input-group-btn">
-                        <button onclick="plotClimateData.reset()" class="btn btn-info" type="submit">Reset</button>
-                      </span>
-                      <input id="yearsBox" type="text" class="form-control" placeholder=" e.g. 2005-2009, 2015, 2017-2019 (max 10)" aria-label="Enter Years" aria-describedby="basic-addon2">
-                      <span class="input-group-btn">
-                        <button onclick="plotClimateData.addYears()" class="btn btn-info" type="submit">Add Years</button>
-                      </span>
+              <div class="col-sm-12">
+                <div class="input-group">
+                  <span class="input-group-btn">
+                    <button onclick="plotClimateData.reset()" class="btn btn-info" type="submit">Reset</button>
+                  </span>
+                  <input id="yearsBox" type="text" class="form-control" placeholder=" e.g. 2005-2009, 2015, 2017-2019 (max 10)" aria-label="Enter Years" aria-describedby="basic-addon2">
+                  <span class="input-group-btn">
+                    <button onclick="plotClimateData.addYears()" class="btn btn-info" type="submit">Add Years</button>
+                  </span>
 
-                    </div>
                 </div>
-                <div class="col-sm-12 center" >
-                  <p style="color:red;" align="center" id="inputMessage"></p>
-                </div>
-                <div class="col-sm-12 center" >
-                  <p align="center"><sup><strong><span>&#8224;</span></strong></sup>For user-selected years, only the highest water levels are shown in graphs of daily and monthly extremes.</p>
-                </div>
+              </div>
+              <div class="col-sm-12 center">
+                <p style="color:red;" align="center" id="inputMessage"></p>
+              </div>
+              <div class="col-sm-12 center">
+                <p align="center"><sup><strong><span>&#8224;</span></strong></sup>For user-selected years, only the highest water levels are shown in graphs of daily and monthly extremes.</p>
+              </div>
             </div>
 
 
@@ -333,23 +345,27 @@
             <div id="climateDaily" class="col-sm-12"></div>
             <div id="extremeMonthly" class="col-sm-12"></div>
             <div id="climateMonthly" class="col-sm-12"></div>
-            <div id="epochRangeText" class="col-sm-12" align="center"> <p></p> </div>
-            <div id="dataRangeText" class="col-sm-12" align="center"> <p></p> </div>
+            <div id="epochRangeText" class="col-sm-12" align="center">
+              <p></p>
+            </div>
+            <div id="dataRangeText" class="col-sm-12" align="center">
+              <p></p>
+            </div>
             <div id="climatologyProductDesc" style="" class="col-sm-12">
               <p>This product provides a preliminary look at the recent or past
-                 water levels compared to the long-term records and climatology
-                 at the tide gauge station. Updates are typically available by the
-                 15<sup>th</sup> day of each month using the UHSLC’s Fast Delivery of tide gauge
-                 data. When viewing individual years of daily extremes, note that days with partial
-                 missing data will sometimes show a spike well below the typical spring-neap
-                 tidal cycle (e.g., if that day’s highest tide was not recorded) that explains
-                 the normal oscillatory nature of the records.
-               </p>
-               <p>
-                 Similar types of graphical displays are available on the web
-                 for many other types of atmospheric and oceanic data, including
-                 a <a href="http://bmcnoldy.rsmas.miami.edu/vk/index.html#daily_tide_chart">water level visualization for Miami, Florida</a>, which helped
-                 inspire this product.
+                water levels compared to the long-term records and climatology
+                at the tide gauge station. Updates are typically available by the
+                15<sup>th</sup> day of each month using the UHSLC’s Fast Delivery of tide gauge
+                data. When viewing individual years of daily extremes, note that days with partial
+                missing data will sometimes show a spike well below the typical spring-neap
+                tidal cycle (e.g., if that day’s highest tide was not recorded) that explains
+                the normal oscillatory nature of the records.
+              </p>
+              <p>
+                Similar types of graphical displays are available on the web
+                for many other types of atmospheric and oceanic data, including
+                a <a href="http://bmcnoldy.rsmas.miami.edu/vk/index.html#daily_tide_chart">water level visualization for Miami, Florida</a>, which helped
+                inspire this product.
               </p>
             </div>
             <!-- <hr> -->
@@ -361,8 +377,9 @@
       </div>
       <div class="col-sm-12">
         <!-- <hr> -->
-        <footer >
-          <p><strong>Disclaimer: The Station Explorer is a <i>research</i> product.</strong> The data are provided free of charge without warranty of any kind. <a href="https://uhslc.soest.hawaii.edu/">UHSLC</a> requests that attribution be given whenever
+        <footer>
+          <p><strong>Disclaimer: The Station Explorer is a <i>research</i> product.</strong> The data are provided free of charge without warranty of any kind. <a href="https://uhslc.soest.hawaii.edu/">UHSLC</a> requests that attribution be given
+            whenever
             the
             <a href="https://uhslc.soest.hawaii.edu/stations/">Station Explorer</a> material is reproduced and re-disseminated.</p>
         </footer>

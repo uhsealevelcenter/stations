@@ -1,7 +1,7 @@
 body {
-    color: #515151;
-    font-family: Arial, Helvetica, sans-serif, sans-serif;
-    margin-top: -20px;
+  color: #515151;
+  font-family: Arial, Helvetica, sans-serif, sans-serif;
+  margin-top: -20px;
 }
 
 html {
@@ -9,52 +9,59 @@ html {
 }
 
 .container-fluid {
-  max-width: 1104px ;
+  max-width: 1104px;
   margin: auto !important;
-
 }
+
 .page-header {
   border: 0px !important;
   /* padding: 0px !important; */
 }
+
 .wrapper {
   background: white;
   margin: auto;
   padding: 0;
   width: 100%;
 }
+
 /**********************************************************************/
 /************************** COMMON ELEMENTS **************************/
 /********************************************************************/
 h1, h2, h3, h4, h5, h6 {
-	color: #333333;
-    font-family: Arial, Helvetica, sans-serif;
+  color: #333333;
+  font-family: Arial, Helvetica, sans-serif;
 }
+
 p {
-	line-height: 1.6;
-	font-size: 15px;
+  line-height: 1.6;
+  font-size: 15px;
 }
+
 li {
-    font-size: 15px;
+  font-size: 15px;
 }
 
 /**MJW (links) **/
 a:link {
-    color: #1F648E;
+  color: #1F648E;
 }
+
 a:visited {
-    color: #1F648E;
+  color: #1F648E;
 }
+
 a:hover {
-    color: #2886BC;
-    text-decoration: none;
+  color: #2886BC;
+  text-decoration: none;
 }
+
 a:active {
-    color: #1F648E;
+  color: #1F648E;
 }
 
 a:focus {
-    outline: none;
+  outline: none;
 }
 
 .btn {
@@ -68,34 +75,37 @@ a:focus {
 
 /** Custom styles **/
 .vis-hidden {
-	visibility: hidden !important;
+  visibility: hidden !important;
 }
+
 a {
-	-webkit-transition: 0.25s;
-	-moz-transition: 0.25s;
-	-o-transition: 0.25s;
-	transition: 0.25s;
+  -webkit-transition: 0.25s;
+  -moz-transition: 0.25s;
+  -o-transition: 0.25s;
+  transition: 0.25s;
 }
 
 h2.sectionTitle {
-	color: #428BCA;
-    font-size: 50px;
-    margin-top: 0;
-    text-align: center;
-	font-weight: 700;
-    margin-bottom: 50px;
+  color: #428BCA;
+  font-size: 50px;
+  margin-top: 0;
+  text-align: center;
+  font-weight: 700;
+  margin-bottom: 50px;
 }
+
 h3.sectionTitle {
-    text-align: center;
-    margin-bottom: 50px;
-    margin-top: -20px;
+  text-align: center;
+  margin-bottom: 50px;
+  margin-top: -20px;
 }
+
 .altWrap {
-	border-top: 1px solid #eee;
-	border-bottom: 1px solid #eee;
-	/*background-color: #f7f7f7; */
-	background-color: #fff;
-	border-color: #FFF;
+  border-top: 1px solid #eee;
+  border-bottom: 1px solid #eee;
+  /*background-color: #f7f7f7; */
+  background-color: #fff;
+  border-color: #FFF;
 }
 
 /* set a max-width for horizontal fluid layout and make it centered */
@@ -109,115 +119,123 @@ h3.sectionTitle {
 /**********************************************************************/
 /************************ TABBED CONTENT *****************************/
 /********************************************************************/
-
 .ui-widget.ui-widget-content {
-    border: 0px;
+  border: 0px;
 }
+
 .tabbedcontent {
-    border: none !important;
-    margin-top: 25px !important;
+  border: none !important;
+  margin-top: 25px !important;
 }
+
 .ui-tabs-nav {
-    background: none;
-    border: none;
-    padding: 0 !important;
+  background: none;
+  border: none;
+  padding: 0 !important;
 }
+
 .ui-tabs .ui-tabs-nav li {
-    float: right !important;
-    margin: 0 0 0 .2em;
-    z-index: 10;
+  float: right !important;
+  margin: 0 0 0 .2em;
+  z-index: 10;
 }
+
 .ui-tabs-panel {
-    border: solid 1px #ddd !important;
-    border-top: 0 !important;
-    /* padding: 25px 25px !important; */
+  border: solid 1px #ddd !important;
+  border-top: 0 !important;
+  /* padding: 25px 25px !important; */
 }
 
 .ui-tabs-panel p {
-    display: block !important;
-    font-size: 14px !important;
+  display: block !important;
+  font-size: 14px !important;
 }
 
-
-
 div#levels.ui-tabs-panel {
-    border: solid 1px #ddd ;
-    border-top: 0 !important;
-    padding-left:7px !important;
-    padding-right:7px !important;
-    margin-top: -10px;
+  border: solid 1px #ddd;
+  border-top: 0 !important;
+  padding-left: 7px !important;
+  padding-right: 7px !important;
+  margin-top: -10px;
 }
 
 div#datums.ui-tabs-panel {
-    padding: 1em 1.35em 1em 1em;
+  padding: 1em 1.35em 1em 1em;
 }
 
 .ui-tabs-tab {
-    background: #f2f2f2 !important;
-    border: 0 !important;
-    border-bottom: solid 1px #f2f2f2 !important;
-    border-radius: 0px !important;
-    line-height: 30px;
+  background: #f2f2f2 !important;
+  border: 0 !important;
+  border-bottom: solid 1px #f2f2f2 !important;
+  border-radius: 0px !important;
+  line-height: 30px;
 }
+
 .ui-tabs-tab:hover {
-    background: #f6f6f6 !important;
-    border: 0 !important;
-    border-bottom: solid 1px #f2f2f2 !important;
+  background: #f6f6f6 !important;
+  border: 0 !important;
+  border-bottom: solid 1px #f2f2f2 !important;
 }
+
 .ui-tabs-active {
-    background: white !important;
-    border: solid 1px #ddd !important;
-    border-top: solid 3px #1B80B6 !important;
-    border-bottom: 0 !important;
+  background: white !important;
+  border: solid 1px #ddd !important;
+  border-top: solid 3px #1B80B6 !important;
+  border-bottom: 0 !important;
 }
+
 .ui-tabs-active:hover {
-    background: white !important;
-    border: solid 1px #ddd !important;
-    border-top: solid 3px #1B80B6 !important;
-    border-bottom: 0 !important;
+  background: white !important;
+  border: solid 1px #ddd !important;
+  border-top: solid 3px #1B80B6 !important;
+  border-bottom: 0 !important;
 }
+
 .ui-tabs-active a {
-    color: #333 !important;
+  color: #333 !important;
 }
 
 .ui-tabs .ui-tabs-nav .ui-tabs-anchor {
-    padding: 0.5em 1.15em;
+  padding: 0.5em 1.15em;
 }
 
 .cal-pills a {
-    background: #f2f2f2 !important;
-    border-radius: 0px !important;
-    border: solid 1px #eee !important;
-    color: #787878;
-}
-.cal-pills a:hover {
-    background: #f6f6f6 !important;
-}
-.cal-pills li.active a {
-    background: #fff !important;
-    color: #454545 !important;
+  background: #f2f2f2 !important;
+  border-radius: 0px !important;
+  border: solid 1px #eee !important;
+  color: #787878;
 }
 
-.cal-units-pills{
+.cal-pills a:hover {
+  background: #f6f6f6 !important;
+}
+
+.cal-pills li.active a {
+  background: #fff !important;
+  color: #454545 !important;
+}
+
+.cal-units-pills {
   margin-bottom: 0px;
 }
+
 .cal-units-pills li {
   width: 100%;
   margin: 0 !important;
 }
 
 .cal-format-pills {
-    margin-bottom: 25px;
+  margin-bottom: 25px;
 }
+
 .cal-format-pills li {
-    width: 33.3%;
-    margin: 0 !important;
+  width: 33.3%;
+  margin: 0 !important;
 }
 
 /**********************************************************************/
 /************************ PRODUCT ************************************/
 /********************************************************************/
-
 #product_name {
   display: inline;
   float: right;
@@ -238,13 +256,13 @@ div#datums.ui-tabs-panel {
 }
 
 .scroller {
-   /* height: 60px; */
-   /* border: 1px solid #D4CCB0;
+  /* height: 60px; */
+  /* border: 1px solid #D4CCB0;
    border-radius: 6px; */
-    /* overflow: auto; */
+  /* overflow: auto; */
   /* min-width: 470px; */
-   /* width: 50%; */
-   float: right;
+  /* width: 50%; */
+  float: right;
 }
 
 .select2-results__option--highlighted {
@@ -258,14 +276,14 @@ div#datums.ui-tabs-panel {
   font-weight: bold;
   padding-top: 10px;
 }
+
 /* .dwnld-btn {
   position: relative;
   left: 550px;
   top:0px;
 } */
-
 .dwnld-btn {
-    /* position: element(#graph_cal);
+  /* position: element(#graph_cal);
     transform: translateY(-100%);
     left: 550px; */
 }
@@ -274,13 +292,16 @@ div#datums.ui-tabs-panel {
   /* background: #f2f2f2; */
   border: solid 1px #eee !important;
 }
+
 #datepicker .active {
   background: #1B80B6;
 }
+
 .datepicker-inline {
   width: auto;
   margin: 0 auto;
 }
+
 .datepicker td, .datepicker th {
   width: 25%;
 }
@@ -302,17 +323,13 @@ div#datums.ui-tabs-panel {
 .main-svg {
   width: 100% !important;
 } */
-
 /* #datumtable, #datumgraphic {
   display: inline;
   float: left;
 } */
-
-
 /**********************************************************************/
 /************************ DATUM TABLE ********************************/
 /********************************************************************/
-
 #datumtable table,
 th,
 td {
@@ -328,17 +345,22 @@ th, td {
 }
 
 #datumtable th {
-    background-color: #1B80B6;
-    color: white;
+  background-color: #1B80B6;
+  color: white;
 }
 
-#datumtable tr:nth-child(1) {display: none;} /* remove table header*/
-#datumtable tr:nth-child(odd) {background-color: #f2f2f2;}
+#datumtable tr:nth-child(1) {
+  display: none;
+}
+
+/* remove table header*/
+#datumtable tr:nth-child(odd) {
+  background-color: #f2f2f2;
+}
 
 /**********************************************************************/
 /************************ METADATA TABLE *****************************/
 /********************************************************************/
-
 #metaTable2 table,
 th, td {
   text-align: left;
@@ -346,8 +368,8 @@ th, td {
 }
 
 #metaTable2 tr {
-    /* background-color: #1B80B6; */
-    color: black;
+  /* background-color: #1B80B6; */
+  color: black;
 }
 
 #metaTable2 table,
@@ -357,17 +379,24 @@ td {
   padding: 2px;
   /* background-color: rgba(255, 255, 255, 0.0); */
 }
-#metaTable2 table{
-   border: 2px solid;
+
+#metaTable2 table {
+  border: 2px solid;
 }
-#metaTable2 tr:nth-child(3) {background-color: #f2f2f2;}
-#metaTable2 tr:nth-child(4) {background-color: #f2f2f2;}
+
+#metaTable2 tr:nth-child(3) {
+  background-color: #f2f2f2;
+}
+
+#metaTable2 tr:nth-child(4) {
+  background-color: #f2f2f2;
+}
 
 /**********************************************************************/
 /************************ DATA TABLE *********************************/
 /********************************************************************/
 #metaTable1 tr {
-    color: black;
+  color: black;
 }
 
 #metaTable1 table,
@@ -375,19 +404,24 @@ th,
 td {
   padding: 2px;
 }
-#metaTable1 table{
-   border: 2px solid;
+
+#metaTable1 table {
+  border: 2px solid;
 }
-#metaTable1 tr:nth-child(odd) {background-color: #f2f2f2;}
+
+#metaTable1 tr:nth-child(odd) {
+  background-color: #f2f2f2;
+}
 
 #metaBox {
-    display: none;
+  display: none;
 }
+
 /* Meta data element that is shared across tabs */
 .ui-tabs-panel-meta {
   border: solid 1px #ddd;
   border-bottom: 0;
-  padding: 20px 23px 20px 20px!important;
+  padding: 20px 23px 20px 20px !important;
   margin-bottom: -10px;
 }
 
@@ -395,69 +429,76 @@ td {
     background-color: red !important;
     color: black;
 } */
-
 /**********************************************************************/
 /************************ UNIT TOGGLE BUTTONS *******************/
 /********************************************************************/
 .switch-toggle.switch-candy,
-  .switch-light.switch-candy > span {
-    background-color: #f2f2f2 !important;
-    border-radius: 0px !important;
-    /* box-shadow: none !important; */
-  }
-  .switch-light.switch-candy span span,
-  .switch-light.switch-candy input:checked ~ span span:first-child,
-  .switch-toggle.switch-candy label {
-    color: black !important;
-    font-weight: normal  !important;
-    text-align: center;
-    text-shadow: none !important;
-    min-height: 2.6em !important;
-    line-height: 2.6em !important;
-  }
-  .switch-light.switch-candy input ~ span span:first-child,
-  .switch-light.switch-candy input:checked ~ span span:nth-child(2),
-  .switch-candy input:checked + label {
-    color: white !important;
-    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5); }
-  .switch-candy a {
-    border: none !important;
-    border-radius: 0px !important;
-    box-shadow: none !important;
-    background-color: #1B80B6 !important;
-    background-image: none !important; }
-  .switch-candy-blue a {
-    background-color: #38a3d4; }
-  .switch-candy-yellow a {
-    background-color: #f5e560; }
-
-    label{
-      margin-bottom: 10px !important;
-    }
-
-  #metaCountry, #metaLAT, #metaLONG{
-    display: block;
-    width: 100px;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-  }
-
-  .switch-light:hover{
-    cursor: pointer;
-  }
-
-  .input-group-btn {
-    font-size: 16px;
+.switch-light.switch-candy>span {
+  background-color: #f2f2f2 !important;
+  border-radius: 0px !important;
+  /* box-shadow: none !important; */
 }
 
-  /* input[type=checkbox]:disabled {
+.switch-light.switch-candy span span,
+.switch-light.switch-candy input:checked~span span:first-child,
+.switch-toggle.switch-candy label {
+  color: black !important;
+  font-weight: normal !important;
+  text-align: center;
+  text-shadow: none !important;
+  min-height: 2.6em !important;
+  line-height: 2.6em !important;
+}
+
+.switch-light.switch-candy input~span span:first-child,
+.switch-light.switch-candy input:checked~span span:nth-child(2),
+.switch-candy input:checked+label {
+  color: white !important;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+
+.switch-candy a {
+  border: none !important;
+  border-radius: 0px !important;
+  box-shadow: none !important;
+  background-color: #1B80B6 !important;
+  background-image: none !important;
+}
+
+.switch-candy-blue a {
+  background-color: #38a3d4;
+}
+
+.switch-candy-yellow a {
+  background-color: #f5e560;
+}
+
+label {
+  margin-bottom: 10px !important;
+}
+
+#metaCountry, #metaLAT, #metaLONG {
+  display: block;
+  width: 100px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.switch-light:hover {
+  cursor: pointer;
+}
+
+.input-group-btn {
+  font-size: 16px;
+}
+
+/* input[type=checkbox]:disabled {
     cursor: not-allowed;
 }
 .datum-tz:hover:disabled {
   cursor: none;
 } */
-
 /**********************************************************************/
 /************************ CLIMATOLOGY RELATED *******************/
 /********************************************************************/
@@ -465,15 +506,15 @@ td {
   display: none;
 }
 
-#climateMonthly{
+#climateMonthly {
   display: none;
 }
 
-#epochRangeText > p {
+#epochRangeText>p {
   background-color: #f2f2f2;
 }
 
-#climatologyLegend{
+#climatologyLegend {
   border-radius: 3px;
   border: 1px solid #D1D3D4;
   padding: 15px;
@@ -484,10 +525,11 @@ td {
   margin-bottom: 15px;
 }
 
-#textBoxTitle{
+#textBoxTitle {
   /* padding-top: 14px; */
   text-align: center;
 }
+
 /*Radio button style from: https://bootsnipp.com/snippets/Zk2Pz */
 /* .funkyradio div {
   clear: both;
@@ -608,10 +650,8 @@ td {
   color: #fff;
   background-color: #5bc0de;
 } */
-
 /* * {box-sizing: border-box}
 body {font-family: "Lato", sans-serif;} */
-
 /* Style the tab */
 .tab {
   float: left;
@@ -620,7 +660,6 @@ body {font-family: "Lato", sans-serif;} */
   background-color: #f1f1f1;
   border-right: none;
   width: 33%;
-
   /* height: 300px; */
 }
 
@@ -651,7 +690,8 @@ body {font-family: "Lato", sans-serif;} */
 
 /* Create an active/current "tab button" class */
 .tab button.active {
-  background-color: white;/*#337ab7*/
+  background-color: white;
+  /*#337ab7*/
   color: #337ab7;
   border-left-width: 17px;
   border-left-color: #337ab7;
@@ -670,19 +710,19 @@ body {font-family: "Lato", sans-serif;} */
   color: white; */
 }
 
-.tabcontent h3{
+.tabcontent h3 {
   margin-top: 10px;
 }
 
-#climatologyProductDesc{
+#climatologyProductDesc {
   padding-top: 15px;
 }
 
-footer{
-border: solid 1px #ddd;
-padding:10px 15px;
-margin-top: 10px;
-margin-bottom: 10px;
+footer {
+  border: solid 1px #ddd;
+  padding: 10px 15px;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 /* h3{
@@ -690,12 +730,18 @@ margin-bottom: 10px;
     animation: slide 0.3s linear;
     z-index: -100;
 } */
-
-
 @keyframes slide {
-  0% {margin-left: -200px;}
-  50% {margin-left: -100px;}
-  100% {margin-left: 0;}
+  0% {
+    margin-left: -200px;
+  }
+
+  50% {
+    margin-left: -100px;
+  }
+
+  100% {
+    margin-left: 0;
+  }
 }
 
 /* this will prevent trace 2 from toggling from the legend
@@ -708,41 +754,121 @@ margin-bottom: 10px;
 /*#climateDaily .legend .traces:nth-of-type(1) .legendtext {
    cursor: default;
 }*/
+/**********************************************************************/
+/************************ MOBILE STYLE *******************/
+/********************************************************************/
 @media only screen and (max-width: 767px) {
   body {
     /* background-color: lightblue; */
   }
+
   .ui-tabs .ui-tabs-panel {
-padding: 0;
+    padding: 0;
   }
+
   .col-lg-1, .col-lg-10, .col-lg-11, .col-lg-12, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, .col-md-1, .col-md-10, .col-md-11, .col-md-12, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-sm-1, .col-sm-10, .col-sm-11, .col-sm-12, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-xs-1, .col-xs-10, .col-xs-11, .col-xs-12, .col-xs-2, .col-xs-3, .col-xs-4, .col-xs-5, .col-xs-6, .col-xs-7, .col-xs-8, .col-xs-9 {
     position: relative;
-    min-height: 1px;
-    padding-right: 0;
-    padding-left: 0;
-}
+    /* min-height: 100px; */
+    padding-right: 5px;
+    padding-left: 5px;
+  }
 
-.ui-tabs-panel-meta {
-    padding: 0 !important;
-}
-
-.ui-tabs-tab {
+  .ui-tabs-tab {
     line-height: 20px;
-}
+  }
 
-.ui-tabs .ui-tabs-nav .ui-tabs-anchor {
+  .ui-tabs .ui-tabs-nav .ui-tabs-anchor {
     padding: 0.5em 0.7em;
-}
+  }
 
-li {
+  .ui-widget-content {
+    border: none !important;
+  }
+
+  li {
     font-size: 12px;
-}
-.ui-tabs-panel-meta {
-    border: none;
-}
+  }
 
-.select2-container{
-  width: 100vw !important;
-  z-index: 999999999 !important;
-}
+  .nav>li>a {
+    padding: 6px 6px;
+  }
+
+  .ui-tabs-panel-meta {
+    border: none;
+    padding: 0 !important;
+  }
+
+  .ui-tabs .ui-tabs-nav li.ui-tabs-active {
+    margin-bottom: -2px;
+    margin-left: 0;
+    padding-bottom: 0px;
+  }
+
+  .ui-tabs .ui-tabs-nav li {
+    margin: 0 0 -2px .1em;
+  }
+
+  .ui-tabs-active {
+    background: white !important;
+    border: solid 2px #f2f2f2 !important;
+    border-top: solid 3px #1B80B6 !important;
+    border-bottom: 0 !important;
+  }
+
+  .ui-tabs-active:hover {
+    background: white !important;
+    border: solid 2px #f2f2f2 !important;
+    border-top: solid 3px #1B80B6 !important;
+    border-bottom: 0 !important;
+  }
+
+  .select2-container {
+    width: 95vw !important;
+    z-index: 999999999 !important;
+  }
+
+  .scroller {
+    padding-top: 10px;
+    float: left;
+  }
+
+  .tab {
+    width: 37%;
+  }
+
+  .tab button.active {
+    background-color: white;
+    color: #337ab7;
+    border-left-width: 10px;
+    border-left-color: #337ab7;
+    border-right: none;
+  }
+
+  .tabcontent {
+    width: 63%;
+  }
+
+  #unitsButtonsContainer {
+    padding-top: 1.5vh;
+    padding-bottom: 1.5vh;
+  }
+    
+  #about-text {
+    border: none;
+    padding: 0px 10px;
+  }
+
+  #calendarDiv {
+    padding-top: 10px;
+  }
+
+  footer {
+    border: solid 1px #f2f2f2;
+    padding: 10px 15px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-left: none;
+    border-right: none;
+    border-bottom: none;
+  }
 }
