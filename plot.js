@@ -389,7 +389,7 @@ function plotData(_stn) {
 function onScreenResize() {
   console.log("resized");
   var update = {
-    width: document.getElementById("metaBox").offsetWidth, // or any new width
+    width: document.getElementById("metaBox").offsetWidth - 25, // or any new width
     legend: {
       xanchor: "center",
       yanchor: "top",
@@ -400,9 +400,13 @@ function onScreenResize() {
   };
   Plotly.relayout('tideplot1', update);
   var update2 = {
-    width: document.getElementById("metaBox").offsetWidth, // or any new width
+    width: document.getElementById("metaBox").offsetWidth - 25, // or any new width
   };
   Plotly.relayout('tideplot2', update2);
+  // 
+  // Plotly.relayout('climateMonthly', update);
+  // Plotly.relayout('climateDaily', update);
+  // Plotly.relayout('extremeMonthly', update);
 }
 
 function getYLabel(unit, datum) {

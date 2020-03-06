@@ -109,7 +109,7 @@ function plotClimateData(_stn) {
   // var yLabel1 = 'Relative water level (' + unitYlabel + ', ' + datumYlabel + ')';
   var yLabel2 = 'Water level above '+datumYlabel+' ('+unitYlabel+')';
   // DAILY CLIMATOLOGY
-  Plotly.d3.csv("CLIM/daily_clim"+_stn+".csv", function(err, rows) {
+  Plotly.d3.csv("https://uhslc.soest.hawaii.edu/mwidlans/dev/STATIONS/daily_clim"+_stn+".csv", function(err, rows) {
 
     if (typeof rows != 'undefined') {
       var MLLW = parseFloat(unpack(rows, 'MLLW_NTDE', currentUnit, currentDatum)[0]);
@@ -499,7 +499,7 @@ function plotClimateData(_stn) {
   });
   // DAILY CLIMATOLOGY End
   // MONTHLY hourly
-  Plotly.d3.csv("CLIM/monthlyHr_clim"+_stn+".csv", function(err, rows) {
+  Plotly.d3.csv("https://uhslc.soest.hawaii.edu/mwidlans/dev/STATIONS/monthlyHr_clim"+_stn+".csv", function(err, rows) {
 
     if (typeof rows != 'undefined') {
       var MLLW = parseFloat(unpack(rows, 'MLLW_NTDE', currentUnit, currentDatum)[0]);
@@ -804,7 +804,7 @@ function plotClimateData(_stn) {
   // Monthly Hourly End
 
   // MONTHLY
-  Plotly.d3.csv("CLIM/monthly_clim"+_stn+".csv", function(err, rows) {
+  Plotly.d3.csv("https://uhslc.soest.hawaii.edu/mwidlans/dev/STATIONS/monthly_clim"+_stn+".csv", function(err, rows) {
 
 
     if (typeof rows != 'undefined') {
