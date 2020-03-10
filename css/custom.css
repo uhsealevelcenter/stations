@@ -822,6 +822,11 @@ footer {
     border-bottom: 0 !important;
   }
 
+  .ui-tabs-panel p {
+    display: block !important;
+    font-size: 12px !important;
+  }
+
   .select2-container {
     width: 95vw !important;
     z-index: 999999999 !important;
@@ -834,6 +839,10 @@ footer {
 
   .tab {
     width: 37%;
+  }
+
+  .tab button {
+    font-size: 0.89em;
   }
 
   .tab button.active {
@@ -852,7 +861,7 @@ footer {
     padding-top: 1.5vh;
     padding-bottom: 1.5vh;
   }
-    
+
   #about-text {
     border: none;
     padding: 0px 10px;

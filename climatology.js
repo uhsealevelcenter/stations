@@ -496,7 +496,25 @@ function plotClimateData(_stn) {
     //   }
     // }
     dailyData = rows;
+    window.onresize = onScreenResizeClimatology;
+    onScreenResizeClimatology();
   });
+
+function onScreenResizeClimatology() {
+  var update3 = {
+    width: document.getElementById("metaBox").offsetWidth - 25, // or any new width
+    legend: {
+      xanchor: "center",
+      yanchor: "top",
+      "orientation": "h",
+      x: 0.5,
+      y: 1.5,
+    },
+  };
+  Plotly.relayout('climateMonthly', update3);
+  Plotly.relayout('climateDaily', update3);
+  Plotly.relayout('extremeMonthly', update3);
+}
   // DAILY CLIMATOLOGY End
   // MONTHLY hourly
   Plotly.d3.csv("https://uhslc.soest.hawaii.edu/mwidlans/dev/STATIONS/monthlyHr_clim"+_stn+".csv", function(err, rows) {
