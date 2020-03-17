@@ -151,6 +151,10 @@ h3.sectionTitle {
   font-size: 14px !important;
 }
 
+#levels, #tidecal, #datums, #climatology{
+  height: auto !important;
+}
+
 div#levels.ui-tabs-panel {
   border: solid 1px #ddd;
   border-top: 0 !important;
@@ -310,7 +314,13 @@ div#datums.ui-tabs-panel {
   border: solid 1px #eee;
   padding: 13px 20px;
 }
+#tideplot1{
+  /* min-width: 500px; */
+}
 
+.climatologyGraphCollection{
+  min-width: 1050px !important;
+}
 /* #tideplot1, #tideplot2 {
    min-width: 310px;
    width: 100%;
@@ -503,11 +513,11 @@ label {
 /************************ CLIMATOLOGY RELATED *******************/
 /********************************************************************/
 #extremeMonthly {
-  display: none;
+  /* display: none; */
 }
 
 #climateMonthly {
-  display: none;
+  /* display: none; */
 }
 
 #epochRangeText>p {
@@ -771,6 +781,7 @@ footer {
     /* min-height: 100px; */
     padding-right: 5px;
     padding-left: 5px;
+    /* width: 100%; */
   }
 
   .ui-tabs-tab {
@@ -869,6 +880,10 @@ footer {
 
   #calendarDiv {
     padding-top: 10px;
+  }
+
+  #levels, #tidecal, #datums, #climatology{
+    height: auto !important;
   }
 
   footer {

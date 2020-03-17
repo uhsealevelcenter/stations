@@ -16,6 +16,8 @@ if (DEVELOPMENT)
 // var tabid = getParameterByName('tabid');
 // var unit = "_cm";
 function loadtabs(stn, date, unit = "_cm") {
+  // For a full list of event types: https://developer.mozilla.org/en-US/docs/Web/API/document.createEvent
+
   if (!$('#unitToggle').prop("checked")) {
     unit = "_cm";
   } else {
@@ -210,7 +212,6 @@ $(document).ready(function() {
       searchInputPlaceholder: 'Search for a station...'
     });
   });
-
 });
 
 function unitButtonsController(hash) {

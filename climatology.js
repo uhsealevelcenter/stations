@@ -323,7 +323,7 @@ function plotClimateData(_stn) {
 
       var layout123 = {
         // title: 'Stn:' + _stn,
-        width: 1000,
+        // width: 1000,
         height: 450,
         autoresize: true,
         // updatemenus: updatemenus,
@@ -371,7 +371,8 @@ function plotClimateData(_stn) {
 
 
       Plotly.newPlot('climateDaily', data123, layout123, {
-        displayModeBar: false
+        displayModeBar: false,
+        responsive: true
       });
 
       myPlot.on('plotly_legendclick',function(data) {
@@ -496,13 +497,13 @@ function plotClimateData(_stn) {
     //   }
     // }
     dailyData = rows;
-    window.onresize = onScreenResizeClimatology;
-    onScreenResizeClimatology();
+    // window.onresize = onScreenResizeClimatology;
+    // onScreenResizeClimatology();
   });
 
 function onScreenResizeClimatology() {
   var update3 = {
-    width: document.getElementById("metaBox").offsetWidth - 25, // or any new width
+    width: document.getElementById("metaBox").offsetWidth - 45, // or any new width
     legend: {
       xanchor: "center",
       yanchor: "top",
@@ -511,9 +512,10 @@ function onScreenResizeClimatology() {
       y: 1.5,
     },
   };
-  Plotly.relayout('climateMonthly', update3);
+
   Plotly.relayout('climateDaily', update3);
-  Plotly.relayout('extremeMonthly', update3);
+  // Plotly.relayout('climateMonthly', update3);
+  // Plotly.relayout('extremeMonthly', update3);
 }
   // DAILY CLIMATOLOGY End
   // MONTHLY hourly
@@ -703,7 +705,7 @@ function onScreenResizeClimatology() {
 
       var layout123 = {
         // title: 'Stn:' + _stn,
-        width: 1000,
+        // width: 1000,
         height: 450,
         autoresize: true,
         // updatemenus: updatemenus,
@@ -747,7 +749,8 @@ function onScreenResizeClimatology() {
 
 
       Plotly.newPlot('extremeMonthly', data123, layout123, {
-        displayModeBar: false
+        displayModeBar: false,
+        responsive: true
       });
 
       // myPlot.on('plotly_legendclick',function(data) {
@@ -938,7 +941,7 @@ function onScreenResizeClimatology() {
 
       var layout123 = {
         // title: 'Stn:' + _stn,
-        width: 1000,
+        // width: 1000,
         height: 450,
         autoresize: true,
         xaxis: {
@@ -980,7 +983,8 @@ function onScreenResizeClimatology() {
 
       var myPlot = document.getElementById('climateMonthly');
       Plotly.newPlot('climateMonthly', data123, layout123, {
-        displayModeBar: false
+        displayModeBar: false,
+        responsive: true
       });
 
       // myPlot.on('plotly_legendclick',function(data) {
@@ -1196,17 +1200,17 @@ $(".funkyradio :input").change(function(e) {
     switch ($(this).attr('id')) {
       case 'radio1':
         document.getElementById("climateDaily").style.display = "inline";
-        document.getElementById("extremeMonthly").style.display = "none";
-        document.getElementById("climateMonthly").style.display = "none";
+        // document.getElementById("extremeMonthly").style.display = "none";
+        // document.getElementById("climateMonthly").style.display = "none";
         break;
       case 'radio2':
-        document.getElementById("climateDaily").style.display = "none";
+        // document.getElementById("climateDaily").style.display = "none";
         document.getElementById("extremeMonthly").style.display = "inline";
-        document.getElementById("climateMonthly").style.display = "none";
+        // document.getElementById("climateMonthly").style.display = "none";
         break;
       case 'radio3':
-        document.getElementById("climateDaily").style.display = "none";
-        document.getElementById("extremeMonthly").style.display = "none";
+        // document.getElementById("climateDaily").style.display = "none";
+        // document.getElementById("extremeMonthly").style.display = "none";
         document.getElementById("climateMonthly").style.display = "inline";
         break;
       case 'radio4':
@@ -1216,8 +1220,8 @@ $(".funkyradio :input").change(function(e) {
         break;
       default:
         document.getElementById("climateDaily").style.display = "inline";
-        document.getElementById("extremeMonthly").style.display = "none";
-        document.getElementById("climateMonthly").style.display = "none";
+        // document.getElementById("extremeMonthly").style.display = "none";
+        // document.getElementById("climateMonthly").style.display = "none";
 
     }
 });

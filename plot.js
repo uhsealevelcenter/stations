@@ -159,7 +159,7 @@ function plotData(_stn) {
 
         var layout123 = {
           // title: 'Stn:' + _stn,
-          width: 1050,
+          // width: 1050,
           height: 450,
           // autosize: false,
           autoresize: true,
@@ -215,7 +215,7 @@ function plotData(_stn) {
         var layout3 = {
           showlegend: true,
           // title: 'Residual (observation minus prediction)',
-          width: 1050,
+          // width: 1050,
           height: 450,
           autoresize: true,
           xaxis: {
@@ -265,13 +265,17 @@ function plotData(_stn) {
             pad: 0
           },
         };
+
+
         // console.log(rows[0]);
         Plotly.newPlot('tideplot1', data123, layout123, {
-          displayModeBar: false
+          displayModeBar: false,
+          responsive: true
         });
 
         Plotly.newPlot('tideplot2', data3, layout3, {
-          displayModeBar: false
+          displayModeBar: false,
+          responsive: true
         });
         $("#product_desc").show();
       } else {
@@ -373,8 +377,8 @@ function plotData(_stn) {
       }
 
 
-      window.onresize = onScreenResizeWaterLevels;
-      onScreenResizeWaterLevels();
+      // window.onresize = onScreenResizeWaterLevels;
+      // onScreenResizeWaterLevels();
 
     }
     // , function(error) {
@@ -389,7 +393,7 @@ function plotData(_stn) {
 function onScreenResizeWaterLevels() {
   console.log("resized");
   var update = {
-    width: document.getElementById("metaBox").offsetWidth - 25, // or any new width
+    // width: document.getElementById("metaBox").offsetWidth - 25, // or any new width
     legend: {
       xanchor: "center",
       yanchor: "top",
@@ -400,10 +404,10 @@ function onScreenResizeWaterLevels() {
   };
   Plotly.relayout('tideplot1', update);
 
-  var update2 = {
-    width: document.getElementById("metaBox").offsetWidth - 25, // or any new width
-  };
-  Plotly.relayout('tideplot2', update2);
+  // var update2 = {
+  //   width: document.getElementById("metaBox").offsetWidth - 25, // or any new width
+  // };
+  // Plotly.relayout('tideplot2', update2);
 }
 
 function getYLabel(unit, datum) {
