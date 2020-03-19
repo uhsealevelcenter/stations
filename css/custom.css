@@ -319,8 +319,14 @@ div#datums.ui-tabs-panel {
 }
 
 .climatologyGraphCollection{
-  min-width: 1050px !important;
+  /* min-width: 1050px !important; */
 }
+
+/* .js-plotly-plot,
+.plot-container {
+          width: 40vw;
+} */
+
 /* #tideplot1, #tideplot2 {
    min-width: 310px;
    width: 100%;
@@ -884,6 +890,11 @@ footer {
 
   #levels, #tidecal, #datums, #climatology{
     height: auto !important;
+  }
+
+  .js-plotly-plot,
+  .plot-container {
+            width: 95vw;
   }
 
   footer {

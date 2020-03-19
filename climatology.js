@@ -323,8 +323,9 @@ function plotClimateData(_stn) {
 
       var layout123 = {
         // title: 'Stn:' + _stn,
-        // width: 1000,
+        width: 1000,
         height: 450,
+        autosize: true,
         autoresize: true,
         // updatemenus: updatemenus,
         xaxis: {
@@ -453,70 +454,39 @@ function plotClimateData(_stn) {
       $("#product_desc").hide();
     }
 
-
-    // On button click station behavior
-    // $(".toggleclass").off().on('change', function() {
-    //   // Negated because I want the toggle button to be gray (off) by default
-    //   // and also want the "off" state to indicate default values
-    //   if (typeof rows != 'undefined')
-    //     updatePlotData(!$('#unitToggle').prop("checked"), !$('#datumToggle').prop("checked"));
-    // });
-    // $("#timeToggle").off().on('change', function() {
-    //   // updateTime(!$('#timeToggle').prop("checked"));
-    // });
-
-    // function updatePlotData(unit, datum) {
-    //   // var columns = ["Prediction", "Observation", "Residual", "ExtremeLow", "ExtremeHigh"];
-    //   unitYlabel = getYLabel(unit, datum).unit;
-    //   datumYlabel = getYLabel(unit, datum).datum;
-    //   console.log("UPDAT PLOT CALLED "+ unit + datum);
-    //   for (var i = 0; i < data123.length; i++) {
-    //
-    //     // console.log("data123 "+data123[i].y.map(function(item) {
-    //     //   return item - MLLW;
-    //     // }));
-    //     var update = {};
-    //       // update = {
-    //       //   y: [data123[i].y.map(function(item) {
-    //       //     return item - MLLW;
-    //       //   })]
-    //       // };
-    //
-    //
-    //     var layout_update = {
-    //       yaxis: {
-    //         title: 'Water level above '+datumYlabel+' ('+unitYlabel+')',
-    //         // autorange: true,
-    //         // range: [0, 1000],
-    //         // type: 'linear',
-    //       },
-    //     };
-    //     // layout_update.yaxis.title = "Relative water level (ft, MLLW)";
-    //     Plotly.update('climateDaily', update, layout_update, [i]);
-    //       layout_update.yaxis.title = 'Water level above '+datumYlabel+' ('+unitYlabel+')';
-    //   }
-    // }
     dailyData = rows;
     // window.onresize = onScreenResizeClimatology;
     // onScreenResizeClimatology();
+    Plotly.relayout('climateDaily', layoutUpdate2);
   });
 
-function onScreenResizeClimatology() {
-  var update3 = {
-    width: document.getElementById("metaBox").offsetWidth - 45, // or any new width
+var layoutUpdate2;
+if(window.mobilecheck()){
+  layoutUpdate2 = {
+    width: document.getElementById("metaBox").offsetWidth, // or any new width
+    autoresize: true,
     legend: {
       xanchor: "center",
       yanchor: "top",
       "orientation": "h",
       x: 0.5,
-      y: 1.5,
+      y: 1.2,
     },
   };
-
-  Plotly.relayout('climateDaily', update3);
-  // Plotly.relayout('climateMonthly', update3);
-  // Plotly.relayout('extremeMonthly', update3);
+}else{
+  layoutUpdate2 = {
+    // width: document.getElementById("metaBox").offsetWidth, // or any new width
+    autoresize: true,
+    legend: {
+      xanchor: "center",
+      yanchor: "top",
+      "orientation": "h",
+      x: 0.5,
+      y: 1.1,
+    },
+  };
 }
+
   // DAILY CLIMATOLOGY End
   // MONTHLY hourly
   Plotly.d3.csv("https://uhslc.soest.hawaii.edu/mwidlans/dev/STATIONS/monthlyHr_clim"+_stn+".csv", function(err, rows) {
@@ -705,8 +675,9 @@ function onScreenResizeClimatology() {
 
       var layout123 = {
         // title: 'Stn:' + _stn,
-        // width: 1000,
+        width: 1000,
         height: 450,
+        autosize: true,
         autoresize: true,
         // updatemenus: updatemenus,
         xaxis: {
@@ -821,6 +792,7 @@ function onScreenResizeClimatology() {
     //   }
     // }
     monthlyHrData = rows;
+    Plotly.relayout('extremeMonthly', layoutUpdate2);
   });
   // Monthly Hourly End
 
@@ -941,8 +913,9 @@ function onScreenResizeClimatology() {
 
       var layout123 = {
         // title: 'Stn:' + _stn,
-        // width: 1000,
+        width: 1000,
         height: 450,
+        autosize: true,
         autoresize: true,
         xaxis: {
           tickmode: "array", // If "array", the placement of the ticks is set via `tickvals` and the tick text is `ticktext`.
@@ -1024,6 +997,7 @@ function onScreenResizeClimatology() {
     // $("#timeToggle").off().on('change', function() {
     //   // updateTime(!$('#timeToggle').prop("checked"));
     // });
+    Plotly.relayout('climateMonthly', layoutUpdate2);
   });
 
   var prevUnique;
@@ -1195,36 +1169,36 @@ $('#yearsBox').keyup(function(event) {
   // document.getElementById("inputMessage").innerText = text;
 });
 
-$(".funkyradio :input").change(function(e) {
-    // console.log($(this).attr('id')); // points to the clicked input button
-    switch ($(this).attr('id')) {
-      case 'radio1':
-        document.getElementById("climateDaily").style.display = "inline";
-        // document.getElementById("extremeMonthly").style.display = "none";
-        // document.getElementById("climateMonthly").style.display = "none";
-        break;
-      case 'radio2':
-        // document.getElementById("climateDaily").style.display = "none";
-        document.getElementById("extremeMonthly").style.display = "inline";
-        // document.getElementById("climateMonthly").style.display = "none";
-        break;
-      case 'radio3':
-        // document.getElementById("climateDaily").style.display = "none";
-        // document.getElementById("extremeMonthly").style.display = "none";
-        document.getElementById("climateMonthly").style.display = "inline";
-        break;
-      case 'radio4':
-        document.getElementById("climateDaily").style.display = "inline";
-        document.getElementById("extremeMonthly").style.display = "inline";
-        document.getElementById("climateMonthly").style.display = "inline";
-        break;
-      default:
-        document.getElementById("climateDaily").style.display = "inline";
-        // document.getElementById("extremeMonthly").style.display = "none";
-        // document.getElementById("climateMonthly").style.display = "none";
-
-    }
-});
+// $(".funkyradio :input").change(function(e) {
+//     // console.log($(this).attr('id')); // points to the clicked input button
+//     switch ($(this).attr('id')) {
+//       case 'radio1':
+//         document.getElementById("climateDaily").style.display = "inline";
+//         // document.getElementById("extremeMonthly").style.display = "none";
+//         // document.getElementById("climateMonthly").style.display = "none";
+//         break;
+//       case 'radio2':
+//         // document.getElementById("climateDaily").style.display = "none";
+//         document.getElementById("extremeMonthly").style.display = "inline";
+//         // document.getElementById("climateMonthly").style.display = "none";
+//         break;
+//       case 'radio3':
+//         // document.getElementById("climateDaily").style.display = "none";
+//         // document.getElementById("extremeMonthly").style.display = "none";
+//         document.getElementById("climateMonthly").style.display = "inline";
+//         break;
+//       case 'radio4':
+//         document.getElementById("climateDaily").style.display = "inline";
+//         document.getElementById("extremeMonthly").style.display = "inline";
+//         document.getElementById("climateMonthly").style.display = "inline";
+//         break;
+//       default:
+//         document.getElementById("climateDaily").style.display = "inline";
+//         // document.getElementById("extremeMonthly").style.display = "none";
+//         // document.getElementById("climateMonthly").style.display = "none";
+//
+//     }
+// });
 
 function displayPlot(evt, plotName) {
   var i, tabcontent, tablinks;

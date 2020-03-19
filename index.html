@@ -143,7 +143,7 @@
           </div>
 
           <!-- tab1: interactive water level time series -->
-          <div id="levels" class="col-sm-12 col-xs-12">
+          <div id="levels" class="col-sm-12 col-sm-12">
 
             <!-- <div class="units" style="display: inline;">
             <button class="btn" id="unitToggle" style="width:80px; " tooltip="Change unit" tooltip-position="bottom">Metric</button>
@@ -154,10 +154,10 @@
           <div class="time" style="display: inline;">
             <button class="btn" id="timeToggle" style="width:80px;" tooltip="Change time-zone" tooltip-position="bottom">GMT</button>
           </div>-->
-            <div id="tideplot1" class=""></div>
-            <div id="tideplot2" class=""></div>
+            <div id="tideplot1" class="col-sm-12"></div>
+            <div id="tideplot2" class="col-sm-12"></div>
             <hr>
-            <div id="product_desc" style="display: none;" class="col-sm-12 col-xs-12">
+            <div id="product_desc" style="display: none;" class="col-sm-12 col-sm-12">
               <p>This product provides a preliminary look at the recent hourly water levels <span style="background-color: #ff7f0e;padding: 5px">observed</span> by the tide gauge station compared to the astronomical tidal <span
                   style="background-color: #1f77b4; color:white;padding: 5px">prediction</span>.
                 <span style="background-color: #2ca02c; color:white;padding: 5px">Residuals</span> (observations minus the predictions) are indicative of the local sea level anomaly.</p>
@@ -252,41 +252,7 @@
           <!-- end tab3 -->
 
           <!-- tab4: climatology -->
-          <div id="climatology" class="col-xs-12 center" style="">
-
-            <!-- <div class="col-sm-12 center">
-              <div class="climatology-title" style="text-align: center;">
-                <h2 id="climatologyTitle"> Record and Average Water Levels </h2>
-              </div>
-            </div> -->
-
-            <!-- <div class="col-sm-3" >
-                    <div class="funkyradio">
-                      <div class="funkyradio-primary">
-                          <input type="radio" name="radio" id="radio1" checked/>
-                          <label for="radio1">Daily Extremes</label>
-                      </div>
-                      <div class="funkyradio-primary">
-                          <input type="radio" name="radio" id="radio2"/>
-                          <label for="radio2">Monthly Extremes</label>
-                      </div>
-                      <div class="funkyradio-primary">
-                          <input type="radio" name="radio" id="radio3" />
-                          <label for="radio3">Monthly Mean</label>
-                      </div>
-                      <div class="funkyradio-primary">
-                          <input type="radio" name="radio" id="radio4" />
-                          <label for="radio4">All</label>
-                      </div>
-                  </div>
-            </div>
-
-            <div class="col-sm-3" >
-                <div id="climatologyLegend" style="text-align: center;">
-                  <h2> Pre-made legend graph will go here. This is just a placeholder</h2>
-                </div>
-            </div> -->
-
+          <div id="climatology" class="col-sm-12 center" style="">
             <div class="col-sm-6" style="  min-height: 138px;">
               <div class="tab">
                 <button class="tablinks" onclick="displayPlot(event, 'dailyE')" id="defaultOpen">Daily Extremes</button>
@@ -341,14 +307,14 @@
             </div>
 
 
-            <div class="col-xs-12 climatologyGraphCollection">
-            <div id="climateDaily" class=""></div>
-            <div id="extremeMonthly" class=""></div>
-            <div id="climateMonthly" class=""></div>
-            <div id="epochRangeText" class="" align="center">
+            <!-- <div class="col-sm-12 climatologyGraphCollection"> -->
+            <div id="climateDaily" class="col-sm-12"></div>
+            <div id="extremeMonthly" class="col-sm-12"></div>
+            <div id="climateMonthly" class="col-sm-12"></div>
+            <div id="epochRangeText" class="col-sm-12" align="center">
               <p></p>
             </div>
-          </div>
+          <!-- </div> -->
             <div id="dataRangeText" class="col-sm-12" align="center">
               <p></p>
             </div>
