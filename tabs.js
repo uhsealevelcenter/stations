@@ -115,6 +115,16 @@ $("#tabs").on("tabsactivate", function(event, ui) {
 
 // prepare the form when the DOM is ready
 $(document).ready(function() {
+  // $('[data-toggle="popover"]').popover({title: "Header", content: "Blabla", container: "#epochRangeText"});
+  $('#dataRangeText').popover({
+    title: "<h3 align='center'><strong>The plot is fully interactive</strong></h3>",
+    content: "<ul><li>Single click on legend to hide/show a trace</li><li>Double click legend to isolate one trace and hide/show all others</li><li>Box select data with a left mouse click and drag.</li><li>Double click anywhere to zoom back out. </li></ul>",
+    placement: "bottom",
+    html: "true"
+    // container: ''
+  })
+  // $('#epochRangeText').popover({title: "Header", content: "Blabla", container: "", placement: "auto"});
+
   // Sharing the same HTML element between all tabs
   $metaBox = $("#metaBox");
   $metaBox.addClass("ui-tabs-panel-meta");

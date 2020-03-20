@@ -525,7 +525,9 @@ label {
 #climateMonthly {
   /* display: none; */
 }
-
+#epochRangeText{
+  padding-top: 15px;
+}
 #epochRangeText>p {
   background-color: #f2f2f2;
 }

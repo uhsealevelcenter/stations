@@ -13,20 +13,21 @@ var AVERAGE_MONTHLY_COLOR = AVERAGE_DAILY_COLOR;
 var DEFAULT_YEAR_COLOR = 'rgb(0,0,0)';
 
 var defaultColors = [
-    '#1f77b4',  // muted blue
-    '#ff7f0e',  // safety orange
-    '#2ca02c',  // cooked asparagus green
-    // '#d62728',  // brick red
-    '#FFED33',  // my yellow
-    '#9467bd',  // muted purple
-    '#8c564b',  // chestnut brown
-    '#e377c2',  // raspberry yogurt pink
-    '#7f7f7f',  // middle gray
-    '#bcbd22',  // curry yellow-green
-    '#17becf'   // blue-teal
+  '#1f77b4', // muted blue
+  '#ff7f0e', // safety orange
+  '#2ca02c', // cooked asparagus green
+  // '#d62728',  // brick red
+  '#FFED33', // my yellow
+  '#9467bd', // muted purple
+  '#8c564b', // chestnut brown
+  '#e377c2', // raspberry yogurt pink
+  '#7f7f7f', // middle gray
+  '#bcbd22', // curry yellow-green
+  '#17becf' // blue-teal
 ];
 
 var DATA_START, DATA_END;
+
 function plotClimateData(_stn) {
 
   var dailyData = null;
@@ -57,17 +58,17 @@ function plotClimateData(_stn) {
           } else
             return row[key];
         }
-        if(key === "Year_Record_High" || key === "Year_Record_Low"){
+        if (key === "Year_Record_High" || key === "Year_Record_Low") {
           return row[key];
         }
 
         // if seeking datum or time zone value return the value so the "else" portion is not executed
         if (key === "MHHW_NTDE" || key === "MLLW_NTDE" || key === "time_zone" || key === "start_NTDE" || key === "end_NTDE") {
-          if(key==="MHHW_NTDE" || key==="MLLW_NTDE"){
+          if (key === "MHHW_NTDE" || key === "MLLW_NTDE") {
             // If datums are not defined I am setting them to 0 so that plotly can plot the data
-            if(row[key]==="NaN"){
+            if (row[key] === "NaN") {
               return 0;
-            }else{
+            } else {
               return row[key];
             }
           }
@@ -77,7 +78,7 @@ function plotClimateData(_stn) {
           if (unit && datum) {
             //Do nothing
             // console.log("Default unit and datum");
-            return row[key]-ml;
+            return row[key] - ml;
           } else if (!unit && datum) {
             //convert units to english with default datum
             // console.log("Convert only units on station change");
@@ -105,11 +106,11 @@ function plotClimateData(_stn) {
 
   var unitYlabel = getYLabel(currentUnit, currentDatum).unit;
   var datumYlabel = getYLabel(currentUnit, currentDatum).datum;
-  var yLabel1 = 'Water level above '+datumYlabel+' ('+unitYlabel+')';
+  var yLabel1 = 'Water level above ' + datumYlabel + ' (' + unitYlabel + ')';
   // var yLabel1 = 'Relative water level (' + unitYlabel + ', ' + datumYlabel + ')';
-  var yLabel2 = 'Water level above '+datumYlabel+' ('+unitYlabel+')';
+  var yLabel2 = 'Water level above ' + datumYlabel + ' (' + unitYlabel + ')';
   // DAILY CLIMATOLOGY
-  Plotly.d3.csv("https://uhslc.soest.hawaii.edu/mwidlans/dev/STATIONS/daily_clim"+_stn+".csv", function(err, rows) {
+  Plotly.d3.csv("https://uhslc.soest.hawaii.edu/mwidlans/dev/STATIONS/daily_clim" + _stn + ".csv", function(err, rows) {
 
     if (typeof rows != 'undefined') {
       var MLLW = parseFloat(unpack(rows, 'MLLW_NTDE', currentUnit, currentDatum)[0]);
@@ -135,16 +136,16 @@ function plotClimateData(_stn) {
       DATA_START = GetDataYearRange(Plotly.d3.keys(rows[0]))["start"];
       DATA_END = GetDataYearRange(Plotly.d3.keys(rows[0]))["end"];
 
-      $("#epochRangeText").html("The epoch year range for averaging is: "+"<strong>"+EPOCH_START+" - "+EPOCH_END+"</strong>");
-      $("#dataRangeText").html("The data year range for determining records is: "+"<strong>"+DATA_START+" - "+DATA_END+"</strong>");
-//       $("#climatologyLegend").html("The epoch year range: "+"<strong>"+EPOCH_START+" - "+EPOCH_END+"</strong>");
-// climatologyLegend
+      $("#epochRangeText").html("Average Low/High and Daily/Monthly Epoch Range is: " + "<strong>" + EPOCH_START + " - " + EPOCH_END + "</strong>");
+      $("#dataRangeText").html("Record Low/Hihg Data Year Range is: " + "<strong>" + DATA_START + " - " + DATA_END + "</strong>");
+      //       $("#climatologyLegend").html("The epoch year range: "+"<strong>"+EPOCH_START+" - "+EPOCH_END+"</strong>");
+      // climatologyLegend
       // console.log("MLLW= "+MLLW);
       // There is no need to unpack time vector for every tracer
       // because it is the same for each tracer
       console.log(rows.length);
 
-      var timeRange =  range(1, rows.length);
+      var timeRange = range(1, rows.length);
 
       // Year record high
       var trace_yearRH = {
@@ -200,7 +201,7 @@ function plotClimateData(_stn) {
         // x: timeRange,
         x: ALL_DAYS,
         y: unpack(rows, 'Avg_High', currentUnit, currentDatum, MLLW, MHHW, LST),
-        hovertemplate:'%{y:.1f} <extra>Average High</extra>',
+        hovertemplate: '%{y:.1f} <extra>Average High</extra>',
         line: {
           color: AVERAGE_HIGH_COLOR,
           dash: 'solid'
@@ -221,7 +222,7 @@ function plotClimateData(_stn) {
         line: {
           color: RECORD_LOW_COLOR
         },
-        hovertemplate:'%{y:.1f}: %{text}',
+        hovertemplate: '%{y:.1f}: %{text}',
         text: trace_yearRL.y,
         visible: true,
         stackgroup: null
@@ -256,7 +257,7 @@ function plotClimateData(_stn) {
         line: {
           color: RECORD_HIGH_COLOR
         },
-        hovertemplate:'%{y:.1f}: %{text} <extra>Record High</extra>',
+        hovertemplate: '%{y:.1f}: %{text} <extra>Record High</extra>',
         text: trace_yearRH.y,
         visible: true,
         stackgroup: null
@@ -280,7 +281,7 @@ function plotClimateData(_stn) {
       var trace3 = {
         // meta: {columnNames: {y: '2017'}},
         mode: 'lines+markers',
-        name: DATA_END+' High',
+        name: DATA_END + ' High',
 
         // x: timeRange,
         x: ALL_DAYS,
@@ -293,13 +294,13 @@ function plotClimateData(_stn) {
         //   width: 4
         // }
         marker: {
-         color: DEFAULT_YEAR_COLOR,
-         size: 8
-       },
-       line: {
-         color: DEFAULT_YEAR_COLOR,
-         width: 4
-       }
+          color: DEFAULT_YEAR_COLOR,
+          size: 8
+        },
+        line: {
+          color: DEFAULT_YEAR_COLOR,
+          width: 4
+        }
       };
 
       // var trace4 = {
@@ -311,14 +312,14 @@ function plotClimateData(_stn) {
       //   stackgroup: null
       // };
 
-      var data123 = [trace2, trace_rr, trace_rl, trace1, trace_ar, trace_al,   trace_ad, trace3];
+      var data123 = [trace2, trace_rr, trace_rl, trace1, trace_ar, trace_al, trace_ad, trace3];
       var data3 = [trace3];
 
       // Add a slight date padding for xaxis range
       var dayPadding = 3; // in days
       var d_start = new Date(ALL_DAYS[0]);
       d_start.setDate(d_start.getDate() - dayPadding);
-      var d_end = new Date(ALL_DAYS[ALL_DAYS.length-1]);
+      var d_end = new Date(ALL_DAYS[ALL_DAYS.length - 1]);
       d_end.setDate(d_end.getDate() + dayPadding);
 
       var layout123 = {
@@ -333,7 +334,7 @@ function plotClimateData(_stn) {
           hoverformat: "%B %d",
           // tickmode: 'linear',
           // tick0: '1999-12-15',
-		      dtick: "M1", // milliseconds
+          dtick: "M1", // milliseconds
           title: {
             text: ''
           },
@@ -368,16 +369,48 @@ function plotClimateData(_stn) {
           pad: 0
         },
       };
+
+      var config = {
+        displayModeBar: true,
+        responsive: true,
+        displaylogo: false,
+        modeBarButtonsToAdd: [{
+            name: 'Help',
+            icon: Plotly.Icons.question,
+            click: function(gd) {
+              $('#dataRangeText').click();
+              // $('[data-title="Help"]').popover({title: "Header", content: "Blabla", container: "", placement: "auto"});
+              // $('[data-title="Help"]').click();
+              // myTest();
+
+              // alert("Help clicked");
+            }
+          },
+        ],
+        modeBarButtonsToRemove: ['select2d', 'lasso2d', 'autoScale2d',
+          'zoomIn2d', 'zoomOut2d', 'toggleSpikelines', 'hoverClosestCartesian', 'hoverCompareCartesian'
+        ]
+      }
+// <a href="#" data-toggle="popover" title="Popover Header" data-content="Some content inside the popover"></a>
+      function myTest(){
+        console.log("My TEST CALLED");
+        var popupelement = document.createElement('a');
+        popupelement.href = '#';
+        popupelement.setAttribute('data-toogle','popover')
+        popupelement.setAttribute('title','Popover Header')
+        popupelement.setAttribute('data-content','Some content inside the popover')
+        document.body.appendChild(popupelement);
+
+        popupelement.click();
+        // document.body.removeChild(popupelement);
+      }
       var myPlot = document.getElementById('climateDaily');
 
 
-      Plotly.newPlot('climateDaily', data123, layout123, {
-        displayModeBar: false,
-        responsive: true
-      });
+      Plotly.newPlot('climateDaily', data123, layout123, config);
 
-      myPlot.on('plotly_legendclick',function(data) {
-        console.log("legend "+data.curveNumber);
+      myPlot.on('plotly_legendclick', function(data) {
+        console.log("legend " + data.curveNumber);
         // var vals = myPlot.data.map((_, i) =>  0.0);
         //   var infotext = data.map(function(d){
         //     console.log("trace name: "+d.data.name);
@@ -424,21 +457,21 @@ function plotClimateData(_stn) {
 
       })
 
-      myPlot.on('plotly_hover',function(data) {
-      //   console.log("trace number "+data.points[0]);
-      //   var pn='',
-      // tn='',
-      // colors=[];
-      //   for(var i=0; i < data.points.length; i++){
-      //      pn = data.points[i].pointNumber;
-      //      tn = data.points[i].curveNumber;
-      //      // colors = data.points[i].data.marker.color;
-      //    };
-      //    console.log("tn "+tn);
-    //   var infotext = data.points.map(function(d){
-    //     console.log("trace name: "+d.data.name);
-    //   return (d.data.name+': x= '+d.x+', y= '+d.y.toPrecision(3));
-    // });
+      myPlot.on('plotly_hover', function(data) {
+        //   console.log("trace number "+data.points[0]);
+        //   var pn='',
+        // tn='',
+        // colors=[];
+        //   for(var i=0; i < data.points.length; i++){
+        //      pn = data.points[i].pointNumber;
+        //      tn = data.points[i].curveNumber;
+        //      // colors = data.points[i].data.marker.color;
+        //    };
+        //    console.log("tn "+tn);
+        //   var infotext = data.points.map(function(d){
+        //     console.log("trace name: "+d.data.name);
+        //   return (d.data.name+': x= '+d.x+', y= '+d.y.toPrecision(3));
+        // });
 
       })
 
@@ -458,38 +491,40 @@ function plotClimateData(_stn) {
     // window.onresize = onScreenResizeClimatology;
     // onScreenResizeClimatology();
     Plotly.relayout('climateDaily', layoutUpdate2);
+    // Popover event for help icon click
+    // $('[data-title="Help"]').popover({title: "<h1><strong>The plot is fully interactive</strong></h1>", content: "Blabla", container: "#climatology", placement: "auto", html: "true",offset: 40});
   });
 
-var layoutUpdate2;
-if(window.mobilecheck()){
-  layoutUpdate2 = {
-    width: document.getElementById("metaBox").offsetWidth, // or any new width
-    autoresize: true,
-    legend: {
-      xanchor: "center",
-      yanchor: "top",
-      "orientation": "h",
-      x: 0.5,
-      y: 1.2,
-    },
-  };
-}else{
-  layoutUpdate2 = {
-    // width: document.getElementById("metaBox").offsetWidth, // or any new width
-    autoresize: true,
-    legend: {
-      xanchor: "center",
-      yanchor: "top",
-      "orientation": "h",
-      x: 0.5,
-      y: 1.1,
-    },
-  };
-}
+  var layoutUpdate2;
+  if (window.mobilecheck()) {
+    layoutUpdate2 = {
+      width: document.getElementById("metaBox").offsetWidth, // or any new width
+      autoresize: true,
+      legend: {
+        xanchor: "center",
+        yanchor: "top",
+        "orientation": "h",
+        x: 0.5,
+        y: 1.2,
+      },
+    };
+  } else {
+    layoutUpdate2 = {
+      // width: document.getElementById("metaBox").offsetWidth, // or any new width
+      autoresize: true,
+      legend: {
+        xanchor: "center",
+        yanchor: "top",
+        "orientation": "h",
+        x: 0.5,
+        y: 1.1,
+      },
+    };
+  }
 
   // DAILY CLIMATOLOGY End
   // MONTHLY hourly
-  Plotly.d3.csv("https://uhslc.soest.hawaii.edu/mwidlans/dev/STATIONS/monthlyHr_clim"+_stn+".csv", function(err, rows) {
+  Plotly.d3.csv("https://uhslc.soest.hawaii.edu/mwidlans/dev/STATIONS/monthlyHr_clim" + _stn + ".csv", function(err, rows) {
 
     if (typeof rows != 'undefined') {
       var MLLW = parseFloat(unpack(rows, 'MLLW_NTDE', currentUnit, currentDatum)[0]);
@@ -506,7 +541,7 @@ if(window.mobilecheck()){
       DATA_START = GetDataYearRange(Plotly.d3.keys(rows[0]))["start"];
       DATA_END = GetDataYearRange(Plotly.d3.keys(rows[0]))["end"];
 
-      var timeRange =  range(1, rows.length);
+      var timeRange = range(1, rows.length);
 
       // Year record high
       var trace_yearRH = {
@@ -562,7 +597,7 @@ if(window.mobilecheck()){
         // x: timeRange,
         x: timeRange,
         y: unpack(rows, 'Avg_High', currentUnit, currentDatum, MLLW, MHHW, LST),
-        hovertemplate:'%{y:.1f}: <extra>Average High</extra>',
+        hovertemplate: '%{y:.1f}: <extra>Average High</extra>',
         line: {
           color: AVERAGE_HIGH_COLOR,
           dash: 'solid'
@@ -583,7 +618,7 @@ if(window.mobilecheck()){
         line: {
           color: RECORD_LOW_COLOR
         },
-        hovertemplate:'%{y:.1f}: %{text}',
+        hovertemplate: '%{y:.1f}: %{text}',
         text: trace_yearRL.y,
         visible: true,
         stackgroup: null
@@ -619,7 +654,7 @@ if(window.mobilecheck()){
         line: {
           color: RECORD_HIGH_COLOR
         },
-        hovertemplate:'%{y:.1f}: %{text} <extra>Record High</extra>',
+        hovertemplate: '%{y:.1f}: %{text} <extra>Record High</extra>',
         text: trace_yearRH.y,
         visible: true,
         stackgroup: null
@@ -643,7 +678,7 @@ if(window.mobilecheck()){
       var trace3 = {
         // meta: {columnNames: {y: '2017'}},
         mode: 'markers+lines',
-        name: DATA_END+' High',
+        name: DATA_END + ' High',
         type: 'scatter',
         // x: timeRange,
         x: timeRange,
@@ -651,13 +686,13 @@ if(window.mobilecheck()){
         visible: true,
         stackgroup: null,
         marker: {
-         color: DEFAULT_YEAR_COLOR,
-         size: 8
-       },
-       line: {
-         color: DEFAULT_YEAR_COLOR,
-         width: 4
-       }
+          color: DEFAULT_YEAR_COLOR,
+          size: 8
+        },
+        line: {
+          color: DEFAULT_YEAR_COLOR,
+          width: 4
+        }
       };
 
       // var trace4 = {
@@ -670,7 +705,7 @@ if(window.mobilecheck()){
       // };
 
 
-      var data123 = [trace2, trace_rr, trace_rl, trace1, trace_ar, trace_al,   trace_ad, trace3];
+      var data123 = [trace2, trace_rr, trace_rl, trace1, trace_ar, trace_al, trace_ad, trace3];
       var data3 = [trace3];
 
       var layout123 = {
@@ -683,12 +718,12 @@ if(window.mobilecheck()){
         xaxis: {
           tickmode: "array", // If "array", the placement of the ticks is set via `tickvals` and the tick text is `ticktext`.
           tickvals: timeRange,
-          ticktext: ['January', 'February', 'March', 'April', 'May', 'June', 'July','August', 'September','October', 'November', 'December'],
+          ticktext: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
           title: {
             text: ''
           },
           // autorange: true
-          range: [timeRange[0]-timeRange.length/100.0, timeRange[timeRange.length-1]+timeRange.length/100.0]
+          range: [timeRange[0] - timeRange.length / 100.0, timeRange[timeRange.length - 1] + timeRange.length / 100.0]
         },
         yaxis: {
           title: yLabel1,
@@ -797,7 +832,7 @@ if(window.mobilecheck()){
   // Monthly Hourly End
 
   // MONTHLY
-  Plotly.d3.csv("https://uhslc.soest.hawaii.edu/mwidlans/dev/STATIONS/monthly_clim"+_stn+".csv", function(err, rows) {
+  Plotly.d3.csv("https://uhslc.soest.hawaii.edu/mwidlans/dev/STATIONS/monthly_clim" + _stn + ".csv", function(err, rows) {
 
 
     if (typeof rows != 'undefined') {
@@ -811,7 +846,7 @@ if(window.mobilecheck()){
       DATA_START = GetDataYearRange(Plotly.d3.keys(rows[0]))["start"];
       DATA_END = GetDataYearRange(Plotly.d3.keys(rows[0]))["end"];
 
-      var timeRange =  range(1, rows.length);
+      var timeRange = range(1, rows.length);
 
       // Year record high
       var trace_yearRH = {
@@ -836,7 +871,7 @@ if(window.mobilecheck()){
         line: {
           color: RECORD_LOW_COLOR
         },
-        hovertemplate:'%{y:.1f}: <extra>%{text} Record Low</extra>',
+        hovertemplate: '%{y:.1f}: <extra>%{text} Record Low</extra>',
         text: trace_yearRL.y,
         visible: true,
         stackgroup: null
@@ -868,7 +903,7 @@ if(window.mobilecheck()){
         line: {
           color: RECORD_HIGH_COLOR
         },
-        hovertemplate:'%{y:.1f}: <extra>%{text} Record High</extra>',
+        hovertemplate: '%{y:.1f}: <extra>%{text} Record High</extra>',
         text: trace_yearRH.y,
         stackgroup: null
       };
@@ -882,7 +917,7 @@ if(window.mobilecheck()){
         type: 'scatter',
         x: timeRange,
         y: unpack(rows, 'Avg_Monthly', currentUnit, currentDatum, MLLW, MHHW, LST),
-        line:{
+        line: {
           color: AVERAGE_MONTHLY_COLOR
         },
         visible: true,
@@ -892,23 +927,23 @@ if(window.mobilecheck()){
       var trace4 = {
         // meta: {columnNames: {y: '2019'}},
         mode: 'markers+lines',
-        name: DATA_END+' Monthly Mean',
+        name: DATA_END + ' Monthly Mean',
         type: 'scatter',
         x: timeRange,
         y: unpack(rows, DATA_END, currentUnit, currentDatum, MLLW, MHHW, LST),
         marker: {
-         color: DEFAULT_YEAR_COLOR,
-         size: 8
-       },
-       line: {
-         color: DEFAULT_YEAR_COLOR,
-         width: 4
-       },
+          color: DEFAULT_YEAR_COLOR,
+          size: 8
+        },
+        line: {
+          color: DEFAULT_YEAR_COLOR,
+          width: 4
+        },
         stackgroup: null
       };
 
 
-      var data123 = [ trace1,trace_rr_m, trace2,  trace3, trace4];
+      var data123 = [trace1, trace_rr_m, trace2, trace3, trace4];
       var data3 = [trace3];
 
       var layout123 = {
@@ -920,12 +955,12 @@ if(window.mobilecheck()){
         xaxis: {
           tickmode: "array", // If "array", the placement of the ticks is set via `tickvals` and the tick text is `ticktext`.
           tickvals: timeRange,
-          ticktext: ['January', 'February', 'March', 'April', 'May', 'June', 'July','August', 'September','October', 'November', 'December'],
+          ticktext: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
           title: {
             text: ''
           },
           // autorange: true
-          range: [timeRange[0]-timeRange.length/100.0, timeRange[timeRange.length-1]+timeRange.length/100.0]
+          range: [timeRange[0] - timeRange.length / 100.0, timeRange[timeRange.length - 1] + timeRange.length / 100.0]
         },
         yaxis: {
           title: yLabel1,
@@ -1042,30 +1077,27 @@ if(window.mobilecheck()){
       }
 
       // Check if years are in the allowed range
-      var index=uniqueYears.findIndex(function(number) {
-        return number > DATA_END || number<DATA_START;
+      var index = uniqueYears.findIndex(function(number) {
+        return number > DATA_END || number < DATA_START;
       });
 
-      if(index>-1)
-      {
-        text = "The year number for this station must be between "+ DATA_START + " and " + DATA_END;
-      }
-      else
-      {
-      if (uniqueYears.length > 10)
-        text = "The total number of years can't exceed 10. " + uniqueYears.length + " years entered";
-      else {
-        text = "TIP: Double click on a legend to isolate only one trace";
-        if (prevUnique) {
-          Plotly.deleteTraces("climateDaily", range(-prevUnique.length, -1));
-          Plotly.deleteTraces("extremeMonthly", range(-prevUnique.length, -1));
-          Plotly.deleteTraces("climateMonthly", range(-prevUnique.length, -1));
-        }
+      if (index > -1) {
+        text = "The year number for this station must be between " + DATA_START + " and " + DATA_END;
+      } else {
+        if (uniqueYears.length > 10)
+          text = "The total number of years can't exceed 10. " + uniqueYears.length + " years entered";
+        else {
+          text = "TIP: Double click on a legend to isolate only one trace";
+          if (prevUnique) {
+            Plotly.deleteTraces("climateDaily", range(-prevUnique.length, -1));
+            Plotly.deleteTraces("extremeMonthly", range(-prevUnique.length, -1));
+            Plotly.deleteTraces("climateMonthly", range(-prevUnique.length, -1));
+          }
 
-        prevUnique = uniqueYears;
-        uniqueYears.forEach(myCallback);
+          prevUnique = uniqueYears;
+          uniqueYears.forEach(myCallback);
+        }
       }
-    }
 
     } else {
       text = "Invalid year range, use e.g. 1995-2000, 2010, 2013-2015";
@@ -1079,13 +1111,13 @@ if(window.mobilecheck()){
 
   function myCallback(item, index) {
     var offset = parseInt(index + 1);
-//     console.log("item= "+item,"index= " + index);
-// console.log("offset= "+(offset))
+    //     console.log("item= "+item,"index= " + index);
+    // console.log("offset= "+(offset))
     // console.log("offset color= "+d3colors(parseInt(offset)))
     var color = defaultColors[offset];
 
     if (item != "") {
-      Plotly.addTraces("climateDaily", createNewTrace(item.toString().trim(), dailyData, ' high', color ));
+      Plotly.addTraces("climateDaily", createNewTrace(item.toString().trim(), dailyData, ' high', color));
       Plotly.addTraces("extremeMonthly", createNewTrace(item.toString().trim(), monthlyHrData, ' Monthly Mean', color));
       Plotly.addTraces("climateMonthly", createNewTrace(item.toString().trim(), monthlyData, ' Monthly Mean', color));
     }
@@ -1107,13 +1139,13 @@ if(window.mobilecheck()){
     }, (_, i) => start + i);
   }
 
-  function reset(){
+  function reset() {
     Plotly.deleteTraces("climateDaily", range(-prevUnique.length, -1));
     Plotly.deleteTraces("extremeMonthly", range(-prevUnique.length, -1));
     Plotly.deleteTraces("climateMonthly", range(-prevUnique.length, -1));
     prevUnique = [];
     document.getElementById("yearsBox").value = "";
-    document.getElementById("inputMessage").innerText="";
+    document.getElementById("inputMessage").innerText = "";
   }
 
   function createNewTrace(year, data, legendText, color) {
@@ -1139,10 +1171,10 @@ if(window.mobilecheck()){
     // TODO: this is just for testing
     // make createNewTrace accept 'daily' or 'monthly' string, istead of doing
     // the check based on legend text
-    if(legendText == ' high')
+    if (legendText == ' high')
       trace.x = ALL_DAYS;
     else
-      trace.x = range(1,12);
+      trace.x = range(1, 12);
 
     return trace;
   }
@@ -1245,30 +1277,34 @@ function displayPlot(evt, plotName) {
 
 // Get the element with id="defaultOpen" and click on it
 document.getElementById("defaultOpen").click();
-function DOY_to_dates(){
-	var allDays=[];
-	for(var i=1; i<=366; i++){
-	var date = new Date(2016, 0); // initialize a date in `year-01-01`
-	allDays.push(new Date(date.setDate(i)));
-}
+
+function DOY_to_dates() {
+  var allDays = [];
+  for (var i = 1; i <= 366; i++) {
+    var date = new Date(2016, 0); // initialize a date in `year-01-01`
+    allDays.push(new Date(date.setDate(i)));
+  }
   return allDays;
 }
 
-function GetDataYearRange(plotlyFirstRowKeys){
+function GetDataYearRange(plotlyFirstRowKeys) {
   var headerNames = plotlyFirstRowKeys;
 
   // Convert header names to number array
-  var headerNumber = headerNames.map(function(item){
+  var headerNumber = headerNames.map(function(item) {
     return parseInt(item, 10);
   });
 
   // Exclude NaNs from the header
-  var allYearsInHeader = headerNumber.filter(function (value){
+  var allYearsInHeader = headerNumber.filter(function(value) {
     return !Number.isNaN(value);
   });
 
   _DATA_START = Math.min.apply(Math, allYearsInHeader);
   _DATA_END = Math.max.apply(Math, allYearsInHeader);
 
-  return {start:_DATA_START, end: _DATA_END}
+  return {
+    start: _DATA_START,
+    end: _DATA_END
+  }
 }
