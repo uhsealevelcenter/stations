@@ -100,8 +100,9 @@ function plotClimateData(_stn) {
 
   // Negated because I want the toggle button to be gray (off) by default
   // and also want the "off" state to indicate default values
+  // for datum it is opposite because we changed the default datum to MHHW
   var currentUnit = !$('#unitToggle').prop("checked");
-  var currentDatum = !$('#datumToggle').prop("checked");
+  var currentDatum = $('#datumToggle').prop("checked");
   var currentTZ = !$('#timeToggle').prop("checked");
 
   var unitYlabel = getYLabel(currentUnit, currentDatum).unit;
@@ -1150,7 +1151,7 @@ function plotClimateData(_stn) {
 
   function createNewTrace(year, data, legendText, color) {
     var currentUnit = !$('#unitToggle').prop("checked");
-    var currentDatum = !$('#datumToggle').prop("checked");
+    var currentDatum = $('#datumToggle').prop("checked");
     var currentTZ = !$('#timeToggle').prop("checked");
     var MLLW = parseFloat(unpack(data, 'MLLW_NTDE', currentUnit, currentDatum)[0]);
     var MHHW = parseFloat(unpack(data, 'MHHW_NTDE', currentUnit, currentDatum)[0]);

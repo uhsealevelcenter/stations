@@ -75,7 +75,7 @@ function plotData(_stn) {
       // Negated because I want the toggle button to be gray (off) by default
       // and also want the "off" state to indicate default values
       var currentUnit = !$('#unitToggle').prop("checked");
-      var currentDatum = !$('#datumToggle').prop("checked");
+      var currentDatum = $('#datumToggle').prop("checked");
       var currentTZ = !$('#timeToggle').prop("checked");
 
       var unitYlabel = getYLabel(currentUnit, currentDatum).unit;
