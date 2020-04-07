@@ -4,13 +4,15 @@ var patt1 = new RegExp("^(?!([ \\d]*-){2})\\d{4,4}(?: *[-,] *\\d{4,4})*$")
 // This one below should limit the year between 1905 and 2019
 // var patt1 = new RegExp("^(?!([ \\d]*-){2})\\b(190[5-9]|19[1-9][0-9]|200[0-9]|201[0-9])\\b(?: *[-,] *\\b(190[5-9]|19[1-9][0-9]|200[0-9]|201[0-9])\\b)*$")
 var ALL_DAYS = DOY_to_dates();
-var RECORD_HIGH_COLOR = 'rgb(200, 35, 35)';
-var RECORD_LOW_COLOR = RECORD_HIGH_COLOR;
-var AVERAGE_HIGH_COLOR = '#1b80b6';
+var RECORD_HIGH_COLOR = '#4FC3F7'; //'rgb(200, 35, 35)'
+var RECORD_LOW_COLOR = RECORD_HIGH_COLOR; //'#1b80b6'
+var RECORD_FILL_COLOR = "B3E5FC";
+var AVERAGE_HIGH_COLOR = '#01579B';
 var AVERAGE_LOW_COLOR = AVERAGE_HIGH_COLOR;
-var AVERAGE_DAILY_COLOR = '#d1d3d4';
-var AVERAGE_MONTHLY_COLOR = AVERAGE_DAILY_COLOR;
-var DEFAULT_YEAR_COLOR = 'rgb(0,0,0)';
+var AVERAGE_FILL_COLOR = '#03A9F4';
+var AVERAGE_DAILY_COLOR = '#d1d3d4'; //'#d1d3d4'
+var AVERAGE_MONTHLY_COLOR = '#a2a5a6';
+var DEFAULT_YEAR_COLOR = 'rgb(0,0,0)'; //'rgb(0,0,0)'
 
 var defaultColors = [
   '#1f77b4', // muted blue
@@ -137,8 +139,8 @@ function plotClimateData(_stn) {
       DATA_START = GetDataYearRange(Plotly.d3.keys(rows[0]))["start"];
       DATA_END = GetDataYearRange(Plotly.d3.keys(rows[0]))["end"];
 
-      $("#epochRangeText").html("Average Low/High and Daily/Monthly Epoch Range is: " + "<strong>" + EPOCH_START + " - " + EPOCH_END + "</strong>");
-      $("#dataRangeText").html("Record Low/Hihg Data Year Range is: " + "<strong>" + DATA_START + " - " + DATA_END + "</strong>");
+      $("#epochRangeText").html("The epoch year range for <strong>averaging</strong> is: "+"<strong>"+EPOCH_START+" - "+EPOCH_END+"</strong>");
+      $("#dataRangeText").html("The data year range for determining <strong>records</strong> is: "+"<strong>"+DATA_START+" - "+DATA_END+"</strong>");
       //       $("#climatologyLegend").html("The epoch year range: "+"<strong>"+EPOCH_START+" - "+EPOCH_END+"</strong>");
       // climatologyLegend
       // console.log("MLLW= "+MLLW);
@@ -189,7 +191,9 @@ function plotClimateData(_stn) {
         y: trace_al.y,
         hoverinfo: 'skip',
         // stackgroup: null
-        fill: 'tonexty'
+        fill: 'tonexty',
+        fillcolor: AVERAGE_FILL_COLOR
+
       };
 
       var trace1 = {
@@ -241,7 +245,8 @@ function plotClimateData(_stn) {
         y: trace_rl.y,
         hoverinfo: 'skip',
         // stackgroup: null
-        fill: 'tonexty'
+        fill: 'tonexty',
+        fillcolor: RECORD_FILL_COLOR
       };
 
       var trace2 = {
@@ -585,7 +590,8 @@ function plotClimateData(_stn) {
         y: trace_al.y,
         hoverinfo: 'skip',
         // stackgroup: null
-        fill: 'tonexty'
+        fill: 'tonexty',
+        fillcolor: AVERAGE_FILL_COLOR
       };
 
       var trace1 = {
@@ -637,7 +643,8 @@ function plotClimateData(_stn) {
         y: trace_rl.y,
         hoverinfo: 'skip',
         // stackgroup: null
-        fill: 'tonexty'
+        fill: 'tonexty',
+        fillcolor: RECORD_FILL_COLOR
       };
 
       var trace2 = {
@@ -890,7 +897,8 @@ function plotClimateData(_stn) {
         y: trace2.y,
         hoverinfo: 'skip',
         // stackgroup: null
-        fill: 'tonexty'
+        fill: 'tonexty',
+        fillcolor: RECORD_FILL_COLOR
       };
 
       var trace1 = {
