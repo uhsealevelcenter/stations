@@ -35,19 +35,23 @@ function plotData(_stn) {
             }
             // if seeking datum or time zone value return the value so the "else" portion is not executed
             if (key === "MHHW_NTDE" || key === "MLLW_NTDE" || key === "time_zone") {
-              return row[key];
+              if (key === "time_zone") {
+                return row[key];
+              } else {
+                return row[key]/100.0;
+              }
             } else {
               if (unit && datum) {
                 //Do nothing
                 // console.log("NO conversion on station change");
-                return row[key];
+                return row[key]/100.0;
               } else if (!unit && datum) {
                 //convert units to english with default datum
                 // console.log("Convert only units on station change");
                 return row[key] * 0.0328084;
               } else if (unit && !datum) {
                 // console.log("Convert only datum on station change");
-                return (row[key] * 1 + (ml - mh));
+                return (row[key]/100.0 * 1 + (ml - mh));
               } else {
                 // console.log("Convert both units and datum on station change");
                 return (row[key] * 1 + (ml - mh)) * 0.0328084;
@@ -413,13 +417,13 @@ var layoutUpdate;
 
 function getYLabel(unit, datum) {
   var combo = "";
-  var unt = "cm";
+  var unt = "m";
   var dtm = "MLLW";
   if (unit && datum)
   //Metric + MLLW
   {
     combo = "ML";
-    unt = "cm";
+    unt = "m";
     dtm = "MLLW";
   } else if (!unit && datum)
   //English units + MLLW
@@ -431,7 +435,7 @@ function getYLabel(unit, datum) {
   //Metric + MHHW
   {
     combo = "MH";
-    unt = "cm";
+    unt = "m";
     dtm = "MHHW";
   } else
   // English + MHHW

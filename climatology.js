@@ -71,7 +71,7 @@ function plotClimateData(_stn) {
             if (row[key] === "NaN") {
               return 0;
             } else {
-              return row[key];
+              return row[key]/100.0;
             }
           }
           return row[key];
@@ -80,14 +80,14 @@ function plotClimateData(_stn) {
           if (unit && datum) {
             //Do nothing
             // console.log("Default unit and datum");
-            return row[key] - ml;
+            return row[key]/100.0 - ml;
           } else if (!unit && datum) {
             //convert units to english with default datum
             // console.log("Convert only units on station change");
             return row[key] * 0.0328084;
           } else if (unit && !datum) {
             // console.log("Convert only datum on station change");
-            return (row[key] * 1 - (mh));
+            return (row[key]/100.0 * 1 - (mh));
           } else {
             // console.log("Convert both units and datum on station change");
             return (row[key] * 1 - (mh)) * 0.0328084;
@@ -206,7 +206,7 @@ function plotClimateData(_stn) {
         // x: timeRange,
         x: ALL_DAYS,
         y: unpack(rows, 'Avg_High', currentUnit, currentDatum, MLLW, MHHW, LST),
-        hovertemplate: '%{y:.1f} <extra>Average High</extra>',
+        hovertemplate: '%{y:.3f} <extra>Average High</extra>',
         line: {
           color: AVERAGE_HIGH_COLOR,
           dash: 'solid'
@@ -227,7 +227,7 @@ function plotClimateData(_stn) {
         line: {
           color: RECORD_LOW_COLOR
         },
-        hovertemplate: '%{y:.1f}: %{text}',
+        hovertemplate: '%{y:.3f}: %{text}',
         text: trace_yearRL.y,
         visible: true,
         stackgroup: null
@@ -263,7 +263,7 @@ function plotClimateData(_stn) {
         line: {
           color: RECORD_HIGH_COLOR
         },
-        hovertemplate: '%{y:.1f}: %{text} <extra>Record High</extra>',
+        hovertemplate: '%{y:.3f}: %{text} <extra>Record High</extra>',
         text: trace_yearRH.y,
         visible: true,
         stackgroup: null
@@ -604,7 +604,7 @@ function plotClimateData(_stn) {
         // x: timeRange,
         x: timeRange,
         y: unpack(rows, 'Avg_High', currentUnit, currentDatum, MLLW, MHHW, LST),
-        hovertemplate: '%{y:.1f}: <extra>Average High</extra>',
+        hovertemplate: '%{y:.3f}: <extra>Average High</extra>',
         line: {
           color: AVERAGE_HIGH_COLOR,
           dash: 'solid'
@@ -625,7 +625,7 @@ function plotClimateData(_stn) {
         line: {
           color: RECORD_LOW_COLOR
         },
-        hovertemplate: '%{y:.1f}: %{text}',
+        hovertemplate: '%{y:.3f}: %{text}',
         text: trace_yearRL.y,
         visible: true,
         stackgroup: null
@@ -662,7 +662,7 @@ function plotClimateData(_stn) {
         line: {
           color: RECORD_HIGH_COLOR
         },
-        hovertemplate: '%{y:.1f}: %{text} <extra>Record High</extra>',
+        hovertemplate: '%{y:.3f}: %{text} <extra>Record High</extra>',
         text: trace_yearRH.y,
         visible: true,
         stackgroup: null
@@ -879,7 +879,7 @@ function plotClimateData(_stn) {
         line: {
           color: RECORD_LOW_COLOR
         },
-        hovertemplate: '%{y:.1f}: <extra>%{text} Record Low</extra>',
+        hovertemplate: '%{y:.3f}: <extra>%{text} Record Low</extra>',
         text: trace_yearRL.y,
         visible: true,
         stackgroup: null
@@ -912,7 +912,7 @@ function plotClimateData(_stn) {
         line: {
           color: RECORD_HIGH_COLOR
         },
-        hovertemplate: '%{y:.1f}: <extra>%{text} Record High</extra>',
+        hovertemplate: '%{y:.3f}: <extra>%{text} Record High</extra>',
         text: trace_yearRH.y,
         stackgroup: null
       };

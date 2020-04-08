@@ -297,6 +297,11 @@ div#datums.ui-tabs-panel {
   border: solid 1px #eee !important;
 }
 
+/* disable help text from showing up when clicking the div*/
+#dataRangeText{
+  pointer-events: none;
+}
+
 #datepicker .active {
   background: #1B80B6;
 }
