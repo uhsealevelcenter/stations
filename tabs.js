@@ -273,8 +273,8 @@ function populateMetaDataTables(stnID, jsondata) {
   $("#metaUHID").html(metadata.properties.uhslc_id);
   $("#glossID").html(glossID);
   // $("#metaLAT").html(metadata.features[findIndexByStnID(metadata, parseInt(stn))].geometry.coordinates[1]+', '+ metadata.features[findIndexByStnID(metadata, parseInt(stn))].geometry.coordinates[0]);
-  $("#metaLAT").html(metadata.geometry.coordinates[1]);
-  $("#metaLONG").html(metadata.geometry.coordinates[0]);
+  $("#metaLAT").html(metadata.geometry.coordinates[1].toFixed(3));
+  $("#metaLONG").html(metadata.geometry.coordinates[0].toFixed(3));
 
   // Populate #metaTable1 with links to daily data
   $("#fastD").html(
