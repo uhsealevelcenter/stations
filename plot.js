@@ -499,6 +499,13 @@ window.addEventListener("orientationchange", function() {
       x: 0.5,
       y: 1.2,
     },
+    margin: {
+      l: 70,
+      r: 30, //105
+      b: 60,
+      t: 80,
+      pad: 0
+    }
   };
 
   Plotly.relayout('climateDaily', update3);

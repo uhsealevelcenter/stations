@@ -511,8 +511,15 @@ function plotClimateData(_stn) {
         yanchor: "top",
         "orientation": "h",
         x: 0.5,
-        y: 1.2,
+        y: 1.4,
       },
+      margin: {
+        l: 70,
+        r: 30, //105
+        b: 80,
+        t: 80,
+        pad: 0
+      }
     };
   } else {
     layoutUpdate2 = {
@@ -1120,9 +1127,6 @@ function plotClimateData(_stn) {
 
   function myCallback(item, index) {
     var offset = parseInt(index + 1);
-    //     console.log("item= "+item,"index= " + index);
-    // console.log("offset= "+(offset))
-    // console.log("offset color= "+d3colors(parseInt(offset)))
     var color = defaultColors[offset];
 
     if (item != "") {
@@ -1131,15 +1135,6 @@ function plotClimateData(_stn) {
       Plotly.addTraces("climateMonthly", createNewTrace(item.toString().trim(), monthlyData, ' Monthly Mean', color));
     }
   }
-
-  // function separateCallback(item, index) {
-  //   var years = [];
-  //   if(!item.includes("-"))
-  //   {
-  //     yers.push(item);
-  //   }
-  //   return years;
-  // }
 
   const range = (start, end) => {
     const length = end - start + 1;
