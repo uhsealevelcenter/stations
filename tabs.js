@@ -141,7 +141,7 @@ $(document).ready(function() {
     heightStyle: 'fill'
   });
 
-  var metaJSON = $.getJSON("http://localhost:8000/selectbox.json", function(data) {
+  var metaJSON = $.getJSON("selectbox.json", function(data) {
     $("#myselect2").select2({
           placeholder:  {
           // id: '2', // the value of the option
