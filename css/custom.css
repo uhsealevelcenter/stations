@@ -69,7 +69,7 @@ a:focus {
 }
 
 .btn-info {
-  background-color: #1B80B6 !important;
+  background-color: #428bca !important;
   border: 0px !important;
 }
 
@@ -184,14 +184,14 @@ div#datums.ui-tabs-panel {
 .ui-tabs-active {
   background: white !important;
   border: solid 1px #ddd !important;
-  border-top: solid 3px #1B80B6 !important;
+  border-top: solid 3px #428bca !important;
   border-bottom: 0 !important;
 }
 
 .ui-tabs-active:hover {
   background: white !important;
   border: solid 1px #ddd !important;
-  border-top: solid 3px #1B80B6 !important;
+  border-top: solid 3px #428bca !important;
   border-bottom: 0 !important;
 }
 
@@ -244,7 +244,7 @@ div#datums.ui-tabs-panel {
   display: inline;
   float: right;
   height: 43px;
-  /* background: #1B80B6; */
+  /* background: #428bca; */
   font-size: 20px;
   font-weight: bold;
   /* color: #fff; */
@@ -252,11 +252,11 @@ div#datums.ui-tabs-panel {
   padding: 10px;
 }
 
-#selectbox {
+#myselect2{
   /* display: inline;
   float: left; */
   margin-top: 5px;
-  max-width: 60%;
+  max-width: 100%;
 }
 
 .scroller {
@@ -267,11 +267,16 @@ div#datums.ui-tabs-panel {
   /* min-width: 470px; */
   /* width: 50%; */
   float: right;
+  padding-top: 10px;
 }
 
 .select2-results__option--highlighted {
-  background-color: #1B80B6 !important;
+  background-color: #428bca !important;
 }
+
+/* .select2-container {
+  width: 100% !important;
+} */
 
 .pred-slct-head {
   margin: 0 0 5px 10px;
@@ -303,7 +308,7 @@ div#datums.ui-tabs-panel {
 }
 
 #datepicker .active {
-  background: #1B80B6;
+  background: #428bca;
 }
 
 .datepicker-inline {
@@ -366,7 +371,7 @@ th, td {
 }
 
 #datumtable th {
-  background-color: #1B80B6;
+  background-color: #428bca;
   color: white;
 }
 
@@ -389,7 +394,7 @@ th, td {
 }
 
 #metaTable2 tr {
-  /* background-color: #1B80B6; */
+  /* background-color: #428bca; */
   color: black;
 }
 
@@ -482,7 +487,7 @@ td {
   border: none !important;
   border-radius: 0px !important;
   box-shadow: none !important;
-  background-color: #1B80B6 !important;
+  background-color: #428bca !important;
   background-image: none !important;
 }
 
@@ -647,7 +652,7 @@ label {
 .funkyradio-primary input[type="radio"]:checked ~ label:before,
 .funkyradio-primary input[type="checkbox"]:checked ~ label:before {
   color: #fff;
-  background-color: #1B80B6;
+  background-color: #428bca;
 }
 
 .funkyradio-success input[type="radio"]:checked ~ label:before,
@@ -679,7 +684,7 @@ body {font-family: "Lato", sans-serif;} */
 .tab {
   float: left;
   border: 1px solid #ddd;
-  border-right-color: #1B80B6;
+  border-right-color: #428bca;
   background-color: #f1f1f1;
   border-right: none;
   width: 33%;
@@ -714,10 +719,10 @@ body {font-family: "Lato", sans-serif;} */
 /* Create an active/current "tab button" class */
 .tab button.active {
   background-color: white;
-  /*#1B80B6*/
-  color: #1B80B6;
+  /*#428bca*/
+  color: #428bca;
   border-left-width: 17px;
-  border-left-color: #1B80B6;
+  border-left-color: #428bca !important;
   border-right: none;
 }
 
@@ -729,7 +734,7 @@ body {font-family: "Lato", sans-serif;} */
   border-left: none;
   width: 67%;
   height: 138px;
-  /* background-color: #1B80B6;
+  /* background-color: #428bca;
   color: white; */
 }
 
@@ -835,14 +840,14 @@ footer {
   .ui-tabs-active {
     background: white !important;
     border: solid 2px #f2f2f2 !important;
-    border-top: solid 3px #1B80B6 !important;
+    border-top: solid 3px #428bca !important;
     border-bottom: 0 !important;
   }
 
   .ui-tabs-active:hover {
     background: white !important;
     border: solid 2px #f2f2f2 !important;
-    border-top: solid 3px #1B80B6 !important;
+    border-top: solid 3px #428bca !important;
     border-bottom: 0 !important;
   }
 
@@ -871,9 +876,9 @@ footer {
 
   .tab button.active {
     background-color: white;
-    color: #1B80B6;
+    color: #428bca;
     border-left-width: 10px;
-    border-left-color: #1B80B6;
+    border-left-color: #428bca;
     border-right: none;
   }
 

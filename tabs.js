@@ -8,11 +8,10 @@ var DEF_STATION = "007";
 var metaJSON = null;
 var LST_URL = "LST/";
 
-if (DEVELOPMENT)
-  {
-    URL_pre = SERVER_URL;
-    LST_URL = DEV_LST_URL;
-  }
+if (DEVELOPMENT) {
+  URL_pre = SERVER_URL;
+  LST_URL = DEV_LST_URL;
+}
 // var tabid = getParameterByName('tabid');
 // var unit = "_cm";
 function loadtabs(stn, date, unit = "_cm") {
@@ -141,91 +140,85 @@ $(document).ready(function() {
   $("#tabs").tabs({
     heightStyle: 'fill'
   });
-  $('#selectbox').load(URL_pre + 'selectbox.html', function() {
-    // $("select2").select2();
-    // $('select').trigger('change.select2');
-    $('.select2').val(DEF_STATION).trigger('change');
 
-    $('#selectbox').on('select2:select', function(e) {
-      var data = e.params.data;
-      stn = data.id;
-      // update the address bar when selection in the dropdown has changed
-      history.pushState(null, '', window.location.pathname + "?stn=" + stn + window.location.hash);
+  var metaJSON = $.getJSON("http://localhost:8000/selectbox.json", function(data) {
+    $("#myselect2").select2({
+          placeholder:  {
+          // id: '2', // the value of the option
+          text: 'Search for a station...',
+        },
+          // selectOnClose: true,
+          sorter: data => data.sort((a, b) => a.text.localeCompare(b.text)),
+          tags: false,
+          // minimumInputLength: 3,
+          tokenSeparators: [',', ' '],
+          // ajax: {
+          //     dataType : "json",
+          //     url      : "states.json",
+          // },
+          data: data.results,
+
+          // matcher: matchCustom,
+      });
+
+      $('#myselect2').val(DEF_STATION).trigger('change');
+
+      $('#myselect2').on('select2:select', function(e) {
+        var data = e.params.data;
+        stn = data.id;
+        // update the address bar when selection in the dropdown has changed
+        history.pushState(null, '', window.location.pathname + "?stn=" + stn + window.location.hash);
+        loadtabs(stn, getCurrentDate());
+        // If request for json file with Metadata (below fails) there won't be
+        // another attempt to retrive the file again. Maybe should consider
+        // implementing that feature
+        populateMetaDataTables(stn, metaJSON.responseJSON);
+      });
+
+      var url = window.location.href;
+
+      // check if the url is a direct link and select the correct station in
+      // the dropdown menu
+      var url_pattern = url.split('?stn=');
+      if (url_pattern.length > 1) {
+        // adding another split based on '#' because we are adding #tidetab
+        // as a default tab.
+        stn = url_pattern[1].split('#')[0];
+        $('#myselect2').val(stn).trigger('change');
+      } else {
+        stn = $("select").val();
+        // Updated the address bar when first landing on page
+        history.pushState(null, '', window.location.pathname + "?stn=" + DEF_STATION + window.location.hash);
+      }
+
+      // Request json file with Metadata
+      metaJSON = $.getJSON("https://uhslc.soest.hawaii.edu/data/meta.geojson", function(data) {
+          // request succeeded
+          populateMetaDataTables(stn, data)
+          // loadMetaDataTables(stn);
+        })
+        .fail(function(jqXHR, textStatus, errorThrown) {
+          alert('Metadata request failed! ' + textStatus);
+
+        })
+        .always(function() {
+          // request ended
+        });
       loadtabs(stn, getCurrentDate());
-      // If request for json file with Metadata (below fails) there won't be
-      // another attempt to retrive the file again. Maybe should consider
-      // implementing that feature
-      populateMetaDataTables(stn, metaJSON.responseJSON);
+      $('#datepicker').datepicker('update', getCurrentDate());
+    })
+    .fail(function(jqXHR, textStatus, errorThrown) {
+      alert('Failed to retrieve stations list! ' + textStatus);
+
+    })
+    .always(function() {
+      // request ended
     });
 
-    var url = window.location.href;
-
-    // check if the url is a direct link and select the correct station in
-    // the dropdown menu
-    var url_pattern = url.split('?stn=');
-    if (url_pattern.length > 1) {
-      // adding another split based on '#' because we are adding #tidetab
-      // as a default tab.
-      stn = url_pattern[1].split('#')[0];
-      $('.select2').val(stn).trigger('change');
-    } else {
-      stn = $("select").val();
-      // Updated the address bar when first landing on page
-      history.pushState(null, '', window.location.pathname + "?stn=" + DEF_STATION + window.location.hash);
-    }
-
-    // Request json file with Metadata
-    metaJSON = $.getJSON("https://uhslc.soest.hawaii.edu/data/meta.geojson", function(data) {
-        // request succeeded
-        populateMetaDataTables(stn, data)
-        // loadMetaDataTables(stn);
-      })
-      .fail(function(jqXHR, textStatus, errorThrown) {
-        alert('Metadata request failed! ' + textStatus);
-
-      })
-      .always(function() {
-        // request ended
-      });
-    loadtabs(stn, getCurrentDate());
-    //        $('#datumtable').load('fd001/datumTable_001.html');
-    //         $('#datumgraphic').append("<img src='fd001/d001.png' />");
-
-    // Adding a placeholder to the select2 search field as per
-    // https://github.com/select2/select2/issues/3362
-    (function($) {
-
-      var Defaults = $.fn.select2.amd.require('select2/defaults');
-
-      $.extend(Defaults.defaults, {
-        searchInputPlaceholder: ''
-      });
-
-      var SearchDropdown = $.fn.select2.amd.require('select2/dropdown/search');
-
-      var _renderSearchDropdown = SearchDropdown.prototype.render;
-
-      SearchDropdown.prototype.render = function(decorated) {
-
-        // invoke parent method
-        var $rendered = _renderSearchDropdown.apply(this, Array.prototype.slice.apply(arguments));
-
-        this.$search.attr('placeholder', this.options.get('searchInputPlaceholder'));
-
-        return $rendered;
-      };
-
-    })(window.jQuery);
-    //Call date picker so that the current month is highlighted
-    $('#datepicker').datepicker('update', getCurrentDate());
-    $(".select2").select2({
-      searchInputPlaceholder: 'Search for a station...'
-    });
   });
-});
 
 function unitButtonsController(hash) {
-  console.log("HASH IS "+hash);
+  console.log("HASH IS " + hash);
   if (hash === "#tidecal" || hash === "#datums") {
     $('#timeToggle').disable = true;
     document.getElementById("timeToggle").disabled = true;
@@ -236,7 +229,7 @@ function unitButtonsController(hash) {
   }
 
   var x = document.getElementsByClassName("datum");
-  for (var i = 0; i<x.length; i++){
+  for (var i = 0; i < x.length; i++) {
     if (hash === "#tidecal" || hash === "#datums") {
       x[i].style.opacity = "0.2";
     } else {
@@ -245,15 +238,15 @@ function unitButtonsController(hash) {
   }
 
   var y = document.getElementsByClassName("tz");
-  for (var i = 0; i<y.length; i++){
-    if (hash === "#tidecal" || hash === "#datums" || hash ==="#climatology") {
+  for (var i = 0; i < y.length; i++) {
+    if (hash === "#tidecal" || hash === "#datums" || hash === "#climatology") {
       y[i].style.opacity = "0.2";
     } else {
       y[i].style.opacity = "1.0";
     }
   }
 
-  if (hash === "#climatology"){
+  if (hash === "#climatology") {
     // document.getElementById("timeToggle").style.opacity = "0.2";
     $('#timeToggle').disable = true;
     document.getElementById("timeToggle").disabled = true;
@@ -265,7 +258,7 @@ function populateMetaDataTables(stnID, jsondata) {
   var basin = metadata.properties.rq_basin;
   var glossID = metadata.properties.gloss_id;
   var version = Object.keys(metadata.properties.rq_versions).pop();
-  if(glossID == 0){
+  if (glossID == 0) {
     glossID = "N/A";
   }
   $("#metaName").html(metadata.properties.name);
@@ -285,9 +278,9 @@ function populateMetaDataTables(stnID, jsondata) {
   );
 
   $("#researchD").html(
-    "<a href=\"https://uhslc.soest.hawaii.edu/rqds/"+basin+"/daily/d" + stnID + version + '.dat' + "\">" + ".dat" + "<\a>" +
-    "<a href=\"https://uhslc.soest.hawaii.edu/data/csv/rqds/"+basin+"/daily/d" + stnID + version + '.csv' + "\">" + " .csv" + "<\a>" +
-    "<a target=\"_blank\" href=\"https://uhslc.soest.hawaii.edu/opendap/rqds/"+basin+"/daily/d" + stnID + version + '.nc.html' + "\">" + " .nc" + "<\a>"
+    "<a href=\"https://uhslc.soest.hawaii.edu/rqds/" + basin + "/daily/d" + stnID + version + '.dat' + "\">" + ".dat" + "<\a>" +
+    "<a href=\"https://uhslc.soest.hawaii.edu/data/csv/rqds/" + basin + "/daily/d" + stnID + version + '.csv' + "\">" + " .csv" + "<\a>" +
+    "<a target=\"_blank\" href=\"https://uhslc.soest.hawaii.edu/opendap/rqds/" + basin + "/daily/d" + stnID + version + '.nc.html' + "\">" + " .nc" + "<\a>"
     // "<a href=\"https://uhslc.soest.hawaii.edu/woce/d" + stnID + 'a.nc' + "\">" + " .nc(old)" + "<\a>"
   );
 
@@ -300,12 +293,12 @@ function populateMetaDataTables(stnID, jsondata) {
   );
 
   $("#researchH").html(
-    "<a href=\"https://uhslc.soest.hawaii.edu/rqds/"+basin+"/daily/d" + stnID + version + '.dat' + "\">" + ".dat" + "<\a>" +
-    "<a href=\"https://uhslc.soest.hawaii.edu/data/csv/rqds/"+basin+"/hourly/h" + stnID + version + '.csv' + "\">" + " .csv" + "<\a>" +
-    "<a target=\"_blank\" href=\"https://uhslc.soest.hawaii.edu/opendap/rqds/"+basin+"/hourly/h" + stnID + version + '.nc.html' + "\">" + " .nc" + "<\a>"
+    "<a href=\"https://uhslc.soest.hawaii.edu/rqds/" + basin + "/daily/d" + stnID + version + '.dat' + "\">" + ".dat" + "<\a>" +
+    "<a href=\"https://uhslc.soest.hawaii.edu/data/csv/rqds/" + basin + "/hourly/h" + stnID + version + '.csv' + "\">" + " .csv" + "<\a>" +
+    "<a target=\"_blank\" href=\"https://uhslc.soest.hawaii.edu/opendap/rqds/" + basin + "/hourly/h" + stnID + version + '.nc.html' + "\">" + " .nc" + "<\a>"
     // "<a href=\"https://uhslc.soest.hawaii.edu/woce/d" + stnID + 'a.nc' + "\">" + " .nc(old)" + "<\a>"
   );
 
   $("#metadata").html(
-    "<a target=\"_blank\" href=\"https://uhslc.soest.hawaii.edu/rqds/"+basin+"/doc/qa" + stnID + version + '.dmt' + "\">" + "<strong>METADATA</strong>" + "<\a>");
+    "<a target=\"_blank\" href=\"https://uhslc.soest.hawaii.edu/rqds/" + basin + "/doc/qa" + stnID + version + '.dmt' + "\">" + "<strong>METADATA</strong>" + "<\a>");
 }
