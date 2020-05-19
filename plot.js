@@ -199,6 +199,7 @@ function plotData(_stn) {
             autorange: true,
             range: [0, 1000],
             type: 'linear',
+            hoverformat: ".2f"
           },
           legend: {
             xanchor: "center",
@@ -253,7 +254,8 @@ function plotData(_stn) {
             title: yLabel2,
             autorange: true,
             range: [0, 1000],
-            type: 'linear'
+            type: 'linear',
+            hoverformat: ".2f"
           },
           legend: {
             xanchor: "center",

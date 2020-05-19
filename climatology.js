@@ -206,7 +206,7 @@ function plotClimateData(_stn) {
         // x: timeRange,
         x: ALL_DAYS,
         y: unpack(rows, 'Avg_High', currentUnit, currentDatum, MLLW, MHHW, LST),
-        hovertemplate: '%{y:.3f} <extra>Average High</extra>',
+        hovertemplate: '%{y:.2f} <extra>Average High</extra>',
         line: {
           color: AVERAGE_HIGH_COLOR,
           dash: 'solid'
@@ -227,7 +227,7 @@ function plotClimateData(_stn) {
         line: {
           color: RECORD_LOW_COLOR
         },
-        hovertemplate: '%{y:.3f}: %{text}',
+        hovertemplate: '%{y:.2f}: %{text}',
         text: trace_yearRL.y,
         visible: true,
         stackgroup: null
@@ -263,7 +263,7 @@ function plotClimateData(_stn) {
         line: {
           color: RECORD_HIGH_COLOR
         },
-        hovertemplate: '%{y:.3f}: %{text} <extra>Record High</extra>',
+        hovertemplate: '%{y:.2f}: %{text} <extra>Record High</extra>',
         text: trace_yearRH.y,
         visible: true,
         stackgroup: null
@@ -351,7 +351,7 @@ function plotClimateData(_stn) {
         },
         yaxis: {
           title: yLabel1,
-          hoverformat: ".1f",
+          hoverformat: ".2f",
           // title: {
           //   text: 'Water level above station zero (cm)'
           // },
@@ -611,7 +611,7 @@ function plotClimateData(_stn) {
         // x: timeRange,
         x: timeRange,
         y: unpack(rows, 'Avg_High', currentUnit, currentDatum, MLLW, MHHW, LST),
-        hovertemplate: '%{y:.3f}: <extra>Average High</extra>',
+        hovertemplate: '%{y:.2f}: <extra>Average High</extra>',
         line: {
           color: AVERAGE_HIGH_COLOR,
           dash: 'solid'
@@ -632,7 +632,7 @@ function plotClimateData(_stn) {
         line: {
           color: RECORD_LOW_COLOR
         },
-        hovertemplate: '%{y:.3f}: %{text}',
+        hovertemplate: '%{y:.2f}: %{text}',
         text: trace_yearRL.y,
         visible: true,
         stackgroup: null
@@ -669,7 +669,7 @@ function plotClimateData(_stn) {
         line: {
           color: RECORD_HIGH_COLOR
         },
-        hovertemplate: '%{y:.3f}: %{text} <extra>Record High</extra>',
+        hovertemplate: '%{y:.2f}: %{text} <extra>Record High</extra>',
         text: trace_yearRH.y,
         visible: true,
         stackgroup: null
@@ -742,7 +742,7 @@ function plotClimateData(_stn) {
         },
         yaxis: {
           title: yLabel1,
-          hoverformat: ".1f",
+          hoverformat: ".2f",
           // title: {
           //   text: 'Water level above station zero (cm)'
           // },
@@ -886,7 +886,7 @@ function plotClimateData(_stn) {
         line: {
           color: RECORD_LOW_COLOR
         },
-        hovertemplate: '%{y:.3f}: <extra>%{text} Record Low</extra>',
+        hovertemplate: '%{y:.2f}: <extra>%{text} Record Low</extra>',
         text: trace_yearRL.y,
         visible: true,
         stackgroup: null
@@ -919,7 +919,7 @@ function plotClimateData(_stn) {
         line: {
           color: RECORD_HIGH_COLOR
         },
-        hovertemplate: '%{y:.3f}: <extra>%{text} Record High</extra>',
+        hovertemplate: '%{y:.2f}: <extra>%{text} Record High</extra>',
         text: trace_yearRH.y,
         stackgroup: null
       };
@@ -980,7 +980,7 @@ function plotClimateData(_stn) {
         },
         yaxis: {
           title: yLabel1,
-          hoverformat: ".1f",
+          hoverformat: ".2f",
           // title: {
           //   text: 'Water level above station zero (cm)'
           // },
