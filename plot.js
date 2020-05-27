@@ -38,23 +38,23 @@ function plotData(_stn) {
               if (key === "time_zone") {
                 return row[key];
               } else {
-                return row[key]/100.0;
+                return row[key]/1.0;
               }
             } else {
               if (unit && datum) {
                 //Do nothing
                 // console.log("NO conversion on station change");
-                return row[key]/100.0;
+                return row[key]/1.0;
               } else if (!unit && datum) {
                 //convert units to english with default datum
                 // console.log("Convert only units on station change");
-                return row[key] * 0.0328084;
+                return row[key] * 3.28084;
               } else if (unit && !datum) {
                 // console.log("Convert only datum on station change");
-                return (row[key]/100.0 * 1 + (ml - mh));
+                return (row[key]/1.0 * 1 + (ml - mh));
               } else {
                 // console.log("Convert both units and datum on station change");
-                return (row[key] * 1 + (ml - mh)) * 0.0328084;
+                return (row[key] * 1 + (ml - mh)) * 3.28084;
               }
             }
 
