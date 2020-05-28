@@ -1130,7 +1130,7 @@ function plotClimateData(_stn) {
     var color = defaultColors[offset];
 
     if (item != "") {
-      Plotly.addTraces("climateDaily", createNewTrace(item.toString().trim(), dailyData, ' high', color));
+      Plotly.addTraces("climateDaily", createNewTrace(item.toString().trim(), dailyData, ' High', color));
       Plotly.addTraces("extremeMonthly", createNewTrace(item.toString().trim(), monthlyHrData, ' Monthly Mean', color));
       Plotly.addTraces("climateMonthly", createNewTrace(item.toString().trim(), monthlyData, ' Monthly Mean', color));
     }
@@ -1175,7 +1175,7 @@ function plotClimateData(_stn) {
     // TODO: this is just for testing
     // make createNewTrace accept 'daily' or 'monthly' string, istead of doing
     // the check based on legend text
-    if (legendText == ' high')
+    if (legendText == ' High')
       trace.x = ALL_DAYS;
     else
       trace.x = range(1, 12);
