@@ -6,19 +6,19 @@ var stn = null;
 var URL_pre = "";
 var DEF_STATION = "007";
 var metaJSON = null;
-var LST_URL = "LST/";
+var LST_URL = "TIDES_DATUMS/fd/LST/";
 
 if (DEVELOPMENT) {
   URL_pre = SERVER_URL;
   LST_URL = DEV_LST_URL;
 }
 // var tabid = getParameterByName('tabid');
-// var unit = "_cm";
-function loadtabs(stn, date, unit = "_cm") {
+// var unit = "_m";
+function loadtabs(stn, date, unit = "_m") {
   // For a full list of event types: https://developer.mozilla.org/en-US/docs/Web/API/document.createEvent
 
   if (!$('#unitToggle').prop("checked")) {
-    unit = "_cm";
+    unit = "_m";
   } else {
     unit = "_ft";
   }
@@ -64,9 +64,9 @@ function findIndexByStnID(jsonobj, stnID) {
   });
 }
 
-function loadTide(stn, date, unit = "_cm") {
+function loadTide(stn, date, unit = "_m") {
   if (!$('#unitToggle').prop("checked")) {
-    unit = "_cm";
+    unit = "_m";
   } else {
     unit = "_ft";
   }
