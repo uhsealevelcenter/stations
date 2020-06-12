@@ -7,6 +7,9 @@ var URL_pre = "";
 var DEF_STATION = "007";
 var metaJSON = null;
 var LST_URL = "TIDES_DATUMS/fd/LST/";
+var NOS_STATIONS = ["755", "051", "574", "569", "558", "560", "551", "595", "039", "060", "245", "050", "242", "579",
+  "260", "556", "559", "259", "061", "059", "264", "554", "056", "261", "057", "570", "571", "040", "762", "053", "592",
+  "058", "552", "767", "775", "253", "752", "041", "055"];
 
 if (DEVELOPMENT) {
   URL_pre = SERVER_URL;
@@ -29,12 +32,27 @@ function loadtabs(stn, date, unit = "_m") {
       plotData(stn);
       loadTide(stn, date);
       plotClimateData(stn);
-      $("#datumtable").html(result);
-      $("#datumgraphic").empty().append("<a href=" + LST_URL + "fd" + stn + "/d" + stn + unit + ".png target='_blank'><img class='img-responsive' src=" + LST_URL + "fd" + stn + "/d" + stn + unit + ".png /></a><p align='center'>[click image to view full size]</p>");
-      $("#datumgraphic").append("<p align=\"justify\">Values are with respect to the <a href=\"https://uhslc.soest.hawaii.edu/datainfo/#22e7eb0370441bb3e\">Station Datum</a>, or zero reference level for the tide gauge, as indicated in the table.</p>");
-      $("#tabs").tabs("destroy");
-      $("#tabs").tabs();
-      // $( "#tabs" ).tabs({ active: tabid });
+      if(NOS_STATIONS.includes(stn)){
+        $("#datumtable").empty();
+        $("#datumgraphic").empty();
+        $("#predcal").empty();
+        $("#predtable").empty();
+
+        // Populate empty elements with text
+        $("#datumtable").html("Datum table for station " + stn + " does not exist");
+        $("#datumgraphic").html("Datum graphic for station " + stn + " does not exist");
+        $("#predcal").html("Graphical tide calendar for station " + stn + " does not exist");
+        $("#predtable").html("Text calendar for station " + stn + " does not exist");
+      }else{
+          $("#datumtable").html(result);
+          $("#datumgraphic").empty().append("<a href=" + LST_URL + "fd" + stn + "/d" + stn + unit + ".png target='_blank'><img class='img-responsive' src=" + LST_URL + "fd" + stn + "/d" + stn + unit + ".png /></a><p align='center'>[click image to view full size]</p>");
+          $("#datumgraphic").append("<p align=\"justify\">Values are with respect to the <a href=\"https://uhslc.soest.hawaii.edu/datainfo/#22e7eb0370441bb3e\">Station Datum</a>, or zero reference level for the tide gauge, as indicated in the table.</p>");
+          $("#tabs").tabs("destroy");
+          $("#tabs").tabs();
+          // $( "#tabs" ).tabs({ active: tabid });
+      }
+
+
     },
     error: function(xhr, ajaxOptions, thrownError) {
       if (stn) {
@@ -72,8 +90,17 @@ function loadTide(stn, date, unit = "_m") {
   }
   $.get(LST_URL + "fd" + stn + '/p' + stn + '_' + date + unit + '.png')
     .done(function() {
-      $("#predcal").empty().append("<img class='img-responsive' src=" + LST_URL + "fd" + stn + '/p' + stn + '_' + date + unit + '.png />');
-      $("#predtable").load(LST_URL + "fd" + stn + '/t' + stn + '_' + date + unit + '.txt');
+       if(NOS_STATIONS.includes(stn)) {
+          $("#predcal").empty().append("The data for the selected time period doesn't exist");
+          $("#predtable").empty().append("The data for the selected time period doesn't exist")
+         $("#plot-btn").hide();
+          $("#text-btn").hide();
+       }else{
+          $("#predcal").empty().append("<img class='img-responsive' src=" + LST_URL + "fd" + stn + '/p' + stn + '_' + date + unit + '.png />');
+          $("#predtable").load(LST_URL + "fd" + stn + '/t' + stn + '_' + date + unit + '.txt');
+          $("#plot-btn").show();
+          $("#text-btn").show();
+       }
     }).fail(function() {
       $("#predcal").empty().append("The data for the selected time period doesn't exist");
       $("#predtable").empty().append("The data for the selected time period doesn't exist")
