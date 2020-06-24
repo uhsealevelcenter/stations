@@ -30,6 +30,28 @@ var defaultColors = [
 
 var DATA_START, DATA_END;
 
+ var modeBar_config = {
+        displayModeBar: true,
+        responsive: true,
+        displaylogo: false,
+        modeBarButtonsToAdd: [{
+            name: 'Help',
+            icon: Plotly.Icons.question,
+            click: function(gd) {
+              $('#dataRangeText').click();
+              // $('[data-title="Help"]').popover({title: "Header", content: "Blabla", container: "", placement: "auto"});
+              // $('[data-title="Help"]').click();
+              // myTest();
+
+              // alert("Help clicked");
+            }
+          },
+        ],
+        modeBarButtonsToRemove: ['select2d', 'lasso2d', 'autoScale2d',
+          'zoomIn2d', 'zoomOut2d', 'toggleSpikelines', 'hoverClosestCartesian', 'hoverCompareCartesian'
+        ]
+      }
+
 function plotClimateData(_stn) {
 
   var dailyData = null;
@@ -376,27 +398,7 @@ function plotClimateData(_stn) {
         },
       };
 
-      var config = {
-        displayModeBar: true,
-        responsive: true,
-        displaylogo: false,
-        modeBarButtonsToAdd: [{
-            name: 'Help',
-            icon: Plotly.Icons.question,
-            click: function(gd) {
-              $('#dataRangeText').click();
-              // $('[data-title="Help"]').popover({title: "Header", content: "Blabla", container: "", placement: "auto"});
-              // $('[data-title="Help"]').click();
-              // myTest();
 
-              // alert("Help clicked");
-            }
-          },
-        ],
-        modeBarButtonsToRemove: ['select2d', 'lasso2d', 'autoScale2d',
-          'zoomIn2d', 'zoomOut2d', 'toggleSpikelines', 'hoverClosestCartesian', 'hoverCompareCartesian'
-        ]
-      }
 // <a href="#" data-toggle="popover" title="Popover Header" data-content="Some content inside the popover"></a>
       function myTest(){
         console.log("My TEST CALLED");
@@ -413,7 +415,7 @@ function plotClimateData(_stn) {
       var myPlot = document.getElementById('climateDaily');
 
 
-      Plotly.newPlot('climateDaily', data123, layout123, config);
+      Plotly.newPlot('climateDaily', data123, layout123, modeBar_config);
 
       myPlot.on('plotly_legendclick', function(data) {
         console.log("legend " + data.curveNumber);
@@ -769,10 +771,7 @@ function plotClimateData(_stn) {
       var myPlot = document.getElementById('extremeMonthly');
 
 
-      Plotly.newPlot('extremeMonthly', data123, layout123, {
-        displayModeBar: false,
-        responsive: true
-      });
+      Plotly.newPlot('extremeMonthly', data123, layout123, modeBar_config);
 
       // myPlot.on('plotly_legendclick',function(data) {
       //   console.log("legend "+data.curveNumber);
@@ -1006,10 +1005,7 @@ function plotClimateData(_stn) {
       };
 
       var myPlot = document.getElementById('climateMonthly');
-      Plotly.newPlot('climateMonthly', data123, layout123, {
-        displayModeBar: false,
-        responsive: true
-      });
+      Plotly.newPlot('climateMonthly', data123, layout123, modeBar_config);
 
       // myPlot.on('plotly_legendclick',function(data) {
       //   console.log("legend "+data.curveNumber);
