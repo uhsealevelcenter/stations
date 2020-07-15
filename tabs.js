@@ -251,6 +251,8 @@ function unitButtonsController(hash) {
     document.getElementById("timeToggle").disabled = true;
     document.getElementById("datumToggle").disabled = true;
   } else {
+    if($('#timeToggle').prop("checked"))
+      $('#timeToggle').click();
     document.getElementById("timeToggle").disabled = false;
     document.getElementById("datumToggle").disabled = false;
   }
