@@ -13,7 +13,7 @@ function plotData(_stn) {
           // $("#product_desc").hide();
           // return;
         } else {
-          $("#tideplot1").empty();
+          // $("#tideplot1").empty();
         }
         if (typeof rows != 'undefined') {
           return rows.map(function(row) {
@@ -345,7 +345,7 @@ function plotData(_stn) {
       }
 
       function updateTime(tz) {
-        // console.log("TIMEZONE "+tz);
+        console.log("TIMEZONE "+tz);
         var xLabel = getXLabel(tz, LST);
         var tv = {
           x: [unpack(rows, 'Time', currentUnit, currentDatum, MLLW, MHHW, LST, tz)]
@@ -379,6 +379,8 @@ function plotData(_stn) {
             type: 'date'
           },
         }
+        console.log("TV ", tv);
+        console.log("xLabel ", xLabel);
         Plotly.update('tideplot1', tv, update);
         Plotly.update('tideplot2', tv, update);
       }
