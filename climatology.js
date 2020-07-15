@@ -127,7 +127,7 @@ function plotClimateData(_stn) {
   // for datum it is opposite because we changed the default datum to MHHW
   var currentUnit = !$('#unitToggle').prop("checked");
   var currentDatum = $('#datumToggle').prop("checked");
-  var currentTZ = !$('#timeToggle').prop("checked");
+  // var currentTZ = !$('#timeToggle').prop("checked");
 
   var unitYlabel = getYLabel(currentUnit, currentDatum).unit;
   var datumYlabel = getYLabel(currentUnit, currentDatum).datum;
@@ -1151,7 +1151,7 @@ function plotClimateData(_stn) {
   function createNewTrace(year, data, legendText, timeVector, color) {
     var currentUnit = !$('#unitToggle').prop("checked");
     var currentDatum = $('#datumToggle').prop("checked");
-    var currentTZ = !$('#timeToggle').prop("checked");
+    // var currentTZ = !$('#timeToggle').prop("checked");
     var MLLW = parseFloat(unpack(data, 'MLLW_NTDE', currentUnit, currentDatum)[0]);
     var MHHW = parseFloat(unpack(data, 'MHHW_NTDE', currentUnit, currentDatum)[0]);
     var LST = parseFloat(unpack(data, 'time_zone', currentUnit, currentDatum)[0]);
@@ -1176,7 +1176,7 @@ function plotClimateData(_stn) {
 
 $('#yearsBox').keyup(function(event) {
   var keycode = (event.keyCode ? event.keyCode : event.which);
-  console.log((keycode));
+  // console.log((keycode));
   if (keycode == '13') {
     plotClimateData.addYears();
   } else {
