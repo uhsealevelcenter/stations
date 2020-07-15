@@ -1126,9 +1126,9 @@ function plotClimateData(_stn) {
     var color = defaultColors[offset];
 
     if (item != "") {
-      Plotly.addTraces("climateDaily", createNewTrace(item.toString().trim(), dailyData, ' High', color));
-      Plotly.addTraces("extremeMonthly", createNewTrace(item.toString().trim(), monthlyHrData, ' Monthly Mean', color));
-      Plotly.addTraces("climateMonthly", createNewTrace(item.toString().trim(), monthlyData, ' Monthly Mean', color));
+      Plotly.addTraces("climateDaily", createNewTrace(item.toString().trim(), dailyData, ' High', ALL_DAYS, color));
+      Plotly.addTraces("extremeMonthly", createNewTrace(item.toString().trim(), monthlyHrData, ' High', range(1, 12), color));
+      Plotly.addTraces("climateMonthly", createNewTrace(item.toString().trim(), monthlyData, ' Monthly Mean', range(1, 12), color));
     }
   }
 
@@ -1148,7 +1148,7 @@ function plotClimateData(_stn) {
     document.getElementById("inputMessage").innerText = "";
   }
 
-  function createNewTrace(year, data, legendText, color) {
+  function createNewTrace(year, data, legendText, timeVector, color) {
     var currentUnit = !$('#unitToggle').prop("checked");
     var currentDatum = $('#datumToggle').prop("checked");
     var currentTZ = !$('#timeToggle').prop("checked");
@@ -1160,7 +1160,7 @@ function plotClimateData(_stn) {
       mode: 'lines',
       name: year + legendText,
       type: 'scatter',
-      x: [],
+      x: timeVector,
       y: unpack(data, year, currentUnit, currentDatum, MLLW, MHHW, LST),
       stackgroup: null,
       line: {
@@ -1168,13 +1168,6 @@ function plotClimateData(_stn) {
         width: 4
       }
     };
-    // TODO: this is just for testing
-    // make createNewTrace accept 'daily' or 'monthly' string, istead of doing
-    // the check based on legend text
-    if (legendText == ' High')
-      trace.x = ALL_DAYS;
-    else
-      trace.x = range(1, 12);
 
     return trace;
   }
