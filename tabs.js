@@ -246,20 +246,20 @@ $(document).ready(function() {
 
 function unitButtonsController(hash) {
   console.log("HASH IS " + hash);
-  if (hash === "#tidecal" || hash === "#datums") {
-    $('#timeToggle').disable = true;
-    document.getElementById("timeToggle").disabled = true;
-    document.getElementById("datumToggle").disabled = true;
-  } else {
-    if($('#timeToggle').prop("checked"))
-      $('#timeToggle').click();
-    document.getElementById("timeToggle").disabled = false;
-    document.getElementById("datumToggle").disabled = false;
+
+  // Set the button opacities based on currently active tab
+  var a = document.getElementsByClassName("units");
+  for (var i = 0; i < a.length; i++) {
+    if (hash === "#benchmarks") {
+      a[i].style.opacity = "0.2";
+    } else {
+      a[i].style.opacity = "1.0";
+    }
   }
 
   var x = document.getElementsByClassName("datum");
   for (var i = 0; i < x.length; i++) {
-    if (hash === "#tidecal" || hash === "#datums") {
+    if (hash === "#tidecal" || hash === "#datums" || hash === "#benchmarks") {
       x[i].style.opacity = "0.2";
     } else {
       x[i].style.opacity = "1.0";
@@ -268,18 +268,49 @@ function unitButtonsController(hash) {
 
   var y = document.getElementsByClassName("tz");
   for (var i = 0; i < y.length; i++) {
-    if (hash === "#tidecal" || hash === "#datums" || hash === "#climatology") {
-      y[i].style.opacity = "0.2";
-    } else {
+    if (hash === "#levels") {
       y[i].style.opacity = "1.0";
+    } else {
+      y[i].style.opacity = "0.2";
     }
   }
 
-  if (hash === "#climatology") {
-    // document.getElementById("timeToggle").style.opacity = "0.2";
-    $('#timeToggle').disable = true;
+  // Activate/Deactivate buttons based on currently active tab
+  if( hash === "#levels"){
+    document.getElementById("unitToggle").disabled = false;
+    document.getElementById("datumToggle").disabled = false;
+    document.getElementById("timeToggle").disabled = false;
+    if($('#timeToggle').prop("checked"))
+      $('#timeToggle').click();
+  }
+
+  if( hash === "#tidecal" || hash === "#datums"){
+    document.getElementById("unitToggle").disabled = false;
+    document.getElementById("datumToggle").disabled = true;
     document.getElementById("timeToggle").disabled = true;
   }
+
+  if( hash === "#climatology"){
+    // $('#timeToggle').disable = true;
+    document.getElementById("unitToggle").disabled = false;
+    document.getElementById("datumToggle").disabled = false;
+    // Need to temporarily activate the button in order to click it
+    document.getElementById("timeToggle").disabled = false;
+    if($('#timeToggle').prop("checked"))
+      $('#timeToggle').click();
+    document.getElementById("timeToggle").disabled = true;
+  }
+
+  if( hash === "#benchmarks"){
+    document.getElementById("unitToggle").disabled = true;
+    document.getElementById("datumToggle").disabled = true;
+    // Need to temporarily activate the button in order to click it
+    document.getElementById("timeToggle").disabled = false;
+    if($('#timeToggle').prop("checked"))
+      $('#timeToggle').click();
+    document.getElementById("timeToggle").disabled = true;
+  }
+
 }
 
 function populateMetaDataTables(stnID, jsondata) {
