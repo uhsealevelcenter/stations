@@ -53,7 +53,6 @@ var DATA_START, DATA_END;
       }
 
 function plotClimateData(_stn) {
-
   var dailyData = null;
   var monthlyHrData = null;
   var monthlyData = null;
@@ -99,21 +98,9 @@ function plotClimateData(_stn) {
           return row[key];
 
         } else {
-          if (unit && datum) {
-            //Do nothing
-            // console.log("Default unit and datum");
-            return row[key]/1.0 - ml;
-          } else if (!unit && datum) {
-            //convert units to english with default datum
-            // console.log("Convert only units on station change");
-            return row[key] * 3.28084;
-          } else if (unit && !datum) {
-            // console.log("Convert only datum on station change");
-            return (row[key]/1.0 * 1 - (mh));
-          } else {
-            // console.log("Convert both units and datum on station change");
-            return (row[key] * 1 - (mh)) * 3.28084;
-          }
+          var unitFactor = unit ? 1 : 3.28084;
+          var datumOffset = datum ? ml : mh;
+          return (row[key]-datumOffset) * unitFactor
         }
 
       });
