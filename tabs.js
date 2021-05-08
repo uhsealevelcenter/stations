@@ -13,7 +13,7 @@ var NOS_STATIONS = ["755", "051", "574", "569", "558", "560", "551", "595", "039
 
 if (DEVELOPMENT) {
   URL_pre = SERVER_URL;
-  LST_URL = DEV_LST_URL;
+  LST_URL = DEV_LST_URL+LST_URL;
 }
 // var tabid = getParameterByName('tabid');
 // var unit = "_m";
@@ -21,7 +21,7 @@ function loadtabs(stn, date, unit = "_m") {
   // For a full list of event types: https://developer.mozilla.org/en-US/docs/Web/API/document.createEvent
 
   if (!$('#unitToggle').prop("checked")) {
-    unit = "";
+    unit = "_m";
   } else {
     unit = "_ft";
   }
@@ -84,7 +84,7 @@ function findIndexByStnID(jsonobj, stnID) {
 
 function loadTide(stn, date, unit = "_m") {
   if (!$('#unitToggle').prop("checked")) {
-    unit = "_cm";
+    unit = "_m";
   } else {
     unit = "_ft";
   }
