@@ -21,7 +21,7 @@ function loadtabs(stn, date, unit = "_m") {
   // For a full list of event types: https://developer.mozilla.org/en-US/docs/Web/API/document.createEvent
 
   if (!$('#unitToggle').prop("checked")) {
-    unit = "_m";
+    unit = "";
   } else {
     unit = "_ft";
   }
@@ -84,7 +84,7 @@ function findIndexByStnID(jsonobj, stnID) {
 
 function loadTide(stn, date, unit = "_m") {
   if (!$('#unitToggle').prop("checked")) {
-    unit = "_m";
+    unit = "_cm";
   } else {
     unit = "_ft";
   }
