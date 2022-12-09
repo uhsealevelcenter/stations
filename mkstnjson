@@ -6,7 +6,7 @@
 # 
 #  ./mkstn > selectbox.json
 # 
-head -1 LST/fd*/datumTable_???.html | cut -d\> -f 4 | cut -d\< -f1 | sed -e '/^$/d' -e 's/_/\ /' -e 's/_/,\ /' > bar2
+head -1 TIDES_DATUMS/fd/LST/fd*/datumTable_???_m.html | cut -d\> -f 4 | cut -d\< -f1 | sed -e '/^$/d' -e 's/_/\ /' -e 's/_/,\ /' > bar2
 
 cat << '_EOF1'
 {
