@@ -169,7 +169,7 @@ $(document).ready(function() {
     heightStyle: 'fill'
   });
 
-  var metaJSON = $.getJSON("selectbox.json", function(data) {
+  var metaJSON = $.getJSON("https://uhslc.soest.hawaii.edu/metaapi/select2", function(data) {
     $("#myselect2").select2({
           placeholder:  {
           // id: '2', // the value of the option
