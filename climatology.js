@@ -185,7 +185,8 @@ function plotClimateData(_stn) {
           color: AVERAGE_LOW_COLOR,
           dash: 'solid'
         },
-        stackgroup: null
+        stackgroup: null,
+        connectgaps: true // Connect gaps in the data (7/3/2024, MJW)
       };
 
       var trace_ar = {
@@ -220,7 +221,8 @@ function plotClimateData(_stn) {
           color: AVERAGE_HIGH_COLOR,
           dash: 'solid'
         },
-        stackgroup: null
+        stackgroup: null,
+	connectgaps: true // Connect gaps in the data (7/3/2024, MJW)
       };
 
       var trace_rl = {
@@ -239,7 +241,8 @@ function plotClimateData(_stn) {
         hovertemplate: '%{y:.2f}: %{text}',
         text: trace_yearRL.y,
         visible: true,
-        stackgroup: null
+        stackgroup: null,
+	connectgaps: true // Connect gaps in the data (7/3/2024, MJW)
       };
 
       var trace_rr = {
@@ -275,7 +278,8 @@ function plotClimateData(_stn) {
         hovertemplate: '%{y:.2f}: %{text} <extra>Record High</extra>',
         text: trace_yearRH.y,
         visible: true,
-        stackgroup: null
+        stackgroup: null,
+	connectgaps: true // Connect gaps in the data (7/3/2024, MJW)
       };
 
       var trace_ad = {
@@ -571,7 +575,8 @@ function plotClimateData(_stn) {
           color: AVERAGE_LOW_COLOR,
           dash: 'solid'
         },
-        stackgroup: null
+        stackgroup: null,
+	connectgaps: true // Connect gaps in the data (7/3/2024, MJW)
       };
 
       var trace_ar = {
@@ -605,7 +610,8 @@ function plotClimateData(_stn) {
           color: AVERAGE_HIGH_COLOR,
           dash: 'solid'
         },
-        stackgroup: null
+        stackgroup: null,
+	connectgaps: true // Connect gaps in the data (7/3/2024, MJW)
       };
 
       var trace_rl = {
@@ -624,7 +630,8 @@ function plotClimateData(_stn) {
         hovertemplate: '%{y:.2f}: %{text}',
         text: trace_yearRL.y,
         visible: true,
-        stackgroup: null
+        stackgroup: null,
+	connectgaps: true // Connect gaps in the data (7/3/2024, MJW)
       };
 
       var trace_rr = {
@@ -661,7 +668,8 @@ function plotClimateData(_stn) {
         hovertemplate: '%{y:.2f}: %{text} <extra>Record High</extra>',
         text: trace_yearRH.y,
         visible: true,
-        stackgroup: null
+        stackgroup: null,
+	connectgaps: true // Connect gaps in the data (7/3/2024, MJW)
       };
 
       var trace_ad = {
@@ -875,7 +883,8 @@ function plotClimateData(_stn) {
         hovertemplate: '%{y:.2f}: <extra>%{text} Record Low</extra>',
         text: trace_yearRL.y,
         visible: true,
-        stackgroup: null
+        stackgroup: null,
+	connectgaps: true // Connect gaps in the data (7/3/2024, MJW)
       };
 
       var trace_rr_m = {
@@ -907,7 +916,8 @@ function plotClimateData(_stn) {
         },
         hovertemplate: '%{y:.2f}: <extra>%{text} Record High</extra>',
         text: trace_yearRH.y,
-        stackgroup: null
+        stackgroup: null,
+	connectgaps: true // Connect gaps in the data (7/3/2024, MJW)
       };
 
 

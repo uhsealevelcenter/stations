@@ -6,7 +6,7 @@
 # 
 #  ./mkstn > selectbox.html
 # 
-head -1 fd*/datumTable_*.html | cut -d\> -f 4 | cut -d\< -f1 | sed -e '/^$/d' -e 's/_/\ /' -e 's/_/,\ /' > bar2
+head -1 fd*/datumTable_*cm.html | cut -d\> -f 4 | cut -d\< -f1 | sed -e '/^$/d' -e 's/_/\ /' -e 's/_/,\ /' > bar2
 
 cat << '_EOF1'
 <script type="text/javascript">

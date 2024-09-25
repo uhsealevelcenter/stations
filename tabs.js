@@ -7,9 +7,10 @@ var URL_pre = "";
 var DEF_STATION = "007";
 var metaJSON = null;
 var LST_URL = "TIDES_DATUMS/fd/LST/";
-var NOS_STATIONS = ["755", "051", "574", "569", "558", "560", "551", "595", "039", "060", "245", "050", "242", "579",
-  "260", "556", "559", "259", "061", "059", "264", "554", "056", "261", "057", "570", "571", "040", "762", "053", "592",
-  "058", "552", "767", "775", "253", "752", "041", "055"];
+var NOS_STATIONS = [];
+//var NOS_STATIONS = ["755", "051", "574", "569", "558", "560", "551", "595", "039", "060", "245", "050", "242", "579",
+//  "260", "556", "559", "259", "061", "059", "264", "554", "056", "261", "057", "570", "571", "040", "762", "053", "592",
+//  "058", "552", "767", "775", "253", "752", "041", "055"];
 
 if (DEVELOPMENT) {
   URL_pre = SERVER_URL;
@@ -168,7 +169,7 @@ $(document).ready(function() {
     heightStyle: 'fill'
   });
 
-  var metaJSON = $.getJSON("selectbox.json", function(data) {
+  var metaJSON = $.getJSON("https://uhslc.soest.hawaii.edu/metaapi/select2", function(data) {
     $("#myselect2").select2({
           placeholder:  {
           // id: '2', // the value of the option
@@ -286,7 +287,8 @@ function populateMetaDataTables(stnID, jsondata) {
   var metadata = jsondata.features[findIndexByStnID(jsondata, parseInt(stnID))];
   var basin = metadata.properties.rq_basin;
   var glossID = metadata.properties.gloss_id;
-  var version = Object.keys(metadata.properties.rq_versions).pop();
+  var version = Object.keys(metadata.properties.rq_versions ?? {}).pop() || '';
+  // var version = Object.keys(metadata.properties.rq_versions).pop();
   if (glossID == 0) {
     glossID = "N/A";
   }
