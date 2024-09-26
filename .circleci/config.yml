@@ -1,0 +1,45 @@
+version: 2.1
+
+# Define reusable commands
+commands:
+  add_ssh_keys_command:
+    steps:
+      - add_ssh_keys:
+          fingerprints:
+            - "SHA256:+IefsnQPRF7VDszrFZ/ThuXdfg0jGh8x+Il6yP1ij9c"
+
+jobs:
+  build:
+    docker:
+      - image: cimg/base:stable
+    steps:
+      - checkout
+      - run:
+          name: "Run tests"
+          command: |
+            echo "Run your tests here"
+
+  deploy:
+    machine:
+      enabled: true
+    steps:
+      - checkout
+      - add_ssh_keys_command
+      - run:
+          name: "Deploy to Server"
+          command: |
+            ssh -v -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP "cd $DEPLOY_DIRECTORY && git pull origin master"
+
+workflows:
+  build_and_deploy:
+    jobs:
+      - build:
+          filters:
+            branches:
+              only: master
+      - deploy:
+          requires:
+            - build
+          filters:
+            branches:
+              only: master
