@@ -8,3 +8,8 @@ config.js
 TIDES_DATUMS/
 PRED/
 bar2
+
+# for local development
+meta.geojson
+select2.json
+benchmark_photos/
