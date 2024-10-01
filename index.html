@@ -34,7 +34,7 @@
       <div class="col-sm-12">
         <div class="wrapper" id="tabs">
 
-          <div class="col-sm-12 no-right-pad">
+          <div class="col-sm-12 selection-area">
             <!-- <div class="" id="selectbox"></div> -->
 
            <div class="myselect col-sm-5">
@@ -43,7 +43,7 @@
                  <select id="myselect2"> </select>
             </label>
           </div>
-            <div class="scroller col-sm-7 no-right-pad">
+            <div class="scroller col-sm-7">
               <ul class="tab-list" style="display: none">
                 <li><a href="#benchmarks">Benchmarks</a></li>
                 <li><a href="#climatology">Climatology</a></li>
@@ -358,26 +358,32 @@
 
           <!-- tab5: benchmarks -->
           <div id="benchmarks" class="col-sm-12">
-              <div class="map-container row">
-                  <div id="map-panel">
+              <div id="no-benchmarks" class="is-hidden">Station map and benchmark data not available for this station.</div>
+              <div id="benchmark-content">
+                <h3>Station Map</h3>
+                <div class="map-container row">
+                    <div class="map-wrapper">
+                        <div id="map"></div>
+                    </div>
+                    <div id="map-panel">
                       <div class="panel-wrapper">
                           <div class="panel-item">
-                              <h3 id="benchmark-header" class="panel-header">Selected Benchmark</h3>
-                              <div id="current-benchmark"></div>
+                              <!-- <h3 id="benchmark-header" class="panel-header">Selected Benchmark</h3> -->
+                              <h3 id="current-benchmark"></h3>
                               <div id="coords">
                                 <img id="current-icon">
                                 <div id="current-coords"></div>
                               </div>
                           </div>
-                          <div id="select-message" class="panel-item is-hidden">
-                            <p><em>Select a benchmark from the map to view description and photos.</em></p>
+                          <div id="select-message" class="panel-item">
+                            <p><em>Click on map icons to view description and photos for station benchmarks.</em></p>
                           </div>
                           <div id="panel-description" class="panel-item">
-                              <h3 class="panel-header">Description</h3>
+                              <h4 class="panel-header">Description</h4>
                               <div id="current-description"></div>
                           </div>
                           <div id="photos" class="panel-item">
-                              <h3 class="panel-header" id="panel-photo-header">Photo(s)</h3>
+                              <h4 class="panel-header" id="panel-photo-header">Photo(s)</h4>
                               <div class="no-photos-message">No photos available at this site.</div>
                               <div id="photo-carousel" class="carousel slide" data-ride="carousel" data-interval="false">
                                   <div class="carousel-indicators">
@@ -398,27 +404,26 @@
                           </div>
                       </div>
                   </div>
-                  <div class="map-wrapper">
-                      <div id="map"></div>
-                  </div>
+                </div>
+                <div class="table-container">
+                    <h3>Benchmark Locations and Levels</h3>
+                    <table id="benchmark-table" class="table">
+                        <thead>
+                            <tr>
+                              <th scope="col">Benchmark</th>
+                              <th scope="col">Type</th>
+                              <th scope="col">Latitude</th>
+                              <th scope="col">Longitude</th>
+                              <th scope="col">Level above station zero (<span id="table-units">m</span>)</th>
+                              <th scope="col">Last surveyed</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                          </tbody>
+                    </table>
+                </div>
               </div>
-              <div class="table-container">
-                  <h3>All Station Benchmarks</h3>
-                  <table id="benchmark-table" class="table">
-                      <thead>
-                          <tr>
-                            <th scope="col">Benchmark</th>
-                            <th scope="col">Type</th>
-                            <th scope="col">Latitude</th>
-                            <th scope="col">Longitude</th>
-                            <th scope="col">Level above station zero (<span id="table-units">m</span>)</th>
-                            <th scope="col">Last surveyed</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                  </table>
-              </div>
+
 
           </div>
         </div>

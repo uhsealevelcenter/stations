@@ -82,6 +82,28 @@ basemapSwitch.onAdd = function (opts) {
 
 basemapSwitch.addTo(map);
 
+const mapLegend = L.control({ position: "topright" });
+
+mapLegend.onAdd = function () {
+  const legendContainer = L.DomUtil.create("div", "leaflet-bar map-legend");
+  const entries = [
+    { icon: "./images/station.svg", label: "Tide Gauge" },
+    { icon: "./images/benchmark.svg", label: "Benchmark" },
+    { icon: "./images/star-centered.svg", label: "Primary" },
+  ];
+
+  for (let i = 0; i < entries.length; i++) {
+    const entry = L.DomUtil.create("div", "", legendContainer);
+    const entryIcon = L.DomUtil.create("img", "legend-icon", entry);
+    entryIcon.src = entries[i].icon;
+    const entryLabel = L.DomUtil.create("div", "", entry);
+    entryLabel.innerHTML = entries[i].label;
+  }
+  return legendContainer;
+};
+
+mapLegend.addTo(map);
+
 // Add reset view/home button
 L.easyButton("fa fa-house fa-solid", () => {
   map.setView(initialPosition, initialZoom);
@@ -215,9 +237,9 @@ function updatePanel(currentBenchmarkSelection) {
   });
 
   if (currentEntry[0].properties.type == "station") {
-    document.getElementById("benchmark-header").classList.add("is-hidden");
+    // document.getElementById("benchmark-header").classList.add("is-hidden");
     document.getElementById("panel-description").classList.add("is-hidden");
-    // document.getElementById("select-message").classList.remove("is-hidden");
+    document.getElementById("select-message").classList.remove("is-hidden");
     // document.getElementById("panel-photo-header").innerHTML =
     //   "Station Photo(s)";
     // const country = document.getElementById("panel-country");
@@ -229,13 +251,13 @@ function updatePanel(currentBenchmarkSelection) {
       currentEntry[0].properties.name + " Tide Gauge";
 
     const currentIcon = document.getElementById("current-icon");
-    currentIcon.src = "./images/station-selected.svg";
+    currentIcon.src = "./images/gray-icon.svg";
     const coords = document.getElementById("current-coords");
     coords.innerHTML = `${currentEntry[0].properties.lat}, ${currentEntry[0].properties.lon}`;
   } else {
     // document.getElementById("panel-country").classList.add("is-hidden");
-    // document.getElementById("select-message").classList.add("is-hidden");
-    document.getElementById("benchmark-header").classList.remove("is-hidden");
+    document.getElementById("select-message").classList.add("is-hidden");
+    // document.getElementById("benchmark-header").classList.remove("is-hidden");
     document.getElementById("panel-description").classList.remove("is-hidden");
     // document.getElementById("panel-photo-header").innerHTML = "Photo(s)";
 
@@ -245,9 +267,11 @@ function updatePanel(currentBenchmarkSelection) {
     }`;
 
     const currentIcon = document.getElementById("current-icon");
-    currentIcon.src = currentEntry[0].properties.primary
-      ? "./images/benchmark-selected-primary.svg"
-      : "./images/benchmark-selected.svg";
+    // currentIcon.src = currentEntry[0].properties.primary
+    //   ? "./images/benchmark-selected-primary.svg"
+    //   : "./images/benchmark-selected.svg";
+    currentIcon.src = "./images/gray-icon.svg";
+    currentIcon.setAttribute("alt", "location icon");
     const coords = document.getElementById("current-coords");
     coords.innerHTML = `${currentEntry[0].properties.lat}, ${currentEntry[0].properties.lon}`;
 
@@ -433,19 +457,17 @@ async function populateBenchmarkPage() {
     new Set(benchmarkData.features.map((a) => a.properties.uhslc_id_fmt))
   );
   if (!availableStations.includes(stn)) {
-    // display no benchmark message
-    // hide everything else
+    document.getElementById("no-benchmarks").classList.remove("is-hidden");
+    document.getElementById("benchmark-content").classList.add("is-hidden");
   } else {
-    // Set station from url
-    // let params = new URLSearchParams(window.location.search);
-    // currentStation = params.get("stn");
+    document.getElementById("no-benchmarks").classList.add("is-hidden");
+    document.getElementById("benchmark-content").classList.remove("is-hidden");
+
     currentBenchmarkSelection = setDefaultSelection();
-    useEnglishUnits = !document.getElementById("unitToggle").checked;
+    useEnglishUnits = document.getElementById("unitToggle").checked;
 
     refreshMap();
     updatePanel(currentBenchmarkSelection);
     populateTable(useEnglishUnits);
   }
 }
-
-// Respond to station (url) change and unit switch change

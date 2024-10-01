@@ -8,6 +8,7 @@ config.js
 TIDES_DATUMS/
 PRED/
 bar2
+.DS_Store
 
 # for local development
 meta.geojson

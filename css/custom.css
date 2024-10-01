@@ -270,6 +270,10 @@ div#datums.ui-tabs-panel {
   padding-top: 10px;
 }
 
+.selection-area, .scroller{
+  padding-right: 0;
+}
+
 .select2-results__option--highlighted {
   background-color: #428bca !important;
 }
@@ -783,8 +787,25 @@ footer {
    cursor: default;
 }*/
 /**********************************************************************/
-/************************ MOBILE STYLE *******************/
+/************************ MOBILE/SMALLER SCREEN STYLES *******************/
 /********************************************************************/
+@media only screen and (max-width: 1100px){
+  .myselect{
+    width: 45%;
+  }
+  .scroller {
+    padding-top: 10px;
+    padding-left: 0;
+    float: left;
+    width: auto;
+    margin-left: -3px;
+  }
+
+  .selection-area{
+    padding-left: 0;
+  }
+}
+
 @media only screen and (max-width: 767px) {
   body {
     /* background-color: lightblue; */
@@ -864,6 +885,7 @@ footer {
   .scroller {
     padding-top: 10px;
     float: left;
+    margin-left: -5px;
   }
 
   .tab {
@@ -920,31 +942,18 @@ footer {
   }
 }
 
+@media (max-width: 450px){
+  .ui-tabs .ui-tabs-nav .ui-tabs-anchor {
+      padding: 0.5em;
+  }
 
-
-/* KF additions */
-
-.no-right-pad{
-  padding-right: 0;
+  .tab-list li{
+    font-size: 11px;
+  }
 }
 
+/* KF additions for benchmark page*/
 
-/* th{
-  font-size: 0.85rem;
-  font-weight: 600;
-}
-
-td{
-  font-size: 0.85rem;
-  font-weight: 400;
-} */
-/* .content{
-  padding: 3rem 0;
-}
-.container{
-  position: relative;
-  margin: 0 auto;
-} */
 /* General bootstrap 5 additions */
 button:focus:not(:focus-visible) {
   outline: 0;
@@ -990,22 +999,34 @@ button:focus:not(:focus-visible) {
 /* Benchmark tab styles */
 
 #benchmarks{
-  margin-top: 14px;
+  /* margin-top: 14px; */
+  padding: 0 30px;
 }
+
+#no-benchmarks{
+  font-size: 15px;
+  padding: 20px 0;
+}
+
+#benchmarks h3{
+  font-size: 22px;
+}
+
 .is-hidden{
   display:none;
 }
 
 .map-container{
   /* width:95%; */
-  height: 550px;
+  height: 525px;
   /* border-radius: 5px; */
   border: solid 1px #eee;
-  margin: 0 15px;
+  margin: 0;
 }
 
 .map-container.row{
   display: flex;
+  flex-direction: row-reverse;
   flex-wrap:wrap;
   --bs-gutter-x: 1.5rem;
   --bs-gutter-y: 0;
@@ -1194,10 +1215,11 @@ button:focus:not(:focus-visible) {
 }
 
 #current-benchmark{
-  font-size: 24px;
   font-weight: 400;
   line-height: 1.3;
   word-wrap: break-word;
+  margin-bottom: 0;
+  margin-top: 0;
 }
 
 #current-description, .no-photos-message{
@@ -1359,16 +1381,26 @@ button:focus:not(:focus-visible) {
   margin-left: -1px; /* Overlap the border slightly */
 }
 
-#basemap-radio > .btn-light:first-child{
-  border-right: 1px solid var(--bs-gray-400);
+.map-legend{
+  padding: 5px;
+  padding-right: 10px;
+  background-color: #fff;
+  font-size: 12px;
 }
 
-#basemap-radio > .form-check:not(:first-child){
-  border-left: 1px solid var(--bs-gray-400);
+.map-legend div{
+  display: flex;
+  align-items: center;
 }
 
+.legend-icon{
+  margin: 1.5px 3px 1.5px 0;
+  float: left;
+  width: 15px;
+  height: 15px; 
+}
 .table-container{
-  margin: 3rem 5%;
+  margin: 3rem 0;
 }
 
 #benchmark-table.table{
@@ -1376,10 +1408,53 @@ button:focus:not(:focus-visible) {
 }
 
 #benchmark-table.table>:not(caption)>*>*{
-  padding: 0.45rem 0.5rem;
+  padding: 0.5rem 1rem;
 }
 
+#benchmark-table thead, td{
+  font-size: 14px;
+}
 #benchmark-table thead{
   background-color: #f2f2f2 ;
-  border-top: 1px solid var(--bs-table-border-color)
+  border-top: 1px solid #eee;
+}
+
+#benchmark-table th{
+  border-bottom:  1px solid #eee;
+  color: #212529;
+  font-weight: 600;
+}
+
+@media (max-width: 767px){
+  #benchmarks{
+    padding: 0 5px;
+  }
+}
+
+@media (max-width: 850px){
+  #map-panel{
+    flex-basis: 50%;
+  }
+
+  .map-container{
+    height: 475px;
+  }
+}
+
+@media (max-width: 600px){
+  .map-container.row{
+    display: block;
+    height: auto;
+  }
+
+  #map-panel{
+    height: auto;
+  }
+  .map-wrapper{
+    height: 300px;
+  }
+
+  #benchmark-table thead, td{
+    font-size: 12px;
+  }
 }
