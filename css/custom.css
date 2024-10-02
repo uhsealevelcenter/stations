@@ -1388,6 +1388,10 @@ button:focus:not(:focus-visible) {
   font-size: 12px;
 }
 
+.leaflet-bar.map-legend{
+  border-radius: 2px;
+}
+
 .map-legend div{
   display: flex;
   align-items: center;

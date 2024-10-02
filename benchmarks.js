@@ -251,7 +251,8 @@ function updatePanel(currentBenchmarkSelection) {
       currentEntry[0].properties.name + " Tide Gauge";
 
     const currentIcon = document.getElementById("current-icon");
-    currentIcon.src = "./images/gray-icon.svg";
+    // currentIcon.src = "./images/gray-icon.svg";
+    currentIcon.src = "./images/station-selected.svg";
     const coords = document.getElementById("current-coords");
     coords.innerHTML = `${currentEntry[0].properties.lat}, ${currentEntry[0].properties.lon}`;
   } else {
@@ -267,10 +268,10 @@ function updatePanel(currentBenchmarkSelection) {
     }`;
 
     const currentIcon = document.getElementById("current-icon");
-    // currentIcon.src = currentEntry[0].properties.primary
-    //   ? "./images/benchmark-selected-primary.svg"
-    //   : "./images/benchmark-selected.svg";
-    currentIcon.src = "./images/gray-icon.svg";
+    currentIcon.src = currentEntry[0].properties.primary
+      ? "./images/benchmark-selected-primary.svg"
+      : "./images/benchmark-selected.svg";
+    // currentIcon.src = "./images/gray-icon.svg";
     currentIcon.setAttribute("alt", "location icon");
     const coords = document.getElementById("current-coords");
     coords.innerHTML = `${currentEntry[0].properties.lat}, ${currentEntry[0].properties.lon}`;
@@ -443,7 +444,9 @@ function refreshMap() {
 
 async function loadBenchmarkData() {
   try {
-    const response = await fetch("./data/all_benchmarks.json");
+    const response = await fetch("./data/all_benchmarks.json", {
+      cache: "no-cache",
+    });
     const data = await response.json();
     return data;
   } catch (error) {

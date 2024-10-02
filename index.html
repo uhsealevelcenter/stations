@@ -45,8 +45,8 @@
           </div>
             <div class="scroller col-sm-7">
               <ul class="tab-list" style="display: none">
-                <li><a href="#benchmarks">Benchmarks</a></li>
                 <li><a href="#climatology">Climatology</a></li>
+                <li><a href="#benchmarks">Benchmarks</a></li>
                 <li><a href="#datums">Datums</a></li>
                 <li><a href="#tidecal">Tide Calendars</a></li>
                 <li><a href="#levels" id="defaultTab">Water Levels</a></li>
@@ -261,7 +261,78 @@
           </div>
           <!-- end tab3 -->
 
-          <!-- tab4: climatology -->
+                    <!-- tab4: benchmarks -->
+                    <div id="benchmarks" class="col-sm-12">
+                      <div id="no-benchmarks" class="is-hidden">Station map and benchmark data not available for this station.</div>
+                      <div id="benchmark-content">
+                        <h3>Station Map</h3>
+                        <div class="map-container row">
+                            <div class="map-wrapper">
+                                <div id="map"></div>
+                            </div>
+                            <div id="map-panel">
+                              <div class="panel-wrapper">
+                                  <div class="panel-item">
+                                      <!-- <h3 id="benchmark-header" class="panel-header">Selected Benchmark</h3> -->
+                                      <h3 id="current-benchmark"></h3>
+                                      <div id="coords">
+                                        <img id="current-icon">
+                                        <div id="current-coords"></div>
+                                      </div>
+                                  </div>
+                                  <div id="select-message" class="panel-item">
+                                    <p><em>Click on map icons to view description and photos for station benchmarks.</em></p>
+                                  </div>
+                                  <div id="panel-description" class="panel-item">
+                                      <h4 class="panel-header">Description</h4>
+                                      <div id="current-description"></div>
+                                  </div>
+                                  <div id="photos" class="panel-item">
+                                      <h4 class="panel-header" id="panel-photo-header">Photo(s)</h4>
+                                      <div class="no-photos-message">No photos available at this site.</div>
+                                      <div id="photo-carousel" class="carousel slide" data-ride="carousel" data-interval="false">
+                                          <div class="carousel-indicators">
+                                          </div>
+                                          <div class="carousel-inner">
+                                          </div>
+                                          <button class="carousel-control-prev" type="button" data-target="#photo-carousel" data-slide="prev">
+                                          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                          <span class="visually-hidden">Previous</span>
+                                          </button>
+                                          <button class="carousel-control-next" type="button" data-target="#photo-carousel" data-slide="next">
+                                          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                          <span class="visually-hidden">Next</span>
+                                          </button>
+                                      </div>
+                                      <div class="photo-caption">Photo date: <span id="photo-date">Apr 23 2023</span></div>
+                                  
+                                  </div>
+                              </div>
+                          </div>
+                        </div>
+                        <div class="table-container">
+                            <h3>Benchmark Locations and Levels</h3>
+                            <table id="benchmark-table" class="table">
+                                <thead>
+                                    <tr>
+                                      <th scope="col">Benchmark</th>
+                                      <th scope="col">Type</th>
+                                      <th scope="col">Latitude</th>
+                                      <th scope="col">Longitude</th>
+                                      <th scope="col">Level above station zero (<span id="table-units">m</span>)</th>
+                                      <th scope="col">Last surveyed</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                  </tbody>
+                            </table>
+                        </div>
+                      </div>
+        
+        
+                  </div>
+
+          <!-- tab5: climatology -->
           <div id="climatology" class="col-sm-12 center" style="">
 
             <div class="col-sm-6" style="  min-height: 138px;">
@@ -354,78 +425,9 @@
             </div>
             <!-- <hr> -->
           </div>
-          <!-- end tab4 -->
-
-          <!-- tab5: benchmarks -->
-          <div id="benchmarks" class="col-sm-12">
-              <div id="no-benchmarks" class="is-hidden">Station map and benchmark data not available for this station.</div>
-              <div id="benchmark-content">
-                <h3>Station Map</h3>
-                <div class="map-container row">
-                    <div class="map-wrapper">
-                        <div id="map"></div>
-                    </div>
-                    <div id="map-panel">
-                      <div class="panel-wrapper">
-                          <div class="panel-item">
-                              <!-- <h3 id="benchmark-header" class="panel-header">Selected Benchmark</h3> -->
-                              <h3 id="current-benchmark"></h3>
-                              <div id="coords">
-                                <img id="current-icon">
-                                <div id="current-coords"></div>
-                              </div>
-                          </div>
-                          <div id="select-message" class="panel-item">
-                            <p><em>Click on map icons to view description and photos for station benchmarks.</em></p>
-                          </div>
-                          <div id="panel-description" class="panel-item">
-                              <h4 class="panel-header">Description</h4>
-                              <div id="current-description"></div>
-                          </div>
-                          <div id="photos" class="panel-item">
-                              <h4 class="panel-header" id="panel-photo-header">Photo(s)</h4>
-                              <div class="no-photos-message">No photos available at this site.</div>
-                              <div id="photo-carousel" class="carousel slide" data-ride="carousel" data-interval="false">
-                                  <div class="carousel-indicators">
-                                  </div>
-                                  <div class="carousel-inner">
-                                  </div>
-                                  <button class="carousel-control-prev" type="button" data-target="#photo-carousel" data-slide="prev">
-                                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                  <span class="visually-hidden">Previous</span>
-                                  </button>
-                                  <button class="carousel-control-next" type="button" data-target="#photo-carousel" data-slide="next">
-                                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                  <span class="visually-hidden">Next</span>
-                                  </button>
-                              </div>
-                              <div class="photo-caption">Photo date: <span id="photo-date">Apr 23 2023</span></div>
-                          
-                          </div>
-                      </div>
-                  </div>
-                </div>
-                <div class="table-container">
-                    <h3>Benchmark Locations and Levels</h3>
-                    <table id="benchmark-table" class="table">
-                        <thead>
-                            <tr>
-                              <th scope="col">Benchmark</th>
-                              <th scope="col">Type</th>
-                              <th scope="col">Latitude</th>
-                              <th scope="col">Longitude</th>
-                              <th scope="col">Level above station zero (<span id="table-units">m</span>)</th>
-                              <th scope="col">Last surveyed</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                          </tbody>
-                    </table>
-                </div>
-              </div>
+          <!-- end tab5 -->
 
 
-          </div>
         </div>
         <!-- end #tabs -->
       </div>
