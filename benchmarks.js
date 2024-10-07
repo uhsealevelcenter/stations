@@ -12,6 +12,7 @@ let initialPosition = stationCenter;
 const map = L.map("map").setView(initialPosition, initialZoom);
 
 // Set up basemap layers
+
 const esriSatelliteMap = L.tileLayer(
   "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
   {
@@ -19,6 +20,10 @@ const esriSatelliteMap = L.tileLayer(
       "Tiles &copy; Esri. Sources: Esri, Maxar, Earthstar Geographics, and the GIS User Community",
   }
 );
+
+const googleSatellite = L.gridLayer.googleMutant({
+  type: "satellite",
+});
 
 const cartoMap = L.tileLayer(
   "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",
@@ -34,7 +39,8 @@ const benchmarkLayerGroup = L.layerGroup().addTo(map);
 
 // Add basemap switch to map
 function switchBasemap(e) {
-  const basemapKeys = { light: cartoMap, satellite: esriSatelliteMap };
+  const satelliteBasemap = USE_GOOGLE_MAPS ? googleSatellite : esriSatelliteMap;
+  const basemapKeys = { light: cartoMap, satellite: satelliteBasemap };
   const selectedBasemap = document.querySelector(
     'input[name="basemap-radio"]:checked'
   ).id;

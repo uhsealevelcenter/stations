@@ -1036,8 +1036,8 @@ button:focus:not(:focus-visible) {
 #map-panel{
   border-right: 1px solid var(--bs-gray-400);
   padding: 1.5em;
-  border-top-left-radius: 5px;
-  border-bottom-left-radius: 5px;
+  /* border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px; */
   flex-basis: 400px;
   height: 100%;
   overflow-y:auto;
@@ -1290,8 +1290,8 @@ button:focus:not(:focus-visible) {
 /* Map styles */
 .map-wrapper, #map{
   padding: 0;
-  border-top-right-radius: 5px;
-  border-bottom-left-radius: 5px;
+  /* border-top-right-radius: 5px;
+  border-bottom-left-radius: 5px; */
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
   flex: 2;
