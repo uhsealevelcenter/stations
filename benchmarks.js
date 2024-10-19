@@ -423,7 +423,11 @@ function populateTable(isEnglishUnits) {
     const row = tbody.insertRow(i);
     for (let j = 0; j < headers.length; j++) {
       const cell = row.insertCell(j);
-      cell.innerHTML = stationBenchmarks[i].properties[headers[j]];
+      let content = stationBenchmarks[i].properties[headers[j]];
+      if (!content || content === "nan") {
+        content = "--";
+      }
+      cell.innerHTML = content;
     }
   }
 }
