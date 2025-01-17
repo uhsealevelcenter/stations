@@ -116,6 +116,7 @@ L.easyButton("fa fa-house fa-solid", () => {
 }).addTo(map);
 
 // Functions to add benchmark/station layers
+
 function customIcon(url) {
   const iconSize = [28, 28];
   const iconAnchor = [14, 28];
@@ -205,11 +206,13 @@ function benchmarkOnEachFeature(feature, layer) {
       });
 
       updatePanel(currentBenchmarkSelection);
+      resetDropdownClasses();
     },
   });
 }
 
 // Other support functions for updating map, panel, table
+
 function setDefaultSelection() {
   const stationData = benchmarkData.features.filter(
     (entry) => entry.properties.uhslc_id_fmt == stn
@@ -253,8 +256,7 @@ function updatePanel(currentBenchmarkSelection) {
     // country.innerHTML = currentEntry[0].properties.country_name;
 
     const currentBenchmark = document.getElementById("current-benchmark");
-    currentBenchmark.innerHTML =
-      currentEntry[0].properties.name + " Tide Gauge";
+    currentBenchmark.innerHTML = currentEntry[0].properties.name;
 
     const currentIcon = document.getElementById("current-icon");
     // currentIcon.src = "./images/gray-icon.svg";
@@ -450,6 +452,51 @@ function refreshMap() {
   }).addTo(map);
 }
 
+function setDropdownOptions() {
+  const dropdownList = document.getElementById("benchmark-dropdown");
+  dropdownList.innerHTML = "";
+
+  const stationBenchmarks = benchmarkData.features.filter(
+    (entry) => entry.properties.uhslc_id_fmt == stn
+  );
+  for (let i = 0; i < stationBenchmarks.length; i++) {
+    const item = document.createElement("li");
+    const a = document.createElement("a");
+    a.href = "#";
+    a.textContent =
+      stationBenchmarks[i].properties.type == "station"
+        ? stationBenchmarks[i].properties.name
+        : stationBenchmarks[i].properties.benchmark;
+    a.setAttribute("data-value", stationBenchmarks[i].properties.benchmark);
+    if (
+      stationBenchmarks[i].properties.benchmark == currentBenchmarkSelection
+    ) {
+      a.classList.add("selected");
+    }
+    a.addEventListener("click", function (e) {
+      e.preventDefault();
+      currentBenchmarkSelection = this.getAttribute("data-value");
+      updatePanel(currentBenchmarkSelection);
+      refreshMap();
+      resetDropdownClasses();
+    });
+
+    item.appendChild(a);
+    dropdownList.appendChild(item);
+  }
+}
+
+function resetDropdownClasses() {
+  const dropdownItems = document.querySelectorAll(".dropdown-menu > li > a");
+  dropdownItems.forEach((item) => {
+    if (item.getAttribute("data-value") == currentBenchmarkSelection) {
+      item.classList.add("selected");
+    } else {
+      item.classList.remove("selected");
+    }
+  });
+}
+
 // Populate page after loading benchmark data
 
 async function loadBenchmarkData() {
@@ -480,6 +527,7 @@ async function populateBenchmarkPage() {
     useEnglishUnits = document.getElementById("unitToggle").checked;
 
     refreshMap();
+    setDropdownOptions();
     updatePanel(currentBenchmarkSelection);
     populateTable(useEnglishUnits);
   }
