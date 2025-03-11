@@ -93,7 +93,7 @@ const mapLegend = L.control({ position: "topright" });
 mapLegend.onAdd = function () {
   const legendContainer = L.DomUtil.create("div", "leaflet-bar map-legend");
   const entries = [
-    { icon: "./images/station.svg", label: "Tide Gauge" },
+    { icon: "./images/station.v3.svg", label: "Tide Gauge" },
     { icon: "./images/benchmark.svg", label: "Benchmark" },
     { icon: "./images/star-centered.svg", label: "Primary" },
   ];
@@ -117,10 +117,23 @@ L.easyButton("fa fa-house fa-solid", () => {
 
 // Functions to add benchmark/station layers
 
-function customIcon(url) {
+function benchmarkIcon(url) {
   const iconSize = [28, 28];
   const iconAnchor = [14, 28];
   const tooltipAnchor = [7, -14];
+  const icon = L.icon({
+    iconUrl: url,
+    iconSize: iconSize,
+    iconAnchor: iconAnchor,
+    tooltipAnchor: tooltipAnchor,
+  });
+  return icon;
+}
+
+function stationIcon(url) {
+  const iconSize = [22, 22];
+  const iconAnchor = [11, 11];
+  const tooltipAnchor = [5.5, 0];
   const icon = L.icon({
     iconUrl: url,
     iconSize: iconSize,
@@ -134,6 +147,7 @@ function benchmarkPointToLayer(feature, latlng) {
   const isSelected =
     feature.properties.uhslc_id_fmt == stn &&
     feature.properties.benchmark == currentBenchmarkSelection;
+  const isStation = feature.properties.type == "station";
 
   let icon = null;
 
@@ -142,17 +156,25 @@ function benchmarkPointToLayer(feature, latlng) {
     return null;
   }
 
-  if (feature.properties.type == "station") {
-    icon = customIcon(`./images/station${isSelected ? "-selected" : ""}.svg`);
+  if (isStation) {
+    icon = stationIcon(
+      `./images/station${isSelected ? "-selected" : ""}.v3.svg`
+    );
   } else {
-    icon = customIcon(
+    icon = benchmarkIcon(
       `./images/benchmark${isSelected ? "-selected" : ""}${
         feature.properties.primary ? "-primary" : ""
       }.svg`
     );
   }
 
-  const zOffset = isSelected ? 1000 : feature.properties.primary ? 500 : 0;
+  const zOffset = isSelected
+    ? 1000
+    : feature.properties.primary
+    ? 500
+    : !isStation
+    ? 100
+    : 0;
   const marker = L.marker(latlng, { icon: icon });
 
   marker.setZIndexOffset(zOffset);
@@ -175,10 +197,10 @@ function benchmarkOnEachFeature(feature, layer) {
       const isPrimary = e.target.feature.properties.primary;
 
       if (e.target.feature.properties.type == "station") {
-        e.target.setIcon(customIcon("./images/station-selected.svg"));
+        e.target.setIcon(stationIcon("./images/station-selected.v3.svg"));
       } else {
         e.target.setIcon(
-          customIcon(
+          benchmarkIcon(
             `./images/benchmark-selected${isPrimary ? "-primary" : ""}.svg`
           )
         );
@@ -186,6 +208,7 @@ function benchmarkOnEachFeature(feature, layer) {
 
       e.target.setZIndexOffset(1000);
       // Remove selected icon from any other points
+
       map.eachLayer((layer) => {
         if (
           layer.feature &&
@@ -193,15 +216,18 @@ function benchmarkOnEachFeature(feature, layer) {
           layer.feature.properties.benchmark != currentBenchmarkSelection
         ) {
           const isPrimary = layer.feature.properties.primary;
-          if (layer.feature.properties.type == "station") {
-            layer.setIcon(customIcon("./images/station.svg"));
+          const isStation = layer.feature.properties.type == "station";
+          if (isStation) {
+            layer.setIcon(stationIcon("./images/station.v3.svg"));
           } else {
             layer.setIcon(
-              customIcon(`./images/benchmark${isPrimary ? "-primary" : ""}.svg`)
+              benchmarkIcon(
+                `./images/benchmark${isPrimary ? "-primary" : ""}.svg`
+              )
             );
           }
 
-          layer.setZIndexOffset(isPrimary ? 500 : 0);
+          layer.setZIndexOffset(isPrimary ? 500 : !isStation ? 100 : 0);
         }
       });
 
@@ -258,11 +284,11 @@ function updatePanel(currentBenchmarkSelection) {
     const currentBenchmark = document.getElementById("current-benchmark");
     currentBenchmark.innerHTML = currentEntry[0].properties.name;
 
-    const currentIcon = document.getElementById("current-icon");
-    // currentIcon.src = "./images/gray-icon.svg";
-    currentIcon.src = "./images/station-selected.svg";
-    const coords = document.getElementById("current-coords");
-    coords.innerHTML = `${currentEntry[0].properties.lat}, ${currentEntry[0].properties.lon}`;
+    // const currentIcon = document.getElementById("current-icon");
+    // // currentIcon.src = "./images/gray-icon.svg";
+    // currentIcon.src = "./images/station-selected.v3.svg";
+    // const coords = document.getElementById("current-coords");
+    // coords.innerHTML = `${currentEntry[0].properties.lat}, ${currentEntry[0].properties.lon}`;
   } else {
     // document.getElementById("panel-country").classList.add("is-hidden");
     document.getElementById("select-message").classList.add("is-hidden");
@@ -275,14 +301,14 @@ function updatePanel(currentBenchmarkSelection) {
       currentEntry[0].properties.primary ? " (Primary)" : ""
     }`;
 
-    const currentIcon = document.getElementById("current-icon");
-    currentIcon.src = currentEntry[0].properties.primary
-      ? "./images/benchmark-selected-primary.svg"
-      : "./images/benchmark-selected.svg";
-    // currentIcon.src = "./images/gray-icon.svg";
-    currentIcon.setAttribute("alt", "location icon");
-    const coords = document.getElementById("current-coords");
-    coords.innerHTML = `${currentEntry[0].properties.lat}, ${currentEntry[0].properties.lon}`;
+    // const currentIcon = document.getElementById("current-icon");
+    // currentIcon.src = currentEntry[0].properties.primary
+    //   ? "./images/benchmark-selected-primary.svg"
+    //   : "./images/benchmark-selected.svg";
+    // // currentIcon.src = "./images/gray-icon.svg";
+    // currentIcon.setAttribute("alt", "location icon");
+    // const coords = document.getElementById("current-coords");
+    // coords.innerHTML = `${currentEntry[0].properties.lat}, ${currentEntry[0].properties.lon}`;
 
     const currentDescription = document.getElementById("current-description");
     currentDescription.innerHTML = currentEntry[0].properties.description;
@@ -466,7 +492,8 @@ function setDropdownOptions() {
     a.textContent =
       stationBenchmarks[i].properties.type == "station"
         ? stationBenchmarks[i].properties.name
-        : stationBenchmarks[i].properties.benchmark;
+        : stationBenchmarks[i].properties.benchmark +
+          `${stationBenchmarks[i].properties.primary ? " (Primary)" : ""}`;
     a.setAttribute("data-value", stationBenchmarks[i].properties.benchmark);
     if (
       stationBenchmarks[i].properties.benchmark == currentBenchmarkSelection
