@@ -576,12 +576,11 @@ function populateMetaDataTables(stnID, jsondata) {
   );
 
   $("#metadata").html(
-    '<a target="_blank" href="https://uhslc.soest.hawaii.edu/rqds/' +
-      basin +
-      "/doc/qa" +
+    //"<a target=\"_blank\" href=\"https://uhslc.soest.hawaii.edu/rqds/" + basin + "/doc/qa" + stnID + version + '.dmt' + "\">" + "<strong>METADATA</strong>" + "<\a>");
+    '<a target="_blank" href="https://uhslc.soest.hawaii.edu/rqds/metadata_yaml/' +
       stnID +
-      version +
-      ".dmt" +
+      version.toUpperCase() +
+      "meta.yaml" +
       '">' +
       "<strong>METADATA</strong>" +
       "<a>"
