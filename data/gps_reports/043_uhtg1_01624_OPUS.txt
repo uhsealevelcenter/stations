@@ -1,0 +1,45 @@
+RINEX FILE: palm016e.24o                             TIME: 22:58:30 UTC
+
+
+  SOFTWARE: page5  2008.25 master259.pl 160321      START: 2024/01/16  04:35:00
+ EPHEMERIS: igs22972.eph [precise]                   STOP: 2024/01/16  08:31:00
+  NAV FILE: brdc0160.24n                         OBS USED:  5199 /  7489   :  69%
+  ANT NAME: SEPALTUS_NR3    NONE              # FIXED AMB:    40 /    57   :  70%
+ARP HEIGHT: 2.000                             OVERALL RMS: 0.018(m)
+
+
+ REF FRAME: NAD_83(PA11)(EPOCH:2010.0000)              ITRF2014 (EPOCH:2024.0417)
+
+         X:     -6037236.443(m)   0.039(m)          -6037237.734(m)   0.039(m)
+         Y:     -1951240.825(m)   0.047(m)          -1951237.215(m)   0.047(m)
+         Z:       649971.535(m)   0.041(m)            649973.169(m)   0.041(m)
+
+       LAT:    5 53 17.80411      0.041(m)         5 53 17.85664      0.041(m)
+     E LON:  197 54 39.18308      0.057(m)       197 54 39.05849      0.057(m)
+     W LON:  162  5 20.81692      0.057(m)       162  5 20.94151      0.057(m)
+    EL HGT:           19.066(m)   0.021(m)                19.351(m)   0.021(m)
+ ORTHO HGT: [No NGS Geoid Model Available.]
+
+                        UTM COORDINATES    STATE PLANE COORDINATES
+                         UTM (Zone 03)         *** NOTE ***
+Northing (Y) [meters]      651695.284      Please manually select
+Easting (X)  [meters]      822347.576      SPC zone.
+Convergence  [degrees]     0.29888333
+Point Scale                1.00088634
+Combined Factor            1.00088334
+
+US NATIONAL GRID DESIGNATOR: 3NZG2234851695(NAD 83)
+
+
+                              BASE STATIONS USED
+PID       DESIGNATION                        LATITUDE    LONGITUDE DISTANCE(m)
+DF8972 ZHN1 HONOLULU WAAS 1 CORS ARP       N211846.729 W1575514.882 1759130.1
+DE6591 MKEA MAUNA KEA CORS MON             N194804.846 W1552722.745 1693899.9
+AI4962 KOKB KOKEE PARK CORS MONUMENT       N220734.518 W1593953.661 1809475.8
+
+                 NEAREST NGS PUBLISHED CONTROL POINT
+DK3429      161 9000 NO 13                 N164406.776 W1693140.529 1448106.1
+
+This position and the above vector components were computed without any
+knowledge by the National Geodetic Survey regarding the equipment or
+field operating procedures used.

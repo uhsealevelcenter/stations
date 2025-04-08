@@ -1,0 +1,45 @@
+RINEX FILE: mata179o.19o                             TIME: 23:13:39 UTC
+
+
+  SOFTWARE: page5  2008.25 master281.pl 160321      START: 2019/06/28  14:45:00
+ EPHEMERIS: igs20595.eph [precise]                   STOP: 2019/06/28  18:48:00
+  NAV FILE: brdc1790.19n                         OBS USED:  7653 /  9122   :  84%
+  ANT NAME: SEPALTUS_NR3    NONE              # FIXED AMB:    50 /    78   :  64%
+ARP HEIGHT: 2.000                             OVERALL RMS: 0.031(m)
+
+
+ REF FRAME: NAD_83(2011)(EPOCH:2010.0000)              ITRF2014 (EPOCH:2019.4896)
+
+         X:      1874351.455(m)   0.089(m)           1874350.811(m)   0.089(m)
+         Y:     -5806147.449(m)   0.069(m)          -5806145.226(m)   0.069(m)
+         Z:     -1852940.980(m)   0.070(m)          -1852941.047(m)   0.070(m)
+
+       LAT:  -17  0  3.31650      0.046(m)       -17  0  3.34058      0.046(m)
+     E LON:  287 53 28.37371      0.065(m)       287 53 28.37609      0.065(m)
+     W LON:   72  6 31.62629      0.065(m)        72  6 31.62391      0.065(m)
+    EL HGT:           34.450(m)   0.109(m)                32.258(m)   0.109(m)
+ ORTHO HGT: [No NGS Geoid Model Available.]
+
+                        UTM COORDINATES    STATE PLANE COORDINATES
+                         UTM (Zone 18)         *** NOTE ***
+Northing (Y) [meters]     8118070.568      Please manually select
+Easting (X)  [meters]      807857.827      SPC zone.
+Convergence  [degrees]     0.84602222
+Point Scale                1.00077209
+Combined Factor            1.00076667
+
+US NATIONAL GRID DESIGNATOR: 18KZG0785818071(NAD 83)
+
+
+                              BASE STATIONS USED
+PID       DESIGNATION                        LATITUDE    LONGITUDE DISTANCE(m)
+       SCRZ                                                          954033.7
+       CUIB                                                         1716091.6
+       CATA                                                         1423488.3
+
+                 NEAREST NGS PUBLISHED CONTROL POINT
+AB9686      20 Y 8 RESET                   N062933.936 W0581541.104 3012313.0
+
+This position and the above vector components were computed without any
+knowledge by the National Geodetic Survey regarding the equipment or
+field operating procedures used.

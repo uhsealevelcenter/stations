@@ -1,0 +1,45 @@
+RINEX FILE: ptlu349h.19o                             TIME: 23:10:43 UTC
+
+
+  SOFTWARE: page5  2008.25 master250.pl 160321      START: 2019/12/15  07:15:00
+ EPHEMERIS: igs20840.eph [precise]                   STOP: 2019/12/15  14:01:00
+  NAV FILE: brdc3490.19n                         OBS USED: 16584 / 17694   :  94%
+  ANT NAME: SEPALTUS_NR3    NONE              # FIXED AMB:    88 /   128   :  69%
+ARP HEIGHT: 2.000                             OVERALL RMS: 0.025(m)
+
+
+ REF FRAME: NAD_83(2011)(EPOCH:2010.0000)              ITRF2014 (EPOCH:2019.9546)
+
+         X:      3217973.027(m)   0.038(m)           3217971.625(m)   0.038(m)
+         Y:      5052035.646(m)   0.041(m)           5052038.132(m)   0.041(m)
+         Z:     -2184043.833(m)   0.035(m)          -2184042.534(m)   0.035(m)
+
+       LAT:  -20  9 26.00568      0.047(m)       -20  9 25.95096      0.047(m)
+     E LON:   57 30 15.35314      0.019(m)        57 30 15.43986      0.019(m)
+     W LON:  302 29 44.64686      0.019(m)       302 29 44.56014      0.019(m)
+    EL HGT:           -1.711(m)   0.040(m)                -0.897(m)   0.040(m)
+ ORTHO HGT: [No NGS Geoid Model Available.]
+
+                        UTM COORDINATES    STATE PLANE COORDINATES
+                         UTM (Zone 40)         *** NOTE ***
+Northing (Y) [meters]     7771040.240      Please manually select
+Easting (X)  [meters]      552696.683      SPC zone.
+Convergence  [degrees]     0.17377222
+Point Scale                0.99963432
+Combined Factor            0.99963459
+
+US NATIONAL GRID DESIGNATOR: 40KEC5269771040(NAD 83)
+
+
+                              BASE STATIONS USED
+PID       DESIGNATION                        LATITUDE    LONGITUDE DISTANCE(m)
+       MAYG                                                         1536567.6
+       CZTG                                                         2932904.0
+       SEYG                                                         1720383.9
+
+                 NEAREST NGS PUBLISHED CONTROL POINT
+TW0473      COCOS GG 1963                  N131402.882 W2152120.33310223457.3
+
+This position and the above vector components were computed without any
+knowledge by the National Geodetic Survey regarding the equipment or
+field operating procedures used.

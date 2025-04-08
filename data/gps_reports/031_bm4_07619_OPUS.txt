@@ -1,0 +1,45 @@
+RINEX FILE: nuku076t.19o                             TIME: 23:12:40 UTC
+
+
+  SOFTWARE: page5  2008.25 master262.pl 160321      START: 2019/03/17  19:39:00
+ EPHEMERIS: igs20450.eph [precise]                   STOP: 2019/03/17  23:39:00
+  NAV FILE: brdc0760.19n                         OBS USED:  5555 /  6381   :  87%
+  ANT NAME: SEPALTUS_NR3    NONE              # FIXED AMB:    38 /    55   :  69%
+ARP HEIGHT: 2.000                             OVERALL RMS: 0.020(m)
+
+
+ REF FRAME: NAD_83(PA11)(EPOCH:2010.0000)              ITRF2014 (EPOCH:2019.2080)
+
+         X:     -4834076.016(m)   0.095(m)          -4834077.978(m)   0.095(m)
+         Y:     -4042508.729(m)   0.074(m)          -4042505.544(m)   0.074(m)
+         Z:      -981872.784(m)   0.029(m)           -981871.716(m)   0.029(m)
+
+       LAT:  -8  54 53.85730      0.045(m)       -8  54 53.82569      0.045(m)
+     E LON:  219 54 14.91091      0.019(m)       219 54 14.78974      0.019(m)
+     W LON:  140  5 45.08909      0.019(m)       140  5 45.21026      0.019(m)
+    EL HGT:            8.442(m)   0.118(m)                 7.745(m)   0.118(m)
+ ORTHO HGT: [No NGS Geoid Model Available.]
+
+                        UTM COORDINATES    STATE PLANE COORDINATES
+                         UTM (Zone 07)         *** NOTE ***
+Northing (Y) [meters]     9014427.995      Please manually select
+Easting (X)  [meters]      599404.897      SPC zone.
+Convergence  [degrees]     0.14012500
+Point Scale                0.99972228
+Combined Factor            0.99972095
+
+US NATIONAL GRID DESIGNATOR: 7MEL9940514428(NAD 83)
+
+
+                              BASE STATIONS USED
+PID       DESIGNATION                        LATITUDE    LONGITUDE DISTANCE(m)
+DK2662 UPO5 UPOLU POINT 5 CORS ARP         N201445.166 W1555301.654 3609319.2
+DR4401 HAL1 HALEAKALA OBSERVA CORS GRP     N204226.659 W1561522.365 3671166.1
+DG9765 MLO1 MAUNA LOA OBSERVA CORS ARP     N193209.282 W1553434.277 3529423.1
+
+                 NEAREST NGS PUBLISHED CONTROL POINT
+AA4457      ROSE                           S143252.971 W1680843.799 3117890.6
+
+This position and the above vector components were computed without any
+knowledge by the National Geodetic Survey regarding the equipment or
+field operating procedures used.

@@ -1,0 +1,45 @@
+RINEX FILE: sana200r.19o                             TIME: 23:09:05 UTC
+
+
+  SOFTWARE: page5  2008.25 master242.pl 160321      START: 2019/07/19  17:36:00
+ EPHEMERIS: igs20625.eph [precise]                   STOP: 2019/07/19  21:44:00
+  NAV FILE: brdc2000.19n                         OBS USED:  9794 / 10113   :  97%
+  ANT NAME: SEPALTUS_NR3    NONE              # FIXED AMB:    34 /    46   :  74%
+ARP HEIGHT: 2.000                             OVERALL RMS: 0.015(m)
+
+
+ REF FRAME: NAD_83(2011)(EPOCH:2010.0000)              ITRF2014 (EPOCH:2019.5475)
+
+         X:       898627.653(m)   0.009(m)            898627.095(m)   0.009(m)
+         Y:     -6161082.572(m)   0.025(m)          -6161080.764(m)   0.025(m)
+         Z:      1378924.081(m)   0.002(m)           1378923.860(m)   0.002(m)
+
+       LAT:   12 34  8.94101      0.006(m)        12 34  8.94724      0.006(m)
+     E LON:  278 17 54.19475      0.008(m)       278 17 54.18510      0.008(m)
+     W LON:   81 42  5.80525      0.008(m)        81 42  5.81490      0.008(m)
+    EL HGT:            6.650(m)   0.026(m)                 4.777(m)   0.026(m)
+ ORTHO HGT: [No NGS Geoid Model Available.]
+
+                        UTM COORDINATES    STATE PLANE COORDINATES
+                         UTM (Zone 17)         *** NOTE ***
+Northing (Y) [meters]     1389592.008      Please manually select
+Easting (X)  [meters]      423785.335      SPC zone.
+Convergence  [degrees]    -0.15269167
+Point Scale                0.99967186
+Combined Factor            0.99967081
+
+US NATIONAL GRID DESIGNATOR: 17PMP2378589592(NAD 83)
+
+
+                              BASE STATIONS USED
+PID       DESIGNATION                        LATITUDE    LONGITUDE DISTANCE(m)
+DL6416 SAN0 SANANDRESCOL2007 GRP                                       1977.9
+DO1766 CN37 GALERAZAMBA CGPS GRP                                     728526.1
+DO1780 VERA VERACRUZ GRP                                             393940.6
+
+                 NEAREST NGS PUBLISHED CONTROL POINT
+BF4565      ILAYA                          N145950.577 W0831320.288  314976.2
+
+This position and the above vector components were computed without any
+knowledge by the National Geodetic Survey regarding the equipment or
+field operating procedures used.

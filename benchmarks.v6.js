@@ -436,8 +436,8 @@ function populateTable(isEnglishUnits) {
   tbody.innerHTML = "";
 
   const headers = useEnglishUnits
-    ? ["benchmark", "type", "lat", "lon", "level_ft", "level_date"]
-    : ["benchmark", "type", "lat", "lon", "level", "level_date"];
+    ? ["benchmark", "type", "lat", "lon", "level_ft", "level_date", "reports"]
+    : ["benchmark", "type", "lat", "lon", "level", "level_date", "reports"];
   document.getElementById("table-units").innerHTML = useEnglishUnits
     ? "ft"
     : "m";
@@ -452,6 +452,11 @@ function populateTable(isEnglishUnits) {
     for (let j = 0; j < headers.length; j++) {
       const cell = row.insertCell(j);
       let content = stationBenchmarks[i].properties[headers[j]];
+      if (headers[j] == "reports") {
+        content = createGPSreportLinks(
+          stationBenchmarks[i].properties[headers[j]]
+        );
+      }
       if (!content || content === "nan") {
         content = "--";
       }
@@ -522,6 +527,26 @@ function resetDropdownClasses() {
       item.classList.remove("selected");
     }
   });
+}
+
+function createGPSreportLinks(reportObj) {
+  if (reportObj == "nan") {
+    return reportObj;
+  }
+  let content = "";
+  const auspos = reportObj.filter((entry) => entry.type == "auspos");
+  const opus = reportObj.filter((entry) => entry.type == "opus");
+  if (auspos.length > 0) {
+    content += `<a target="_blank" href="${
+      "data/gps_reports/" + auspos[0].file
+    }">AUSPOS</a>`;
+  }
+  if (opus.length > 0) {
+    content += `${auspos.length > 0 ? ", " : ""}<a target="_blank" href="${
+      "data/gps_reports/" + opus[0].file
+    }">OPUS</a>`;
+  }
+  return content;
 }
 
 // Populate page after loading benchmark data

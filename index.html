@@ -264,7 +264,7 @@
 
           <!-- tab4: benchmarks -->
           <div id="benchmarks" class="col-sm-12">
-            <div id="no-benchmarks" class="is-hidden">Station map and benchmark data not available for this station.</div>
+            <div id="no-benchmarks" class="is-hidden">Station map and benchmark data are not available for this station.</div>
             <div id="benchmark-content">
               <h3>Station Map</h3>
               <div class="map-container row">
@@ -338,6 +338,7 @@
                             <th scope="col">Longitude</th>
                             <th scope="col">Level above station zero (<span id="table-units">m</span>)</th>
                             <th scope="col">Last surveyed</th>
+                            <th scope="col">GPS reports</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -422,7 +423,7 @@
             <div id="climatologyProductDesc" class="col-sm-12">
               <p>This product provides a preliminary look at the recent or past water
                 levels compared to the long-term records and climatology at the tide gauge station.
-                Updates are typically available by the 15<sup>th</sup> day of each month using the UHSLC's Fast Delivery of tide gauge data.
+                  Updates are typically available by the 15<sup>th</sup> day of each month using the UHSLC’s Fast Delivery of tide gauge data.
               </p>
               <p>
                 Three plot types (Daily Extremes, Monthly Extremes, and Monthly Means)
@@ -430,8 +431,10 @@
                 In the Daily Extremes plot, the sub-monthly oscillations are due to the spring-neap
                 tidal cycles (i.e., new or full moon phases) combined with independent sea level variability
                 on lower or higher frequencies. When viewing individual years of daily extremes, note that days
-                with partial missing data will sometimes show a spike well below the typical spring-neap tidal cycle
-                that explains the normal oscillatory nature of the records (e.g., if that day's highest tide was not recorded).
+                with partial missing data will sometimes show a spike well below the typical spring-neap tidal cycle 
+                that explains the normal oscillatory nature of the records (e.g., if that day's highest tide was not recorded). 
+                A similar note applies to the monthly extremes, when the hourly observation record is incomplete for the particular month of the year. 
+                Monthly means are shown when at least seven complete days of hourly observations are available within the month.
               </p>
               <p>
                 Similar types of graphical displays are available on the web
@@ -501,7 +504,7 @@
   <script src='plot.js'></script>
   <script src='climatology.js'></script>
   <script src='datepicker.js'></script>
-  <script src="benchmarks.v5.js"></script>
+  <script src="benchmarks.v6.js"></script>
   <script src='tabs.js'></script>
 
 </body>

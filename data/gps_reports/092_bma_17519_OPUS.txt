@@ -1,0 +1,45 @@
+RINEX FILE: tala175p.19o                             TIME: 23:08:05 UTC
+
+
+  SOFTWARE: page5  2008.25 master292.pl 160321      START: 2019/06/24  15:33:00
+ EPHEMERIS: igs20591.eph [precise]                   STOP: 2019/06/24  20:42:00
+  NAV FILE: brdc1750.19n                         OBS USED: 12033 / 12267   :  98%
+  ANT NAME: SEPALTUS_NR3    NONE              # FIXED AMB:    48 /    57   :  84%
+ARP HEIGHT: 2.000                             OVERALL RMS: 0.014(m)
+
+
+ REF FRAME: NAD_83(2011)(EPOCH:2010.0000)              ITRF2014 (EPOCH:2019.4788)
+
+         X:       963606.938(m)   0.012(m)            963606.233(m)   0.012(m)
+         Y:     -6284517.986(m)   0.038(m)          -6284515.970(m)   0.038(m)
+         Z:      -505356.651(m)   0.010(m)           -505356.832(m)   0.010(m)
+
+       LAT:  -4  34 30.15833      0.010(m)       -4  34 30.16967      0.010(m)
+     E LON:  278 43  2.23090      0.009(m)       278 43  2.21819      0.009(m)
+     W LON:   81 16 57.76910      0.009(m)        81 16 57.78181      0.009(m)
+    EL HGT:           14.077(m)   0.039(m)                11.998(m)   0.039(m)
+ ORTHO HGT: [No NGS Geoid Model Available.]
+
+                        UTM COORDINATES    STATE PLANE COORDINATES
+                         UTM (Zone 17)         *** NOTE ***
+Northing (Y) [meters]     9494303.228      Please manually select
+Easting (X)  [meters]      468640.493      SPC zone.
+Convergence  [degrees]    -0.02255000
+Point Scale                0.99961217
+Combined Factor            0.99960996
+
+US NATIONAL GRID DESIGNATOR: 17MMQ6864094303(NAD 83)
+
+
+                              BASE STATIONS USED
+PID       DESIGNATION                        LATITUDE    LONGITUDE DISTANCE(m)
+DP4203 ISCO COCOSISL_CRI2011 GRP                                    1287751.3
+       QUI3                                                          581801.0
+       RIOB                                                         1598741.4
+
+                 NEAREST NGS PUBLISHED CONTROL POINT
+BF4512      2952 III 2                     N120918.830 W0861642.971 1931008.8
+
+This position and the above vector components were computed without any
+knowledge by the National Geodetic Survey regarding the equipment or
+field operating procedures used.

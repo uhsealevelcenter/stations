@@ -1,0 +1,45 @@
+RINEX FILE: puca147s.19o                             TIME: 23:10:32 UTC
+
+
+  SOFTWARE: page5  2008.25 master273.pl 160321      START: 2019/05/27  18:01:00
+ EPHEMERIS: igs20551.eph [precise]                   STOP: 2019/05/27  22:01:00
+  NAV FILE: brdc1470.19n                         OBS USED:  6766 /  9997   :  68%
+  ANT NAME: SEPALTUS_NR3    NONE              # FIXED AMB:    80 /   103   :  78%
+ARP HEIGHT: 2.000                             OVERALL RMS: 0.029(m)
+
+
+ REF FRAME: NAD_83(2011)(EPOCH:2010.0000)              ITRF2014 (EPOCH:2019.4023)
+
+         X:      2229588.377(m)   0.015(m)           2229587.739(m)   0.015(m)
+         Y:     -5624555.154(m)   0.033(m)          -5624553.319(m)   0.033(m)
+         Z:      2011514.074(m)   0.015(m)           2011513.991(m)   0.015(m)
+
+       LAT:   18 30 20.03018      0.006(m)        18 30 20.04768      0.006(m)
+     E LON:  291 37 24.61472      0.026(m)       291 37 24.61757      0.026(m)
+     W LON:   68 22 35.38528      0.026(m)        68 22 35.38243      0.026(m)
+    EL HGT:          -38.277(m)   0.029(m)               -40.144(m)   0.029(m)
+ ORTHO HGT:            3.295(m)   0.097(m) [NAVD88 (Computed using GEOID18)]
+
+                        UTM COORDINATES    STATE PLANE COORDINATES
+                         UTM (Zone 19)         *** NOTE ***
+Northing (Y) [meters]     2046234.309      Please manually select
+Easting (X)  [meters]      565816.172      SPC zone.
+Convergence  [degrees]     0.19790556
+Point Scale                0.99965355
+Combined Factor            0.99965957
+
+US NATIONAL GRID DESIGNATOR: 19QEA6581646234(NAD 83)
+
+
+                              BASE STATIONS USED
+PID       DESIGNATION                        LATITUDE    LONGITUDE DISTANCE(m)
+       RDSD                                                          162165.4
+DL9082 PRLT CABO ROJO CORS ARP             N180335.401 W0671120.881  134887.7
+DH9349 PRMI MAGUEYES ISLAND CORS ARP       N175813.420 W0670243.339  152731.0
+
+                 NEAREST NGS PUBLISHED CONTROL POINT
+DR7370      PUNTACANADOM2014 CORS ARP      N183350.030 W0682133.816    6704.4
+
+This position and the above vector components were computed without any
+knowledge by the National Geodetic Survey regarding the equipment or
+field operating procedures used.
