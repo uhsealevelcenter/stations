@@ -1,0 +1,45 @@
+RINEX FILE: quyn119d.24o                             TIME: 23:03:22 UTC
+
+
+  SOFTWARE: page5  2008.25 master254.pl 160321      START: 2024/04/28  03:50:00
+ EPHEMERIS: igs23120.eph [precise]                   STOP: 2024/04/28  11:24:00
+  NAV FILE: brdc1190.24n                         OBS USED: 12283 / 14383   :  85%
+  ANT NAME: SEPALTUS_NR3    NONE              # FIXED AMB:    98 /   140   :  70%
+ARP HEIGHT: 2.000                             OVERALL RMS: 0.024(m)
+
+
+ REF FRAME: NAD_83(2011)(EPOCH:2010.0000)              ITRF2014 (EPOCH:2024.3233)
+
+         X:     -2043160.754(m)   0.065(m)          -2043162.534(m)   0.065(m)
+         Y:      5849297.774(m)   0.142(m)           5849299.251(m)   0.142(m)
+         Z:      1508815.120(m)   0.036(m)           1508816.280(m)   0.036(m)
+
+       LAT:   13 46 29.95853      0.020(m)        13 46 29.97984      0.020(m)
+     E LON:  109 15 15.54268      0.089(m)       109 15 15.58238      0.089(m)
+     W LON:  250 44 44.45732      0.089(m)       250 44 44.41762      0.089(m)
+    EL HGT:            1.913(m)   0.124(m)                 4.114(m)   0.124(m)
+ ORTHO HGT: [No NGS Geoid Model Available.]
+
+                        UTM COORDINATES    STATE PLANE COORDINATES
+                         UTM (Zone 49)         *** NOTE ***
+Northing (Y) [meters]     1523526.108      Please manually select
+Easting (X)  [meters]      311274.336      SPC zone.
+Convergence  [degrees]    -0.41578611
+Point Scale                1.00004059
+Combined Factor            1.00004029
+
+US NATIONAL GRID DESIGNATOR: 49PCR1127423526(NAD 83)
+
+
+                              BASE STATIONS USED
+PID       DESIGNATION                        LATITUDE    LONGITUDE DISTANCE(m)
+       TNML                                                         1727542.6
+       PIMO                                                         1277449.9
+       HKSL                                                         1070929.2
+
+                 NEAREST NGS PUBLISHED CONTROL POINT
+TW0556      OROTE POINT LIGHT              N132646.726 W2152249.047 3823686.2
+
+This position and the above vector components were computed without any
+knowledge by the National Geodetic Survey regarding the equipment or
+field operating procedures used.

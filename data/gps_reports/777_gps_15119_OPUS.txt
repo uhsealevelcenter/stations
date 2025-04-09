@@ -1,0 +1,45 @@
+RINEX FILE: popl151o.19o                             TIME: 23:12:12 UTC
+
+
+  SOFTWARE: page5  2008.25 master297.pl 160321      START: 2019/05/31  14:29:00
+ EPHEMERIS: igs20555.eph [precise]                   STOP: 2019/05/31  18:59:00
+  NAV FILE: brdc1510.19n                         OBS USED: 14176 / 14898   :  95%
+  ANT NAME: SEPALTUS_NR3    NONE              # FIXED AMB:    85 /   100   :  85%
+ARP HEIGHT: 2.000                             OVERALL RMS: 0.020(m)
+
+
+ REF FRAME: NAD_83(2011)(EPOCH:2010.0000)              ITRF2014 (EPOCH:2019.4129)
+
+         X:      1984008.011(m)   0.016(m)           1984007.369(m)   0.016(m)
+         Y:     -5666068.636(m)   0.019(m)          -5666066.839(m)   0.019(m)
+         Z:      2146738.250(m)   0.004(m)           2146738.149(m)   0.004(m)
+
+       LAT:   19 47 55.58881      0.005(m)        19 47 55.60674      0.005(m)
+     E LON:  289 17 52.83341      0.013(m)       289 17 52.83298      0.013(m)
+     W LON:   70 42  7.16659      0.013(m)        70 42  7.16702      0.013(m)
+    EL HGT:          -36.520(m)   0.020(m)               -38.349(m)   0.020(m)
+ ORTHO HGT: [No NGS Geoid Model Available.]
+
+                        UTM COORDINATES    STATE PLANE COORDINATES
+                         UTM (Zone 19)         *** NOTE ***
+Northing (Y) [meters]     2190111.064      Please manually select
+Easting (X)  [meters]      321717.391      SPC zone.
+Convergence  [degrees]    -0.57664722
+Point Scale                0.99999287
+Combined Factor            0.99999861
+
+US NATIONAL GRID DESIGNATOR: 19QCB2171790111(NAD 83)
+
+
+                              BASE STATIONS USED
+PID       DESIGNATION                        LATITUDE    LONGITUDE DISTANCE(m)
+DL6655 PRAR ARECIBO CORS ARP               N182701.705 W0663850.722  451831.1
+       RDSD                                                          169803.7
+DL7620 PRJC SAN SEBASTIAN CORS ARP         N182032.024 W0665958.193  421618.6
+
+                 NEAREST NGS PUBLISHED CONTROL POINT
+AB9278      MALECON                        N194819.560 W0704145.546     969.2
+
+This position and the above vector components were computed without any
+knowledge by the National Geodetic Survey regarding the equipment or
+field operating procedures used.

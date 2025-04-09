@@ -1,0 +1,45 @@
+RINEX FILE: pape080u.19o                             TIME: 23:12:38 UTC
+
+
+  SOFTWARE: page5  2008.25 master295.pl 160321      START: 2019/03/21  20:06:00
+ EPHEMERIS: igs20454.eph [precise]                   STOP: 2019/03/22  00:24:00
+  NAV FILE: brdc0800.19n                         OBS USED:  7485 /  7841   :  95%
+  ANT NAME: SEPALTUS_NR3    NONE              # FIXED AMB:    31 /    39   :  79%
+ARP HEIGHT: 2.000                             OVERALL RMS: 0.016(m)
+
+
+ REF FRAME: NAD_83(PA11)(EPOCH:2010.0000)              ITRF2014 (EPOCH:2019.2190)
+
+         X:     -5245720.316(m)   0.027(m)          -5245722.227(m)   0.027(m)
+         Y:     -3081143.771(m)   0.009(m)          -3081140.412(m)   0.009(m)
+         Z:     -1909230.990(m)   0.010(m)          -1909229.759(m)   0.010(m)
+
+       LAT:  -17 32  1.01267      0.014(m)       -17 32  0.97501      0.014(m)
+     E LON:  210 25 42.29116      0.014(m)       210 25 42.16015      0.014(m)
+     W LON:  149 34 17.70884      0.014(m)       149 34 17.83985      0.014(m)
+    EL HGT:            9.915(m)   0.024(m)                 9.493(m)   0.024(m)
+ ORTHO HGT: [No NGS Geoid Model Available.]
+
+                        UTM COORDINATES    STATE PLANE COORDINATES
+                         UTM (Zone 06)         *** NOTE ***
+Northing (Y) [meters]     8059565.596      Please manually select
+Easting (X)  [meters]      226982.986      SPC zone.
+Convergence  [degrees]    -0.77521111
+Point Scale                1.00052170
+Combined Factor            1.00052014
+
+US NATIONAL GRID DESIGNATOR: 6KTF2698359566(NAD 83)
+
+
+                              BASE STATIONS USED
+PID       DESIGNATION                        LATITUDE    LONGITUDE DISTANCE(m)
+DR6554 CHTI CHATHAM ISLAND CORS GRP                                 3799362.1
+       FAA1                                                            5129.3
+       AUCK                                                         4009777.1
+
+                 NEAREST NGS PUBLISHED CONTROL POINT
+AA4457      ROSE                           S143252.971 W1680843.799 2013975.2
+
+This position and the above vector components were computed without any
+knowledge by the National Geodetic Survey regarding the equipment or
+field operating procedures used.

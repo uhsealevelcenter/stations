@@ -1,0 +1,45 @@
+RINEX FILE: sama204s.19o                             TIME: 23:09:22 UTC
+
+
+  SOFTWARE: page5  2008.25 master271.pl 160321      START: 2019/07/23  18:52:00
+ EPHEMERIS: igs20632.eph [precise]                   STOP: 2019/07/23  22:55:00
+  NAV FILE: brdc2040.19n                         OBS USED: 10193 / 10435   :  98%
+  ANT NAME: SEPALTUS_NR3    NONE              # FIXED AMB:    31 /    34   :  91%
+ARP HEIGHT: 2.000                             OVERALL RMS: 0.017(m)
+
+
+ REF FRAME: NAD_83(2011)(EPOCH:2010.0000)              ITRF2014 (EPOCH:2019.5585)
+
+         X:      1701318.433(m)   0.034(m)           1701317.749(m)   0.034(m)
+         Y:     -6020945.941(m)   0.040(m)          -6020944.070(m)   0.040(m)
+         Z:      1234529.034(m)   0.008(m)           1234528.935(m)   0.008(m)
+
+       LAT:   11 14  6.54479      0.015(m)        11 14  6.55422      0.015(m)
+     E LON:  285 46 42.67783      0.038(m)       285 46 42.67290      0.038(m)
+     W LON:   74 13 17.32217      0.038(m)        74 13 17.32710      0.038(m)
+    EL HGT:           -1.866(m)   0.038(m)                -3.834(m)   0.038(m)
+ ORTHO HGT: [No NGS Geoid Model Available.]
+
+                        UTM COORDINATES    STATE PLANE COORDINATES
+                         UTM (Zone 18)         *** NOTE ***
+Northing (Y) [meters]     1242092.925      Please manually select
+Easting (X)  [meters]      584983.002      SPC zone.
+Convergence  [degrees]     0.15169444
+Point Scale                0.99968936
+Combined Factor            0.99968965
+
+US NATIONAL GRID DESIGNATOR: 18PWT8498342093(NAD 83)
+
+
+                              BASE STATIONS USED
+PID       DESIGNATION                        LATITUDE    LONGITUDE DISTANCE(m)
+       RDSD                                                          923388.8
+DO1766 CN37 GALERAZAMBA CGPS GRP                                     123916.8
+DL6416 SAN0 SANANDRESCOL2007 GRP                                     829241.8
+
+                 NEAREST NGS PUBLISHED CONTROL POINT
+AB9241      DP 2                           N123254.374 W0700320.221  476523.4
+
+This position and the above vector components were computed without any
+knowledge by the National Geodetic Survey regarding the equipment or
+field operating procedures used.

@@ -1,0 +1,46 @@
+USER: aj35@hawaii.edu                          DATE: March 11, 2025
+RINEX FILE: barb213u.20o                             TIME: 22:57:25 UTC
+
+
+SOFTWARE: page5  2008.25 master275.pl 160321      START: 2020/07/31  21:00:00
+EPHEMERIS: igs21165.eph [precise]                   STOP: 2020/07/31  23:32:00
+NAV FILE: brdc2130.20n                         OBS USED:  6822 /  7211   :  95%
+ANT NAME: SEPALTUS_NR3    NONE              # FIXED AMB:    36 /    44   :  82%
+ARP HEIGHT: 2.000                             OVERALL RMS: 0.017(m)
+
+
+REF FRAME: NAD_83(PA11)(EPOCH:2010.0000)              ITRF2014 (EPOCH:2020.5818)
+
+    X:     -5516009.940(m)   0.021(m)          -5516010.936(m)   0.021(m)
+    Y:     -2215253.983(m)   0.011(m)          -2215250.868(m)   0.011(m)
+    Z:      2304634.404(m)   0.007(m)           2304635.796(m)   0.007(m)
+
+  LAT:   21 19 18.69748      0.007(m)        21 19 18.74244      0.007(m)
+E LON:  201 52 50.20568      0.003(m)       201 52 50.09250      0.003(m)
+W LON:  158  7  9.79432      0.003(m)       158  7  9.90750      0.003(m)
+EL HGT:           17.221(m)   0.023(m)                17.506(m)   0.023(m)
+ORTHO HGT:            2.352(m)   0.076(m) [ H = h-N (N = GEOID12B HGT)]
+
+                   UTM COORDINATES    STATE PLANE COORDINATES
+                    UTM (Zone 04)         SPC (5103 HI 3)
+Northing (Y) [meters]     2358024.689            17187.605
+Easting (X)  [meters]      591326.056           487614.176
+Convergence  [degrees]     0.32021944          -0.04341111
+Point Scale                0.99970306           0.99999189
+Combined Factor            0.99970035           0.99998918
+
+US NATIONAL GRID DESIGNATOR: 4QEJ9132658025(NAD 83)
+
+
+                         BASE STATIONS USED
+PID       DESIGNATION                        LATITUDE    LONGITUDE DISTANCE(m)
+DR4401 HAL1 HALEAKALA OBSERVA CORS GRP     N204226.659 W1561522.365  205357.1
+DF8972 ZHN1 HONOLULU WAAS 1 CORS ARP       N211846.729 W1575514.882   20626.7
+DE6591 MKEA MAUNA KEA CORS MON             N194804.846 W1552722.745  324792.0
+
+            NEAREST NGS PUBLISHED CONTROL POINT
+DR2079      SOH 16                         N2119012.90 W15807002.00     286.8
+
+This position and the above vector components were computed without any
+knowledge by the National Geodetic Survey regarding the equipment or
+field operating procedures used.

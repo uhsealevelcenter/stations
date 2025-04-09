@@ -2,14 +2,18 @@
   <title>UHSLC Stations</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Cache-Control" content="no-cache">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.0/css/bootstrap-datepicker.min.css" />
-  <link rel="stylesheet" href="css/custom.css" />
+
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <!-- <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet"> -->
   <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/css-toggle-switch@latest/dist/toggle-switch.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />  <link rel="stylesheet" href="css/custom.v2.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.EasyButton/2.4.0/easy-button.min.css" integrity="sha512-Dl8Sq3zeaW4/XeowsD/0Fyn07Cy+1yJlG4/Bs8Lt91P2gZGB3lemVScG8dsNi2pIwhDwuTR22RGumk72cd5OhA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 </head>
 
@@ -31,18 +35,19 @@
       <div class="col-sm-12">
         <div class="wrapper" id="tabs">
 
-          <div class="col-sm-12">
+          <div class="col-sm-12 selection-area">
             <!-- <div class="" id="selectbox"></div> -->
 
-           <div class="myselect col-sm-6">
+           <div class="myselect col-sm-5">
              <label for="myselect2">
                    Station:
                  <select id="myselect2"> </select>
             </label>
           </div>
-            <div class="scroller col-sm-6">
+            <div class="scroller col-sm-7">
               <ul class="tab-list" style="display: none">
                 <li><a href="#climatology">Climatology</a></li>
+                <li><a href="#benchmarks">Benchmarks</a></li>
                 <li><a href="#datums">Datums</a></li>
                 <li><a href="#tidecal">Tide Calendars</a></li>
                 <li><a href="#levels" id="defaultTab">Water Levels</a></li>
@@ -170,7 +175,7 @@
               <p>Data processing of high-frequency tide gauge measurements automatically removes most sensor and transmission errors, converts the data into hourly observations, and chooses the best sensor gauge for each station. Daily updates are
                 typically
                 available by 3:00 GMT (17:00 HST) to provide data through the previous day. </p>
-              <p>These observations have not been subjected to the UHSLC’s manual quality control procedures (<a href="https://uhslc.soest.hawaii.edu/data/?fd">Fast Delivery</a> and <a href="https://uhslc.soest.hawaii.edu/data/?rq">Research
+              <p>These observations have not been subjected to the UHSLC's manual quality control procedures (<a href="https://uhslc.soest.hawaii.edu/data/?fd">Fast Delivery</a> and <a href="https://uhslc.soest.hawaii.edu/data/?rq">Research
                   Quality</a> data).
                 The Rapid Delivery data shown here is for limited public use as preliminary data to be used only with appropriate caution.</p>
             </div>
@@ -180,7 +185,7 @@
           <!-- tab2: predicted tides -->
           <div id="tidecal" style="display: none;">
             <!-- left side of tides -->
-            <div style="" class="col-sm-8">
+            <div class="col-sm-8">
 
               <!-- <div class="pred-slct-head">Format</div> -->
               <ul class="nav nav-pills cal-pills cal-format-pills">
@@ -248,7 +253,7 @@
           <!-- end tab2 -->
 
           <!-- tab3: datums -->
-          <div id="datums" style="">
+          <div id="datums">
             <div class="col-sm-8" id="datumtable"></div>
             <div class="col-sm-4" id="datumgraphic"></div>
             <!-- <div class="col-sm-12"><p><strong>Disclaimer: The Station Explorer is a <i>research</i> product.</strong> The data are provided free of charge without warranty of any kind. <a href="https://uhslc.soest.hawaii.edu/">UHSLC</a> requests that attribution be given whenever
@@ -257,8 +262,96 @@
           </div>
           <!-- end tab3 -->
 
-          <!-- tab4: climatology -->
-          <div id="climatology" class="col-sm-12 center" style="">
+          <!-- tab4: benchmarks -->
+          <div id="benchmarks" class="col-sm-12">
+            <div id="no-benchmarks" class="is-hidden">Station map and benchmark data are not available for this station.</div>
+            <div id="benchmark-content">
+              <h3>Station Map</h3>
+              <div class="map-container row">
+                  <div class="map-wrapper">
+                      <div id="map"></div>
+                  </div>
+                  <div id="map-panel">
+                    <div class="panel-wrapper">
+                        <div class="panel-item">
+                            <!-- <h3 id="benchmark-header" class="panel-header">Selected Benchmark</h3> -->
+                            <!-- <h3 id="current-benchmark"></h3> -->
+                             <div class="dropdown-label">Select a benchmark or click on map:</div>
+                            <div class="dropdown">
+                              <button 
+                                  class="btn btn-default dropdown-toggle selected" 
+                                  type="button" 
+                                  id="dropdown-menu" 
+                                  data-toggle="dropdown" 
+                                  aria-haspopup="true" 
+                                  aria-expanded="true"
+                              >
+                                  <span id="current-benchmark"></span>&nbsp;&nbsp;<span class="caret"></span>
+                              </button>
+                              <ul class="dropdown-menu" id="benchmark-dropdown" aria-labelledby="dropdown-menu">
+                              </ul>
+                          </div>
+                            <div id="coords">
+                              <!-- <img id="current-icon"> -->
+                              <div id="current-coords"></div>
+                            </div>
+                        </div>
+                        <div id="select-message" class="panel-item">
+                          <!-- <p><em>Click on map icons to view description and photos for station benchmarks.</em></p> -->
+                        </div>
+                        <div id="photos" class="panel-item">
+                            <h4 class="panel-header" id="panel-photo-header">Photo(s)</h4>
+                            <div class="no-photos-message">No photos available at this site.</div>
+                            <div id="photo-carousel" class="carousel slide" data-ride="carousel" data-interval="false">
+                                <div class="carousel-indicators">
+                                </div>
+                                <div class="carousel-inner">
+                                </div>
+                                <button class="carousel-control-prev" type="button" data-target="#photo-carousel" data-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Previous</span>
+                                </button>
+                                <button class="carousel-control-next" type="button" data-target="#photo-carousel" data-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Next</span>
+                                </button>
+                            </div>
+                            <div class="photo-caption">Photo date: <span id="photo-date">Apr 23 2023</span></div>
+                            
+                        
+                        </div>
+                        <div id="panel-description" class="panel-item">
+                          <h4 class="panel-header">Description</h4>
+                          <div id="current-description"></div>
+                      </div>
+                    </div>
+                </div>
+              </div>
+              <div class="table-container">
+                  <h3>Benchmark Locations and Levels</h3>
+                  <table id="benchmark-table" class="table">
+                      <thead>
+                          <tr>
+                            <th scope="col">Benchmark</th>
+                            <th scope="col">Type</th>
+                            <th scope="col">Latitude</th>
+                            <th scope="col">Longitude</th>
+                            <th scope="col">Level above station zero (<span id="table-units">m</span>)</th>
+                            <th scope="col">Last surveyed</th>
+                            <th scope="col">GPS reports</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                  </table>
+              </div>
+            </div>
+
+
+        </div>
+
+          <!-- tab5: climatology -->
+          <div id="climatology" class="col-sm-12 center">
 
             <div class="col-sm-6" style="  min-height: 138px;">
               <div class="tab">
@@ -327,19 +420,21 @@
             <div id="extremeMonthly" class="col-sm-12"></div>
             <div id="climateMonthly" class="col-sm-12"></div>
 
-            <div id="climatologyProductDesc" style="" class="col-sm-12">
+            <div id="climatologyProductDesc" class="col-sm-12">
               <p>This product provides a preliminary look at the recent or past water
                 levels compared to the long-term records and climatology at the tide gauge station.
-                Updates are typically available by the 15<sup>th</sup> day of each month using the UHSLC’s Fast Delivery of tide gauge data.
+                  Updates are typically available by the 15<sup>th</sup> day of each month using the UHSLC’s Fast Delivery of tide gauge data.
               </p>
               <p>
-                ​​Three plot types (Daily Extremes, Monthly Extremes, and Monthly Means)
+                Three plot types (Daily Extremes, Monthly Extremes, and Monthly Means)
                 are provided with the first two utilizing hourly data and the latter monthly data.
                 In the Daily Extremes plot, the sub-monthly oscillations are due to the spring-neap
                 tidal cycles (i.e., new or full moon phases) combined with independent sea level variability
                 on lower or higher frequencies. When viewing individual years of daily extremes, note that days
-                with partial missing data will sometimes show a spike well below the typical spring-neap tidal cycle
-                that explains the normal oscillatory nature of the records (e.g., if that day’s highest tide was not recorded).
+                with partial missing data will sometimes show a spike well below the typical spring-neap tidal cycle 
+                that explains the normal oscillatory nature of the records (e.g., if that day's highest tide was not recorded). 
+                A similar note applies to the monthly extremes, when the hourly observation record is incomplete for the particular month of the year. 
+                Monthly means are shown when at least seven complete days of hourly observations are available within the month.
               </p>
               <p>
                 Similar types of graphical displays are available on the web
@@ -350,7 +445,8 @@
             </div>
             <!-- <hr> -->
           </div>
-          <!-- end tab4 -->
+          <!-- end tab5 -->
+
 
         </div>
         <!-- end #tabs -->
@@ -369,8 +465,29 @@
     <!-- end .row -->
 
   </div>
-
   <!-- end .container-fluid -->
+
+  <!-- Modal for benchmark photos -->
+  <div class="modal fade" id="photo-modal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div id="photo-modal-content" class="modal-content">
+        <div id="modal-carousel" class="carousel slide" data-ride="carousel" data-interval="false">
+            <div class="carousel-indicators">
+            </div>
+            <div class="carousel-inner">
+            </div>
+            <button class="carousel-control-prev" type="button" data-target="#modal-carousel" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-target="#modal-carousel" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- Placed at the end of the document so the pages load faster -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -380,10 +497,14 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
   <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.0/js/bootstrap-datepicker.min.js"></script>
-  <script src='config.js'></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.EasyButton/2.4.0/easy-button.min.js" integrity="sha512-Tndo4y/YJooD/mGXS9D6F1YyBcSyrWnnSWQ5Z9IcKt6bljicjyka9qcP99qMFbQ5+omfOtwwIapv1DjBCZcTJQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>  
+  <script src='config.v3.js'></script>
+  <script src='https://unpkg.com/leaflet.gridlayer.googlemutant@latest/dist/Leaflet.GoogleMutant.js'></script>
   <script src='plot.js'></script>
   <script src='climatology.js'></script>
   <script src='datepicker.js'></script>
+  <script src="benchmarks.v6.js"></script>
   <script src='tabs.js'></script>
 
 </body>
