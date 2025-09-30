@@ -58,7 +58,7 @@ function loadtabs(stn, date, unit = "_m") {
       } else {
         $("#datumtable").html(result);
         $("#datumgraphic").empty().append(
-          `<a> href="${LST_URL}fd${stn}/d${stn}${unit}.png" target='_blank><img class='img-responsive' src="${LST_URL}fd${stn}/d${stn}${unit}.png /></a><p align='center'>[click image to view full size]</p>`
+          `<a href="${LST_URL}fd${stn}/d${stn}${unit}.png" target='_blank'><img class='img-responsive' src="${LST_URL}fd${stn}/d${stn}${unit}.png" /></a><p align='center'>[click image to view full size]</p>`
           // "<a href=" +
           //   LST_URL +
           //   "fd" +
@@ -465,7 +465,10 @@ function populateMetaDataTables(stnID, jsondata) {
   $("#glossID").html(glossID);
   // $("#metaLAT").html(metadata.features[findIndexByStnID(metadata, parseInt(stn))].geometry.coordinates[1]+', '+ metadata.features[findIndexByStnID(metadata, parseInt(stn))].geometry.coordinates[0]);
   $("#metaLAT").html(metadata.geometry.coordinates[1].toFixed(3));
-  $("#metaLONG").html(metadata.geometry.coordinates[0].toFixed(3));
+  // $("#metaLONG").html(metadata.geometry.coordinates[0].toFixed(3));
+  let rawLon = metadata.geometry.coordinates[0];
+  let convertedLon = rawLon > 180 ? rawLon - 360 : rawLon;
+  $("#metaLONG").html(convertedLon.toFixed(3));
 
   // Populate #metaTable1 with links to daily data
   $("#fastD").html(

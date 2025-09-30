@@ -1,0 +1,475 @@
+<head>
+    <title>UHSLC Stations</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css">
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.0/css/bootstrap-datepicker.min.css" />
+    <link rel="stylesheet" href="css/custom.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet"> -->
+    <link rel="stylesheet" type="text/css"
+        href="https://cdn.jsdelivr.net/npm/css-toggle-switch@latest/dist/toggle-switch.css" />
+
+</head>
+
+<body>
+
+    <div class="container-fluid">
+
+        <div class="row">
+
+            <!-- header and navigation -->
+            <div class="page-header col-sm-12">
+                <a class="" href="https://uhslc.soest.hawaii.edu">
+                    <img src="https://uhslc.soest.hawaii.edu/uhslc/wp-content/uploads/2017/03/uhslcLogoText72.png"
+                        style="height: 51px; margin-top: 5px">
+                </a>
+                <div id="product_name">STATION EXPLORER</div>
+            </div>
+            <!-- end header -->
+            <!-- station selection and section tabs -->
+            <div class="col-sm-12">
+                <div class="wrapper" id="tabs">
+
+                    <div class="col-sm-12">
+                        <!-- <div class="" id="selectbox"></div> -->
+
+                        <div class="myselect col-sm-6">
+                            <label for="myselect2">
+                                Station:
+                                <select id="myselect2"> </select>
+                            </label>
+                        </div>
+                        <div class="scroller col-sm-6">
+                            <ul class="tab-list" style="display: none">
+                                <li><a href="#climatology">Climatology</a></li>
+                                <li><a href="#datums">Datums</a></li>
+                                <li><a href="#tidecal">Tide Calendars</a></li>
+                                <li><a href="#levels" id="defaultTab">Water Levels</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Metadata area -->
+                    <div id="metaBox" class="col-sm-12">
+                        <div id="metaTable2" class="col-sm-3">
+                            <table style="border-color: #f2f2f2; width:100%;" border="solid">
+                                <tbody>
+                                    <tr>
+                                        <td style="padding-top: 2px; font-size: 15px;" bgcolor="silver">
+                                            <strong>COUNTRY:</strong></td>
+                                        <td style="padding-left:10px; font-size: 13px;" bgcolor="silver"><span
+                                                id="metaCountry"></span></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-size: 15px;" bgcolor="silver"><strong>NAME:</strong></td>
+                                        <td style="padding-left:10px; font-size: 13px;" bgcolor="silver"><span
+                                                id="metaName"></span></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding-top: 4px;font-size: 15px;"><strong>UHSLC ID:</strong></td>
+                                        <td style="padding-left:10px; font-size: 13px;"><span id="metaUHID"></span></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-size: 15px;"><strong>GLOSS ID:</strong></td>
+                                        <td style="padding-left:10px; font-size: 13px;"><span id="glossID"></span></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding-top: 4px;font-size: 15px;" bgcolor="silver">
+                                            <strong>LAT:</strong></td>
+                                        <td style="padding-left:10px; font-size: 13px;" bgcolor="silver"><span
+                                                id="metaLAT"></span></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-size: 15px;" bgcolor="silver"><strong>LON:</strong></td>
+                                        <td style="padding-left:10px; font-size: 13px;" bgcolor="silver"><span
+                                                id="metaLONG"></span></td>
+                                        <!-- <td style="" bgcolor="silver"><strong>Station Metadata</strong></td>
+              <td style="padding-left:10px" bgcolor="silver"></td> -->
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div id="metaTable1" class="col-sm-6">
+                            <table style="border-color: #f2f2f2; width: 100%;" border="solid">
+                                <tbody>
+                                    <tr>
+                                        <td style="padding: 6px 0px; text-align: center; width: 97.1111%; font-size: 15px;"
+                                            colspan="3" bgcolor="#f2f2f2"><strong>QUALITY CONTROLLED STATION
+                                                DATA</strong></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 5px 0px; text-align: center; width: 48.7778%; font-size: 13px;"
+                                            colspan="2"><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                                                &nbsp; &nbsp; &nbsp;Fast Delivery</strong></td>
+                                        <td style="text-align: center; width: 48.3333%; font-size: 13px;">
+                                            <strong>Research Quality</strong></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 5px 0px 4px 2px; width: 10.8889%; font-size: 13px;"
+                                            bgcolor="#f2f2f2"><strong>HOURLY:</strong></td>
+                                        <td style="width: 37.8889%; text-align: center;font-size: 13px;"
+                                            bgcolor="#f2f2f2"><span id="fastH">.dat .csv .nc</span></td>
+                                        <td style="padding: 4px 0px 4px 10px; text-align: center; width: 48.3333%; font-size: 13px;"
+                                            bgcolor="#f2f2f2"><span id="researchH">.dat .csv .nc</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width: 10.8889%; font-size: 13px; padding: 5px 2px;">
+                                            <strong>DAILY:</strong></td>
+                                        <td style="width: 37.8889%; text-align: center;font-size: 13px;"><span
+                                                id="fastD">.dat .csv .nc</span></td>
+                                        <td
+                                            style="padding: 4px 0px 4px 10px; text-align: center; width: 48.3333%;font-size: 13px;">
+                                            <span id="researchD">.dat .csv .nc</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td
+                                            style="background-color: #f2f2f2; padding: 4px 2px; width: 10.8889%; font-size: 13px;">
+                                            <span id="metadata"><strong>METADATA</strong></span></td>
+                                        <td style="background-color: #f2f2f2; padding: 0px 0px; width: 86.2222%;"
+                                            colspan="2">&nbsp;&nbsp;</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="col-sm-3" id="unitsButtonsContainer">
+                            <label class="switch-light switch-candy" onclick="">
+                                <input class="toggleclass" type="checkbox" id="unitToggle">
+                                <span>
+                                    <span>Metric</span>
+                                    <span>English</span>
+                                    <a></a>
+                                </span>
+                            </label>
+
+                            <label id="testing" class="switch-light switch-candy datum" onclick="">
+                                <input class="toggleclass" type="checkbox" id="datumToggle">
+                                <span>
+                                    <span>MHHW</span>
+                                    <span>MLLW</span>
+                                    <a></a>
+                                </span>
+                            </label>
+
+                            <label class="switch-light switch-candy tz" onclick="">
+                                <input type="checkbox" id="timeToggle">
+                                <span>
+                                    <span>GMT</span>
+                                    <span>LST</span>
+                                    <a></a>
+                                </span>
+                            </label>
+                            <!-- <input class="toggleclass" id="unitToggle" type="checkbox" data-toggle="toggle" data-style="android" data-width="100%" data-on="English" data-off="Metric">-->
+                            <!-- <input class="toggleclass" id="datumToggle" type="checkbox" data-toggle="toggle" data-style="android" data-width="100%" data-on="MHHW" data-off="MLLW"> -->
+                            <!-- <input id="timeToggle" type="checkbox" data-toggle="toggle" data-width="100%" data-style="android" data-on="LST" data-off="GMT">  -->
+                        </div>
+
+                        <!-- <p id="fastData">Fast delivery link</p>
+            <p id="researchData">Research Quality link</p> -->
+                    </div>
+
+                    <!-- tab1: interactive water level time series -->
+                    <div id="levels" class="col-sm-12 col-sm-12">
+
+                        <!-- <div class="units" style="display: inline;">
+              <button class="btn" id="unitToggle" style="width:80px; " tooltip="Change unit" tooltip-position="bottom">Metric</button>
+            </div>
+            <div class="datum" style="display: none;">
+              <button class="btn" id="datumToggle" style="width:80px;" tooltip="Change datum" tooltip-position="bottom"> MLLW </button>
+            </div>
+            <div class="time" style="display: inline;">
+              <button class="btn" id="timeToggle" style="width:80px;" tooltip="Change time-zone" tooltip-position="bottom">GMT</button>
+            </div>-->
+                        <div id="tideplot1" class="col-sm-12"></div>
+                        <div id="tideplot2" class="col-sm-12"></div>
+                        <hr>
+                        <div id="product_desc" style="display: none;" class="col-sm-12 col-sm-12">
+                            <p>This product provides a preliminary look at the recent hourly water levels <span
+                                    style="background-color: #ff7f0e;padding: 5px">observed</span> by the tide gauge
+                                station compared to the astronomical tidal <span
+                                    style="background-color: #1f77b4; color:white;padding: 5px">prediction</span>.
+                                <span style="background-color: #2ca02c; color:white;padding: 5px">Residuals</span>
+                                (observations minus the predictions) are indicative of the local sea level anomaly.
+                            </p>
+                            <p>Data processing of high-frequency tide gauge measurements automatically removes most
+                                sensor and transmission errors, converts the data into hourly observations, and chooses
+                                the best sensor gauge for each station. Daily updates are
+                                typically
+                                available by 3:00 GMT (17:00 HST) to provide data through the previous day. </p>
+                            <p>These observations have not been subjected to the UHSLC’s manual quality control
+                                procedures (<a href="https://uhslc.soest.hawaii.edu/data/?fd">Fast Delivery</a> and <a
+                                    href="https://uhslc.soest.hawaii.edu/data/?rq">Research
+                                    Quality</a> data).
+                                The Rapid Delivery data shown here is for limited public use as preliminary data to be
+                                used only with appropriate caution.</p>
+                        </div>
+                    </div>
+                    <!-- end tab1 -->
+
+                    <!-- tab2: predicted tides -->
+                    <div id="tidecal" style="display: none;">
+                        <!-- left side of tides -->
+                        <div style="" class="col-sm-8">
+
+                            <!-- <div class="pred-slct-head">Format</div> -->
+                            <ul class="nav nav-pills cal-pills cal-format-pills">
+                                <li class="active"><a data-toggle="pill" href="#graph_cal">Graphical calendar</a></li>
+                                <li><a data-toggle="pill" href="#text_cal">Text calendar</a></li>
+                                <li><a data-toggle="pill" href="#info_cal">Information</a></li>
+                            </ul>
+
+                            <div class="tab-content">
+                                <div id="graph_cal" class="tab-pane fade in active">
+                                    <form method="get" action="fd007/p007_201912.pdf" class="dwnld-btn" id="plot-btn"
+                                        target="_blank">
+                                        <button class="btn btn-info" type="submit"><i class="fa fa-download"></i>
+                                            Download</button>
+                                    </form>
+                                    <div id="predcal"></div>
+                                </div>
+                                <div id="text_cal" class="tab-pane fade">
+                                    <form method="get" action="fd007/t007_201912.txt" class="dwnld-btn" id="text-btn"
+                                        target="_blank">
+                                        <button class="btn btn-info" type="submit"><i class="fa fa-download"></i>
+                                            Download</button>
+                                    </form>
+                                    <div id="predtable" style="white-space: pre; font-family:courier;"></div>
+                                </div>
+                                <div id="info_cal" class="tab-pane fade">
+                                    <div>
+                                        <p>Tide predictions are calculated based on harmonic analysis of the hourly
+                                            water levels measured during the <a
+                                                href="https://uhslc.soest.hawaii.edu/stations/datums#stat">Station Datum
+                                                Epoch</a>. That is, observations of the past
+                                            are
+                                            used to predict the future. While called <i>predictions</i>, the tidal
+                                            calendars are extremely deterministic many years into the future.
+                                            Astronomical knowledge (relative positions of the Earth-Moon-Sun) provides
+                                            information
+                                            about
+                                            the gravitational pull on the oceans, which forces most of the tidal cycles.
+                                        </p>
+                                        <p>We update the span of tide calendars on a yearly basis to cover the previous
+                                            and future couple of years. Graphical calendars from the early months
+                                            include observed water levels overlaid on the prediction, which gives a
+                                            sense of
+                                            how
+                                            well the tide prediction performed in the past. </p>
+                                    </div>
+                                    <div>
+                                        <p>Tidal harmonics and the associated predicted future water levels are
+                                            calculated using the <a
+                                                href="http://www.po.gso.uri.edu/~codiga/utide/utide.htm">Unified Tidal
+                                                Analysis and Prediction “UTide”</a> procedure. Harmonic
+                                            analysis is
+                                            performed over the Station Datum Epoch, which is ideally 19-years to cover a
+                                            full lunar nodal cycle; however, useful tide predictions are often achieved
+                                            using water level records as short as two years. Our tide predictions are
+                                            based
+                                            on 68 harmonic constituents, which include the annual, semi-annual, and
+                                            nodal (18.6 year wobble of the Moon’s orbit around the Earth) cycles.</p>
+                                        <p> For more information about how these predictions were calculated, please
+                                            contact <a href="mailto:mwidlans@hawaii.edu">Matthew Widlansky</a>.</p>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <!-- end left side -->
+
+                        <!-- right side of tides -->
+                        <div class="col-sm-4">
+                            <div id="calendarDiv">
+
+                                <div id="datepicker" data-date-start-date="-7m" data-date-end-date="+60m"></div>
+                            </div>
+
+                            <div>
+                                <div class="pred-slct-head">Stay up-to-date</div>
+                                <div id="about-text">
+                                    <p>To receive updates when the latest tide predictions are generated, subscribe to
+                                        our email updates. To subscribe, send an email to: <a
+                                            href="mailto:tide-grp+subscribe@hawaii.edu">tide-grp+subscribe@hawaii.edu</a>.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end right side -->
+
+                    </div>
+                    <!-- end tab2 -->
+
+                    <!-- tab3: datums -->
+                    <div id="datums" style="">
+                        <div class="col-sm-8" id="datumtable"></div>
+                        <div class="col-sm-4" id="datumgraphic"></div>
+                        <!-- <div class="col-sm-12"><p><strong>Disclaimer: The Station Explorer is a <i>research</i> product.</strong> The data are provided free of charge without warranty of any kind. <a href="https://uhslc.soest.hawaii.edu/">UHSLC</a> requests that attribution be given whenever
+                the
+                <a href="https://uhslc.soest.hawaii.edu/stations/">Station Explorer</a> material is reproduced and re-disseminated.</p></div> -->
+                    </div>
+                    <!-- end tab3 -->
+
+                    <!-- tab4: climatology -->
+                    <div id="climatology" class="col-sm-12 center" style="">
+
+                        <div class="col-sm-6" style="  min-height: 138px;">
+                            <div class="tab">
+                                <button class="tablinks" onclick="displayPlot(event, 'dailyE')" id="defaultOpen">Daily
+                                    Extremes</button>
+                                <button class="tablinks" onclick="displayPlot(event, 'monthlyE')">Monthly
+                                    Extremes</button>
+                                <button class="tablinks" onclick="displayPlot(event, 'monthlyM')">Monthly Means</button>
+                                <button class="tablinks" onclick="displayPlot(event, 'combined')">Combined</button>
+                            </div>
+
+                            <div id="dailyE" class="tabcontent">
+                                <h3>Daily Extremes</h3>
+                                <p>For each <strong>day</strong>, highest and
+                                    lowest<sup><strong><span>&#8224;</span></strong></sup> hourly water levels, along
+                                    with the daily range averaged during the epoch.</p>
+                            </div>
+
+                            <div id="monthlyE" class="tabcontent">
+                                <h3>Monthly Extremes</h3>
+                                <p>For each <strong>month</strong>, highest and
+                                    lowest<sup><strong><span>&#8224;</span></strong></sup> hourly water levels, along
+                                    with the monthly maximum range averaged during the epoch.</p>
+                            </div>
+
+                            <div id="monthlyM" class="tabcontent">
+                                <h3>Monthly Means</h3>
+                                <p>Highest and lowest <strong>monthly mean</strong> water levels, along with monthly
+                                    data averaged during the epoch and for each selected year(s).</p>
+                            </div>
+
+                            <div id="combined" class="tabcontent">
+                                <h3>Combined</h3>
+                                <p>Displaying all plots in one figure.</p>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div class="col-sm-12">
+                                <h4 id="textBoxTitle"> Select up to 10 individual years to display </h4>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="input-group">
+                                    <span class="input-group-btn">
+                                        <button onclick="plotClimateData.reset()" class="btn btn-info"
+                                            type="submit">Reset</button>
+                                    </span>
+                                    <input id="yearsBox" type="text" class="form-control"
+                                        placeholder=" e.g. 2005-2009, 2015, 2017-2019 (max 10)" aria-label="Enter Years"
+                                        aria-describedby="basic-addon2">
+                                    <span class="input-group-btn">
+                                        <button onclick="plotClimateData.addYears()" class="btn btn-info"
+                                            type="submit">Add Years</button>
+                                    </span>
+
+                                </div>
+                            </div>
+                            <div class="col-sm-12 center">
+                                <p style="color:red;" align="center" id="inputMessage"></p>
+                            </div>
+                            <div class="col-sm-12 center">
+                                <p align="center"><sup><strong><span>&#8224;</span></strong></sup>For user-selected
+                                    years, only the highest water levels are shown in graphs of daily and monthly
+                                    extremes.</p>
+                            </div>
+                        </div>
+
+
+                        <!-- <div class="col-sm-12 climatologyGraphCollection"> -->
+                        <div id="epochRangeText" class="col-sm-12" align="center">
+                            <p></p>
+                        </div>
+                        <!-- </div> -->
+                        <div id="dataRangeText" class="col-sm-12" align="center">
+                            <p></p>
+                        </div>
+                        <!-- <div class="example-popover" data-toggle="popover" title="Popover Header" data-placement="right" data-content="Some content inside the popover"></div> -->
+                        <div id="climateDaily" class="col-sm-12"></div>
+                        <div id="extremeMonthly" class="col-sm-12"></div>
+                        <div id="climateMonthly" class="col-sm-12"></div>
+
+                        <div id="climatologyProductDesc" style="" class="col-sm-12">
+                            <p>This product provides a preliminary look at the recent or past water
+                                levels compared to the long-term records and climatology at the tide gauge station.
+                                Updates are typically available by the 15<sup>th</sup> day of each month using the
+                                UHSLC’s Fast Delivery of tide gauge data.
+                            </p>
+                            <p>
+                                ​​Three plot types (Daily Extremes, Monthly Extremes, and Monthly Means)
+                                are provided with the first two utilizing hourly data and the latter monthly data.
+                                In the Daily Extremes plot, the sub-monthly oscillations are due to the spring-neap
+                                tidal cycles (i.e., new or full moon phases) combined with independent sea level
+                                variability
+                                on lower or higher frequencies. When viewing individual years of daily extremes, note
+                                that days
+                                with partial missing data will sometimes show a spike well below the typical spring-neap
+                                tidal cycle
+                                that explains the normal oscillatory nature of the records (e.g., if that day’s highest
+                                tide was not recorded). A similar note applies to the monthly extremes, when the hourly
+                                observation record is incomplete for the particular month of the year. Monthly means are
+                                shown when at least seven complete days of hourly observations are available within the
+                                month.
+                            </p>
+                            <p>
+                                Similar types of graphical displays are available on the web
+                                for many other types of atmospheric and oceanic data, including
+                                a <a href="http://bmcnoldy.rsmas.miami.edu/vk/index.html#daily_tide_chart">water level
+                                    visualization for Miami, Florida</a>, which helped
+                                inspire this product.
+                            </p>
+                        </div>
+                        <!-- <hr> -->
+                    </div>
+                    <!-- end tab4 -->
+
+                </div>
+                <!-- end #tabs -->
+            </div>
+            <div class="col-sm-12">
+                <!-- <hr> -->
+                <footer>
+                    <p><strong>Disclaimer: The Station Explorer is a <i>research</i> product.</strong> The data are
+                        provided free of charge without warranty of any kind. <a
+                            href="https://uhslc.soest.hawaii.edu/">UHSLC</a> requests that attribution be given
+                        whenever
+                        the
+                        <a href="https://uhslc.soest.hawaii.edu/stations/">Station Explorer</a> material is reproduced
+                        and re-disseminated.
+                    </p>
+                </footer>
+            </div>
+        </div>
+
+        <!-- end .row -->
+
+    </div>
+
+    <!-- end .container-fluid -->
+
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.0/js/bootstrap-datepicker.min.js"></script>
+    <script src='config.js'></script>
+    <script src='plot.js'></script>
+    <script src='climatology.js'></script>
+    <script src='datepicker.js'></script>
+    <script src='tabs.js'></script>
+
+</body>
+
+</html>
