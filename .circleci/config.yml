@@ -1,6 +1,5 @@
 version: 2.1
 
-# Define reusable commands
 commands:
   add_ssh_keys_command:
     steps:
@@ -20,15 +19,99 @@ jobs:
             echo "Run your tests here"
 
   deploy:
-    machine:
-      enabled: true
+    machine: true
+    resource_class: uhsealevelcenter/new-wyrtki-deploy
     steps:
       - checkout
       - add_ssh_keys_command
+
       - run:
-          name: "Deploy to Server"
+          name: "Show runner context"
           command: |
-            ssh -v -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP "cd $DEPLOY_DIRECTORY && git pull origin master"
+            set -e
+            echo "Running deploy job on:"
+            hostname
+            echo "User:"
+            whoami
+            echo "Working directory:"
+            pwd
+
+      - run:
+          name: "Validate deploy environment"
+          command: |
+            set -e
+
+            echo "SERVER_IP=${SERVER_IP}"
+            echo "SERVER_USER=${SERVER_USER}"
+            echo "DEPLOY_DIRECTORY=${DEPLOY_DIRECTORY}"
+
+            if [ -z "$SERVER_IP" ]; then
+              echo "ERROR: SERVER_IP is not set"
+              exit 1
+            fi
+
+            if [ -z "$SERVER_USER" ]; then
+              echo "ERROR: SERVER_USER is not set"
+              exit 1
+            fi
+
+            if [ -z "$DEPLOY_DIRECTORY" ]; then
+              echo "ERROR: DEPLOY_DIRECTORY is not set"
+              exit 1
+            fi
+
+      - run:
+          name: "Trust target SSH host key"
+          command: |
+            set -e
+            mkdir -p ~/.ssh
+            chmod 700 ~/.ssh
+
+            ssh-keyscan -T 10 -H "$SERVER_IP" >> ~/.ssh/known_hosts
+            chmod 600 ~/.ssh/known_hosts
+
+      - run:
+          name: "Test SSH to new-wyrtki"
+          command: |
+            set -e
+
+            ssh -o BatchMode=yes "$SERVER_USER@$SERVER_IP" "
+              set -e
+              echo 'Remote host:'
+              hostname
+
+              echo 'Remote user:'
+              whoami
+
+              echo 'Remote identity:'
+              id
+
+              echo 'Deploy directory permissions:'
+              ls -ld '$DEPLOY_DIRECTORY'
+
+              echo 'Git repo status:'
+              git config --global --add safe.directory '$DEPLOY_DIRECTORY' || true
+              cd '$DEPLOY_DIRECTORY'
+              git status --short
+            "
+
+      - run:
+          name: "Deploy to new-wyrtki"
+          command: |
+            set -e
+
+            ssh -o BatchMode=yes "$SERVER_USER@$SERVER_IP" "
+              set -e
+
+              cd '$DEPLOY_DIRECTORY'
+
+              git config --global --add safe.directory '$DEPLOY_DIRECTORY' || true
+
+              git fetch origin master
+              git reset --hard origin/master
+
+              git status --short
+            "
 
 workflows:
   build_and_deploy:
@@ -37,6 +120,7 @@ workflows:
           filters:
             branches:
               only: master
+
       - deploy:
           requires:
             - build
