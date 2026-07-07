@@ -6,7 +6,7 @@ commands:
     steps:
       - add_ssh_keys:
           fingerprints:
-            - "SHA256:+IefsnQPRF7VDszrFZ/ThuXdfg0jGh8x+Il6yP1ij9c"
+            - "SHA256:eBSmBil0gUR4DAwLcb75SrrHLkrLZe+uhRQsv45UHMs"
 
 jobs:
   build:
