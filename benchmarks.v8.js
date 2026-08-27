@@ -18,19 +18,21 @@ const esriSatelliteMap = L.tileLayer(
   {
     attribution:
       "Tiles &copy; Esri. Sources: Esri, Maxar, Earthstar Geographics, and the GIS User Community",
-  }
+  },
 );
 
 const googleSatellite = L.gridLayer.googleMutant({
   type: "satellite",
 });
 
+const cartoKey = "cb1_28j3_1_94b7540b9ed22b18046309c3";
 const cartoMap = L.tileLayer(
-  "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",
+  "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png" +
+    `?key=${cartoKey}`,
   {
     attribution:
       '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
-  }
+  },
 );
 cartoMap.addTo(map); // Set light map as initial basemap
 
@@ -42,10 +44,10 @@ function switchBasemap(e) {
   const satelliteBasemap = USE_GOOGLE_MAPS ? googleSatellite : esriSatelliteMap;
   const basemapKeys = { light: cartoMap, satellite: satelliteBasemap };
   const selectedBasemap = document.querySelector(
-    'input[name="basemap-radio"]:checked'
+    'input[name="basemap-radio"]:checked',
   ).id;
   const unselectedBasemap = document.querySelector(
-    'input[name="basemap-radio"]:not(:checked)'
+    'input[name="basemap-radio"]:not(:checked)',
   ).id;
   map.removeLayer(basemapKeys[unselectedBasemap]);
   map.addLayer(basemapKeys[selectedBasemap]);
@@ -59,7 +61,7 @@ const basemapSwitch = L.control({
 basemapSwitch.onAdd = function (opts) {
   const controlContainer = L.DomUtil.create(
     "div",
-    "leaflet-bar basemap-switch"
+    "leaflet-bar basemap-switch",
   );
   const basemapRadio = L.DomUtil.create("div", "btn-group", controlContainer);
   basemapRadio.id = "basemap-radio";
@@ -158,23 +160,23 @@ function benchmarkPointToLayer(feature, latlng) {
 
   if (isStation) {
     icon = stationIcon(
-      `./images/station${isSelected ? "-selected" : ""}.v3.svg`
+      `./images/station${isSelected ? "-selected" : ""}.v3.svg`,
     );
   } else {
     icon = benchmarkIcon(
       `./images/benchmark${isSelected ? "-selected" : ""}${
         feature.properties.primary ? "-primary" : ""
-      }.svg`
+      }.svg`,
     );
   }
 
   const zOffset = isSelected
     ? 1000
     : feature.properties.primary
-    ? 500
-    : !isStation
-    ? 100
-    : 0;
+      ? 500
+      : !isStation
+        ? 100
+        : 0;
   const marker = L.marker(latlng, { icon: icon });
 
   marker.setZIndexOffset(zOffset);
@@ -201,8 +203,8 @@ function benchmarkOnEachFeature(feature, layer) {
       } else {
         e.target.setIcon(
           benchmarkIcon(
-            `./images/benchmark-selected${isPrimary ? "-primary" : ""}.svg`
-          )
+            `./images/benchmark-selected${isPrimary ? "-primary" : ""}.svg`,
+          ),
         );
       }
 
@@ -222,8 +224,8 @@ function benchmarkOnEachFeature(feature, layer) {
           } else {
             layer.setIcon(
               benchmarkIcon(
-                `./images/benchmark${isPrimary ? "-primary" : ""}.svg`
-              )
+                `./images/benchmark${isPrimary ? "-primary" : ""}.svg`,
+              ),
             );
           }
 
@@ -241,10 +243,10 @@ function benchmarkOnEachFeature(feature, layer) {
 
 function setDefaultSelection() {
   const stationData = benchmarkData.features.filter(
-    (entry) => entry.properties.uhslc_id_fmt == stn
+    (entry) => entry.properties.uhslc_id_fmt == stn,
   );
   const stationEntry = stationData.filter(
-    (entry) => entry.properties.type == "station"
+    (entry) => entry.properties.type == "station",
   )[0];
 
   return stationEntry.properties.benchmark;
@@ -253,7 +255,8 @@ function setDefaultSelection() {
 function setStationCenter() {
   const stationPrimary = benchmarkData.features.filter(
     (entry) =>
-      entry.properties.uhslc_id_fmt == stn && entry.properties.type == "station"
+      entry.properties.uhslc_id_fmt == stn &&
+      entry.properties.type == "station",
   )[0];
   stationCenter = [
     Number(stationPrimary.properties.lat),
@@ -346,7 +349,7 @@ function createCarousel(divId, photos, photoIdx, modal) {
 
   const carousel = document.getElementById(divId);
   const carouselIndicators = document.querySelector(
-    `#${divId} .carousel-indicators`
+    `#${divId} .carousel-indicators`,
   );
   const carouselInner = document.querySelector(`#${divId} .carousel-inner`);
   const prevButton = document.querySelector(`#${divId} .carousel-control-prev`);
@@ -444,7 +447,8 @@ function populateTable(isEnglishUnits) {
 
   const stationBenchmarks = benchmarkData.features.filter(
     (entry) =>
-      entry.properties.uhslc_id_fmt == stn && entry.properties.type != "station"
+      entry.properties.uhslc_id_fmt == stn &&
+      entry.properties.type != "station",
   );
 
   for (let i = 0; i < stationBenchmarks.length; i++) {
@@ -454,7 +458,7 @@ function populateTable(isEnglishUnits) {
       let content = stationBenchmarks[i].properties[headers[j]];
       if (headers[j] == "reports") {
         content = createGPSreportLinks(
-          stationBenchmarks[i].properties[headers[j]]
+          stationBenchmarks[i].properties[headers[j]],
         );
       }
       if (!content || content === "nan" || content === "NaN") {
@@ -488,7 +492,7 @@ function setDropdownOptions() {
   dropdownList.innerHTML = "";
 
   const stationBenchmarks = benchmarkData.features.filter(
-    (entry) => entry.properties.uhslc_id_fmt == stn
+    (entry) => entry.properties.uhslc_id_fmt == stn,
   );
   for (let i = 0; i < stationBenchmarks.length; i++) {
     const item = document.createElement("li");
@@ -566,7 +570,7 @@ async function loadBenchmarkData() {
 async function populateBenchmarkPage() {
   benchmarkData = await loadBenchmarkData();
   const availableStations = Array.from(
-    new Set(benchmarkData.features.map((a) => a.properties.uhslc_id_fmt))
+    new Set(benchmarkData.features.map((a) => a.properties.uhslc_id_fmt)),
   );
   if (!availableStations.includes(stn)) {
     document.getElementById("no-benchmarks").classList.remove("is-hidden");
